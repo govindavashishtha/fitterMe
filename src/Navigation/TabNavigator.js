@@ -5,6 +5,7 @@ import CalculateScreen from '../Screens/CalculateScreen';
 import DesignScreen from '../Screens/DesignScreen';
 import SettingsScreen from '../Screens/SettingsScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../Constants/Colors';
 const Tab = createBottomTabNavigator();
 const TabNavigator =()=>{
     const Home=({navigation})=> {
@@ -48,7 +49,7 @@ const TabNavigator =()=>{
            },
          })}
          tabBarOptions={{
-           activeTintColor: 'tomato',
+           activeTintColor: Colors.primaryColorDark,
            inactiveTintColor: 'gray',
          }}>
          <Tab.Screen name="Home" component={Home} />

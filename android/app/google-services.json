@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "559570895605",
+    "firebase_url": "https://fitterme-39927.firebaseio.com",
+    "project_id": "fitterme-39927",
+    "storage_bucket": "fitterme-39927.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559570895605:android:45844fb91dce9d8c063bbc",
+        "android_client_info": {
+          "package_name": "com.fitfut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "559570895605-qdtsaf1oc04nmn14vhhebfe5oq20n9in.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQPd2K_78RFTCeaQrtJKFVseebfYFBzcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "559570895605-qdtsaf1oc04nmn14vhhebfe5oq20n9in.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
