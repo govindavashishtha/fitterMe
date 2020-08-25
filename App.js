@@ -1,22 +1,24 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
+  StyleSheet, StatusBar
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import HomeScreen from './src/Screens/HomeScreen';
-import CalculateScreen from './src/Screens/CalculateScreen';
-import DesignScreen from './src/Screens/DesignScreen';
-import SettingsScreen from './src/Screens/SettingsScreen';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import TabNavigator from './src/Navigation/TabNavigator';
+import LoginStackNavigator from './src/Navigation/LoginStackNavigator';
+import Colors from "./src/Constants/Colors"
+import SwitchNavigator from './src/Navigation/SwitchNavigator';
+import LoadingNavigationStack from './src/Navigation/SwitchNavigator'
 
  const  App = ()=> {
     return (
-      <SafeAreaProvider>
+      <SafeAreaProvider> 
+         <StatusBar  
+            backgroundColor = {Colors.primaryColorDark}  
+             barStyle = "light-content"   
+        /> 
         <NavigationContainer>
-          <TabNavigator />
+         <LoadingNavigationStack />
       </NavigationContainer>
       </SafeAreaProvider>
     );
