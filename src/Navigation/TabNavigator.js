@@ -10,22 +10,22 @@ const Tab = createBottomTabNavigator();
 const TabNavigator =()=>{
     const Home=({navigation})=> {
         return (
-          <HomeScreen/>
+          <HomeScreen navigation ={navigation}/>
         );
       }
       const Calculate=({navigation})=> {
         return (
-         <CalculateScreen />
+         <CalculateScreen  navigation ={navigation}/>
         );
       }
       const Design=({navigation})=> {
         return (
-          <DesignScreen/>
+          <DesignScreen navigation ={navigation}/>
         );
       }
       const Settings=({navigation})=> {
         return (
-          <SettingsScreen />
+          <SettingsScreen navigation ={navigation} />
         );
       }
     return (

@@ -5,7 +5,7 @@ import {
 import ThemeButton from '../Components/ThemeButton';
 import ScreenNames from './../Constants/ScreenNames'
 
-const SignUpScreen = ({navigation , rootNavigation})=>{
+const SignUpScreen = ({navigation})=>{
     return (
       <View>
           <Text>this is SignUpScreen</Text>

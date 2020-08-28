@@ -18,7 +18,7 @@ const LoginStackNavigator = ({navigation})=>{
       <PhoneLoginScreen navigation={navigation}/>
     );
   }
-  const SignUp=({navigation})=> {
+  const SignUp=()=> {
     return (
       <SignUpScreen navigation={navigation} />
     );
