@@ -8,9 +8,18 @@ import ThemeButton from '../Components/ThemeButton';
 const HomeScreen = ({navigation})=>{
     return (
       <View>
-          <Text>HomeScreen</Text>
+          <Text style={styles.test}>HomeScreen</Text>
           <ThemeButton onPress={()=>{navigation.navigate('Calculate')}}/>
       </View>  
     )
 }
+
+
+const styles = StyleSheet.create({
+  test: {
+    fontSize: 24,
+    fontFamily: 'Karla-BoldItalic'
+  }
+})
+
 export default HomeScreen;

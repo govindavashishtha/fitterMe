@@ -110,17 +110,19 @@ const styles = StyleSheet.create({
    paddingHorizontal:15,
   },
   heading: {
-    fontSize:27,
+    fontSize:30,
     fontWeight:"bold",
     color:Colors.charcoalGrey80,
     textAlign:'center',
     padding:20,
     marginBottom:20,
+    fontFamily: 'Karla-Bold',
   },
   text:{
     textAlign:'center',
     fontSize:12,
     paddingHorizontal:10,
+    fontFamily: 'Karla-Regular',
   },
   horizontal:{
     flexDirection:'row',

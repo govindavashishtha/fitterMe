@@ -18,6 +18,7 @@ import LoadingNavigationStack from './src/Navigation/SwitchNavigator'
              barStyle = "light-content"   
         /> 
         <NavigationContainer>
+          {/* < TabNavigator/> */}
          <LoadingNavigationStack />
       </NavigationContainer>
       </SafeAreaProvider>

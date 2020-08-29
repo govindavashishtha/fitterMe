@@ -99,8 +99,8 @@ text: {
   textAlign:'center',
   color: Colors.charcoalGrey80,
   fontSize: 20,
-  fontWeight: "bold",
   paddingHorizontal:10,
+  fontFamily: 'Karla-Bold',
 }
 });
 export default LoginScreen;
