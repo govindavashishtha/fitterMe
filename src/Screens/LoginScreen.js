@@ -68,7 +68,6 @@ const LoginScreen = ({navigation})=>{
       </View>
       <View style={{margin:10,}}>
       <ThemeButton  onPress={()=>{
-        console.log('dsadsad');
         navigation.navigate('PhoneLogIn')}} title={'Log In'}/>
       </View>
       </View>
