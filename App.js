@@ -4,10 +4,7 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import TabNavigator from './src/Navigation/TabNavigator';
-import LoginStackNavigator from './src/Navigation/LoginStackNavigator';
 import Colors from "./src/Constants/Colors"
-import SwitchNavigator from './src/Navigation/SwitchNavigator';
 import LoadingNavigationStack from './src/Navigation/SwitchNavigator'
 
  const  App = ()=> {

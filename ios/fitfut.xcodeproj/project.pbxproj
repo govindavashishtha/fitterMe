@@ -33,11 +33,15 @@
 		5385BB08DD2D48718B611FD4 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7070B02669C9485D9146A509 /* Octicons.ttf */; };
 		94DE406435A24AA080827D93 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCE06BDED9AB41D6B6FCFD03 /* SimpleLineIcons.ttf */; };
 		EB2000E7C5834684B67EDE90 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18550E5F663A4E43BC1F8AEF /* Zocial.ttf */; };
+<<<<<<< HEAD
 		483CBC677A594ECEBDED56CC /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F78141CCFFC64335BD62A091 /* Karla-Bold.ttf */; };
 		DCED456FD4774B0097E9E732 /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74F8311708094357B0FD6F50 /* Karla-BoldItalic.ttf */; };
 		6CB6404804244047A2CD9403 /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 716F9CC9ECD941A0AF217F57 /* Karla-Italic.ttf */; };
 		B0090E4457A946FCB9D4BDF3 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9FB33B126C040EFADD8491A /* Karla-Regular.ttf */; };
 		FA3EDAD917C543D084F374B3 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EC94E8F801A4E58880BD62C /* Pacifico-Regular.ttf */; };
+=======
+		7F2F51145E0340E49EBE7594 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2B49119110A47F0A00D35FB /* Pacifico-Regular.ttf */; };
+>>>>>>> e018db168fabe83305153e27a7e1cacf3e9efb65
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,11 +94,15 @@
 		7070B02669C9485D9146A509 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		CCE06BDED9AB41D6B6FCFD03 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		18550E5F663A4E43BC1F8AEF /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+<<<<<<< HEAD
 		F78141CCFFC64335BD62A091 /* Karla-Bold.ttf */ = {isa = PBXFileReference; name = "Karla-Bold.ttf"; path = "../src/assets/fonts/Karla-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		74F8311708094357B0FD6F50 /* Karla-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Karla-BoldItalic.ttf"; path = "../src/assets/fonts/Karla-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		716F9CC9ECD941A0AF217F57 /* Karla-Italic.ttf */ = {isa = PBXFileReference; name = "Karla-Italic.ttf"; path = "../src/assets/fonts/Karla-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		B9FB33B126C040EFADD8491A /* Karla-Regular.ttf */ = {isa = PBXFileReference; name = "Karla-Regular.ttf"; path = "../src/assets/fonts/Karla-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		9EC94E8F801A4E58880BD62C /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; name = "Pacifico-Regular.ttf"; path = "../src/assets/fonts/Pacifico-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+=======
+		E2B49119110A47F0A00D35FB /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; name = "Pacifico-Regular.ttf"; path = "../src/assets/fonts/Pacifico-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> e018db168fabe83305153e27a7e1cacf3e9efb65
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,11 +230,15 @@
 				7070B02669C9485D9146A509 /* Octicons.ttf */,
 				CCE06BDED9AB41D6B6FCFD03 /* SimpleLineIcons.ttf */,
 				18550E5F663A4E43BC1F8AEF /* Zocial.ttf */,
+<<<<<<< HEAD
 				F78141CCFFC64335BD62A091 /* Karla-Bold.ttf */,
 				74F8311708094357B0FD6F50 /* Karla-BoldItalic.ttf */,
 				716F9CC9ECD941A0AF217F57 /* Karla-Italic.ttf */,
 				B9FB33B126C040EFADD8491A /* Karla-Regular.ttf */,
 				9EC94E8F801A4E58880BD62C /* Pacifico-Regular.ttf */,
+=======
+				E2B49119110A47F0A00D35FB /* Pacifico-Regular.ttf */,
+>>>>>>> e018db168fabe83305153e27a7e1cacf3e9efb65
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -387,11 +399,15 @@
 				5385BB08DD2D48718B611FD4 /* Octicons.ttf in Resources */,
 				94DE406435A24AA080827D93 /* SimpleLineIcons.ttf in Resources */,
 				EB2000E7C5834684B67EDE90 /* Zocial.ttf in Resources */,
+<<<<<<< HEAD
 				483CBC677A594ECEBDED56CC /* Karla-Bold.ttf in Resources */,
 				DCED456FD4774B0097E9E732 /* Karla-BoldItalic.ttf in Resources */,
 				6CB6404804244047A2CD9403 /* Karla-Italic.ttf in Resources */,
 				B0090E4457A946FCB9D4BDF3 /* Karla-Regular.ttf in Resources */,
 				FA3EDAD917C543D084F374B3 /* Pacifico-Regular.ttf in Resources */,
+=======
+				7F2F51145E0340E49EBE7594 /* Pacifico-Regular.ttf in Resources */,
+>>>>>>> e018db168fabe83305153e27a7e1cacf3e9efb65
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

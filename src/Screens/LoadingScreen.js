@@ -1,40 +1,33 @@
 import React from 'react';
 import {
-  View,Text,ImageBackground,StyleSheet,Dimensions
+  View,Text,StyleSheet
 } from 'react-native';
-import ThemeButton from '../Components/ThemeButton';
+import Colors from '../Constants/Colors';
 import ScreenNames from './../Constants/ScreenNames'
 
 const LoadingScreen = ({navigation})=>{
     return (
       <View style={styles.container}>
-        <View>
-          <ThemeButton onPress={()=>{navigation.navigate(ScreenNames.LogInStack)}} /> 
-        </View> 
+       <Text onPress={()=>{
+         navigation.navigate(ScreenNames.LogInStack);
+       }} style={styles.logoText}>fitterMe</Text>
+       <Text></Text>
       </View>
     )
 }
 const styles = StyleSheet.create({
-  ImageContainer: {
-    paddingVertical:20,
-    paddingHorizontal:10,
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between"
-  },
   container: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
+    height:'100%',
+    backgroundColor:Colors.primaryColorDark,
+    justifyContent:'center'
   },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center"
-  },
-  text: {
-    color: "grey",
-    fontSize: 30,
-    fontWeight: "bold"
+  logoText: {
+    color: Colors.white,
+    fontSize: 40,
+    fontFamily:'Pacifico-Regular',
+    textAlign:'center'
   }
 });
 
