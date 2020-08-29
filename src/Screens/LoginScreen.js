@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import ThemeButton from '../Components/ThemeButton';
 import Carousel from 'react-native-snap-carousel';
-import ScreenNames from './../Constants/ScreenNames';
 import Colors from '../Constants/Colors';
 
 const screen = Dimensions.get("screen");
@@ -99,7 +98,7 @@ text: {
   color: Colors.charcoalGrey80,
   fontSize: 20,
   paddingHorizontal:10,
-  fontFamily: 'Karla-Bold',
+  fontFamily: 'Karla-Regular',
 }
 });
 export default LoginScreen;

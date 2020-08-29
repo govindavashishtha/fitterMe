@@ -1445,14 +1445,11 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-<<<<<<< HEAD
-=======
 "@types/q@^1.5.1":
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
 
->>>>>>> e018db168fabe83305153e27a7e1cacf3e9efb65
 "@types/react-addons-shallow-compare@^0.14.22":
   version "0.14.22"
   resolved "https://registry.yarnpkg.com/@types/react-addons-shallow-compare/-/react-addons-shallow-compare-0.14.22.tgz#25177d8ab88aedfc2937b434b09b1fcbc9c2eccd"
@@ -6096,6 +6093,11 @@ react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
+react-native-loading-dots@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-loading-dots/-/react-native-loading-dots-1.1.1.tgz#b858a79090752cfb19fbdf99bcf177c881d6cbf4"
+  integrity sha512-S7q23PMPCP9iTet2ENVvjJy5iYfu4Truqqhg99e1y7pR2N1m8sfpJK4vavngDkyQR64+TGVa3v0B0vA/urbBQQ==
 
 react-native-loading-spinner-overlay@^1.1.0:
   version "1.1.0"

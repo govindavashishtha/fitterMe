@@ -7,7 +7,7 @@ import SettingsScreen from '../Screens/SettingsScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
 const Tab = createBottomTabNavigator();
-const TabNavigator =()=>{
+const TabNavigator =({navigation})=>{
     const Home=({navigation})=> {
         return (
           <HomeScreen navigation ={navigation}/>
@@ -23,7 +23,7 @@ const TabNavigator =()=>{
           <DesignScreen navigation ={navigation}/>
         );
       }
-      const Settings=({navigation})=> {
+      const Settings=()=> {
         return (
           <SettingsScreen navigation ={navigation} />
         );

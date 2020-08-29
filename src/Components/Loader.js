@@ -15,5 +15,6 @@ export default Loader;
 const styles = StyleSheet.create({
     spinnerTextStyle: {
        color: Colors.white,
+       fontFamily:'Karla-Regular',
     },
 });

@@ -3,24 +3,23 @@ import React from 'react';
 import Colors from '../Constants/Colors';
 
 
-const ThemeNumberInput = ({onChangeText , placeholder , value , keyboard , maxLength}) => {
+const ThemeTextInput = ({onChangeText , placeholder , value , maxLength}) => {
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.textInput}
         onChangeText={value =>
-          !isNaN(value) && onChangeText(value)
+          onChangeText(value)
         }
         value={value}
         placeholder={placeholder}
         numberOfLines={1}
-        keyboardType={keyboard}
         maxLength={maxLength}
       />
     </View>
   );
 };
-export default ThemeNumberInput;
+export default ThemeTextInput;
 
 const styles = StyleSheet.create({
   container: {

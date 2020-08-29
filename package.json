@@ -23,6 +23,7 @@
     "react-native-countdown-component": "^2.7.1",
     "react-native-gesture-handler": "^1.7.0",
     "react-native-ionicons": "4.x",
+    "react-native-loading-dots": "^1.1.1",
     "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-phone-input": "^0.2.4",
     "react-native-progress": "^4.1.2",
