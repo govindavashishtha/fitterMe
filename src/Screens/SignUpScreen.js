@@ -6,12 +6,21 @@ import ThemeButton from '../Components/ThemeButton';
 import ThemeTextInput from '../Components/ThemeTextInput';
 import ScreenNames from './../Constants/ScreenNames';
 import Colors from './../Constants/Colors';
+import database from '@react-native-firebase/database';
 
 const SignUpScreen = ({navigation})=>{
   const [firstName , setFirstName] = useState('');
   const [lastName , setLastName] = useState('');
   const [email , setEmail] = useState('');
 
+  const setUserData=()=>{
+     let user = {
+        firstName : firstName,
+        lastName : lastName,
+        email : email,
+     };
+     database().ref('/Users').child('hello').set(user);
+  }
 
     return (
       <>
@@ -30,10 +39,11 @@ const SignUpScreen = ({navigation})=>{
             <ThemeTextInput  placeholder={'abcd@xyz.com'} value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
       </View>
-      <View>
-        <ThemeButton onPress={()=>{
+      <View style ={{padding:20}}>
+        <ThemeButton title={'Sign Up'} onPress={()=>{
           //todo >>>> make a welcome Screen which can go to TabNavigator
           //navigation.navigate('welcome');
+          setUserData();
         }}/>
       </View>
       </>  

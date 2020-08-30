@@ -18,10 +18,15 @@ const LoginStackNavigator = ({navigation})=>{
       <PhoneLoginScreen navigation={navigation}/>
     );
   }
-  const SignUp=()=> {
+  const SignUp=({navigation})=> {
     return (
       <SignUpScreen navigation={navigation} />
     );
+  }
+  const Welcome=()=>{
+     return(
+       <WelcomeScreen navigation={navigation}/>
+     )
   }
   return(
     <Stack.Navigator screenOptions={{
