@@ -2,6 +2,7 @@ import * as React from 'react';
 import LoginScreen from '../Screens/LoginScreen';
 import PhoneLoginScreen from '../Screens/PhoneLoginScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
+import WelcomeScreen from '../Screens/WelcomeScreen';
 import { Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
