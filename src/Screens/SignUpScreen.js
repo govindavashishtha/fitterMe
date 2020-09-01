@@ -7,6 +7,7 @@ import ThemeTextInput from '../Components/ThemeTextInput';
 import ScreenNames from './../Constants/ScreenNames';
 import Colors from './../Constants/Colors';
 import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
 
 const SignUpScreen = ({navigation})=>{
   const [firstName , setFirstName] = useState('');
@@ -14,12 +15,20 @@ const SignUpScreen = ({navigation})=>{
   const [email , setEmail] = useState('');
 
   const setUserData=()=>{
-     let user = {
+    if(firstName && lastName && email){
+      let user = {
         firstName : firstName,
         lastName : lastName,
         email : email,
      };
-     database().ref('/Users').child('hello').set(user);
+     const phone = auth().currentUser.phoneNumber;
+     database().ref('/Users').child(phone).set(user).then(()=>{
+       navigation.navigate('Welcome');
+     })
+    }else{
+      alert('please add all the info');
+    }
+     
   }
 
     return (

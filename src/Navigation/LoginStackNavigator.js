@@ -36,6 +36,8 @@ const LoginStackNavigator = ({navigation})=>{
     <Stack.Screen name="LogIn" component={LogIn} />
     <Stack.Screen name="PhoneLogIn" component={PhoneLogIn} />
     <Stack.Screen name="SignUp" component={SignUp} />
+    <Stack.Screen name="Welcome" component={Welcome} />
+
   </Stack.Navigator>
   );
 }

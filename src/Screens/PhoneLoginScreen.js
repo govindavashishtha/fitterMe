@@ -6,6 +6,7 @@ import ThemeButton from './../Components/ThemeButton'
 import ThemeNumberInput from '../Components/ThemeNumberInput';
 import Colors from '../Constants/Colors';
 import Loader from '../Components/Loader';
+import database from '@react-native-firebase/database';
 
 const PhoneLoginScreen = ({navigation})=>{
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -15,6 +16,19 @@ const PhoneLoginScreen = ({navigation})=>{
   const [loader, setLoader] = useState(false);
   const [code, setCode] = useState('');
   const [invalidOTP,setInvalidOTP] = useState(false);
+
+  const checkUser = () => {
+    database()
+    .ref('/Users').child(`+91${phone}`)
+    .once('value')
+    .then(snapshot => {
+      if(snapshot.val() && snapshot.val().firstName){
+        navigation.navigate('Welcome');
+      }else{
+        navigation.navigate('SignUp')
+      }
+    });
+  }
 
   async function signInWithPhoneNumber(phoneNumber) {
     setLoader(true);
@@ -35,7 +49,7 @@ const PhoneLoginScreen = ({navigation})=>{
     try {
       await confirm.confirm(code);
       setLoader(false);
-      alert('login Successful')
+      checkUser();
     } catch (error) {
       setLoader(false);
       setInvalidOTP(true);
@@ -43,7 +57,8 @@ const PhoneLoginScreen = ({navigation})=>{
   }
   function onAuthStateChanged(user) {
     if (user) {
-      //todo
+      setLoader(false);
+      checkUser();
     }
   }
 

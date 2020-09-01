@@ -6,11 +6,22 @@ import Colors from '../Constants/Colors';
 import ScreenNames from './../Constants/ScreenNames';
 import auth from '@react-native-firebase/auth';
 import LoadingDots from "react-native-loading-dots";
+import database from '@react-native-firebase/database';
 
 const LoadingScreen = ({navigation})=>{
-  const checkUser =()=>{
+  const checkUser = async()=>{
     if(auth().currentUser){
-     navigation.navigate(ScreenNames.TabStack);
+      const phone = await auth().currentUser.phoneNumber;
+     await database()
+      .ref().child('Users').child(phone)
+      .once('value')
+      .then(snapshot => {
+        if(snapshot.val() && snapshot.val().firstName){
+          navigation.navigate(ScreenNames.TabStack);
+        }else{
+          navigation.navigate(ScreenNames.LogInStack);                                                           
+        }
+      });
     }else{
      navigation.navigate(ScreenNames.LogInStack);
     }
