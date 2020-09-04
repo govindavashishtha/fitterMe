@@ -113,7 +113,6 @@ const PhoneLoginScreen = ({navigation})=>{
       />
          </View>
        <Text onPress={()=>{setIsOtpSent(false)}} style={{color:Colors.primaryColorDark , textAlign:'center', fontSize:13,padding:15}}>Change Phone Number</Text>
-       <Text onPress={()=>{navigation.navigate('SignUp')}} style={{color:Colors.primaryColorDark , textAlign:'center', fontSize:13,padding:15}}>goto SignUpScreen</Text>
       </View>
   );
 }

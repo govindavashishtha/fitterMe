@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 18,
     padding: 3,
-    fontFamily:'Karla-Regular',
+    fontFamily:'Karla-Bold',
   },
 });
