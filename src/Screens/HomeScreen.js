@@ -3,23 +3,21 @@ import {
   StyleSheet,
   View,Text
 } from 'react-native';
+import Header from './../Components/Header';
 import ThemeButton from '../Components/ThemeButton';
 
 const HomeScreen = ({navigation})=>{
     return (
-      <View>
-          <Text style={styles.test}>HomeScreen</Text>
-          <ThemeButton onPress={()=>{navigation.navigate('Calculate')}}/>
-      </View>  
+      <>
+         <Header title ={'Home'}/>
+         <View style = {styles.container}></View>
+      </>  
     )
 }
-
-
 const styles = StyleSheet.create({
-  test: {
-    fontSize: 24,
-    fontFamily: 'Karla-BoldItalic'
-  }
+  container:{
+    height:'100%',
+  },
 })
 
 export default HomeScreen;

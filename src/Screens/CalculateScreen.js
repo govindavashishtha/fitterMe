@@ -64,7 +64,7 @@ const CalculateScreen = ()=>{
   }
 
      return (
-       <View>
+       <>
        <Header title={'Calculate'} />
        <View style={styles.container}>
       <View style = {styles.childContainer}>
@@ -162,7 +162,7 @@ const CalculateScreen = ()=>{
           </View>)}
     </View>  
     </View>
-    </View>
+    </>
     )
   } 
 

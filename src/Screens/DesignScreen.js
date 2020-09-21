@@ -4,15 +4,20 @@ import {
   View,Text
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Header from './../Components/Header';
 
 const DesignScreen = ()=>{
     return (
-      <View>
-      <Text>
-      <Icon name="rocket" size={500} color="#900" />
-      </Text>
-      <Icon name="rocket" size={30} color="#900" />
-      </View>  
+      <>
+       <Header title={'Design'}/>
+       <View style={styles.container}></View>
+      </>  
     )
 }
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+  },
+})
 export default DesignScreen;
