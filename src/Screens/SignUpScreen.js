@@ -8,6 +8,7 @@ import ScreenNames from './../Constants/ScreenNames';
 import Colors from './../Constants/Colors';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import {TextInput} from 'react-native-paper'
 
 const SignUpScreen = ({navigation})=>{
   const [firstName , setFirstName] = useState('');
@@ -27,8 +28,7 @@ const SignUpScreen = ({navigation})=>{
      })
     }else{
       alert('please add all the info');
-    }
-     
+    }    
   }
 
     return (
@@ -36,16 +36,16 @@ const SignUpScreen = ({navigation})=>{
       <View style ={styles.container}>
       <Text style = {styles.heading}>Please Introduce yourself</Text>
       <View style={styles.formContainer} > 
-            <Text style ={styles.label}>First Name</Text>
-            <ThemeTextInput placeholder={'Govinda'} value={firstName} onChangeText={(n)=>{setFirstName(n)}}/>
+            {/* <Text style ={styles.label}>First Name</Text> */}
+            <TextInput mode = 'outline' placeholder={'Govinda'} underlineColor={Colors.primaryColor} label="First Name" value={firstName} onChangeText={(n)=>{setFirstName(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            <Text style ={styles.label}>Last Name</Text>
-            <ThemeTextInput  placeholder={'Vashishtha'} value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
+            {/* <Text style ={styles.label}>Last Name</Text> */}
+            <TextInput mode = 'outline' placeholder={'Vashishtha'} underlineColor={Colors.primaryColor} label="Last Name" value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            <Text style ={styles.label}>Email</Text>
-            <ThemeTextInput  placeholder={'abcd@xyz.com'} value={email} onChangeText={(n)=>{setEmail(n)}}/>
+            {/* <Text style ={styles.label}>Email</Text> */}
+            <TextInput mode = 'outline' placeholder={'abcd@xyz.com'} underlineColor={Colors.primaryColor} label="E-mail" value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
       </View>
       <View style ={{padding:20}}>

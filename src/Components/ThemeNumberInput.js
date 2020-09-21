@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.primaryColorDark,
     borderBottomWidth: 1.5,
     overflow: 'hidden',
-    flex:1,
+    //flex:1,
   },
   textInput: {
     paddingHorizontal: 2,

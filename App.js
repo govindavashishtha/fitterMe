@@ -8,6 +8,7 @@ import Colors from "./src/Constants/Colors"
 import LoadingNavigationStack from './src/Navigation/SwitchNavigator';
 import { Provider } from 'react-redux';
 import store from './src/react-redux/store';
+import SignUpScreen from './src/Screens/SignUpScreen'
 
 
 const AppWrapper = () =>{
@@ -29,6 +30,7 @@ const AppWrapper = () =>{
          <LoadingNavigationStack />
       </NavigationContainer>
       </SafeAreaProvider>
+      // <SignUpScreen />
     );
   }
 
