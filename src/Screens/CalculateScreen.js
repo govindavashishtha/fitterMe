@@ -18,19 +18,48 @@ const CalculateScreen = ()=>{
   const [inches, setInches] = useState();
   const [lbs, setLbs] = useState();
   const [BMI, setBMI] = useState(null);
-
+  const [category, setCategory] = useState(null);
+  const [errorText , setErrorText] = useState(false);
   const BMIcalculatorKG = () => {
-    if(weight !== '0' && height !== '0') {
+    if(weight && height && weight !== 0 && height !== 0 ) {
+       setErrorText(false);
        setBMI(weight / (height * height));
+       calcCategory(weight / (height * height));
     } else {
-      console.log('weight or height not defined')
+      console.log('weight or height not defined');
+      setErrorText(true);
     }
   } 
   const BMIcalculatorFeet = () => {
-    if(lbs !== '0' && inches !=='0') {
+    if(lbs && inches && lbs!==0 && inches!=0) {
+      setErrorText(false);
       setBMI((703 * lbs) / (inches * inches));
+      calcCategory((703 * lbs) / (inches * inches));
     } else {
-      console.log('weight or height not defined')
+      console.log('weight or height not defined');
+      setErrorText(true);
+    }
+  }
+  const refresh = () =>{
+    setWeight(null);
+    setBMI(null);
+    setCategory(null);
+    setHeight(null);
+    setInches(null);
+    setLbs(null);
+    setErrorText(false);
+  }
+  const calcCategory = (BMI)=>{
+    if(BMI){
+      if(BMI<18.5){
+        setCategory('UnderWeight');
+      }else if(BMI>=18.5 && BMI<25){
+        setCategory("Normal Weight");
+      }else if(BMI>=25 && BMI<30){
+        setCategory('OverWeight');
+      }else{
+        setCategory('Obese');
+      }
     }
   }
 
@@ -68,7 +97,7 @@ const CalculateScreen = ()=>{
             <RadioButton
               value="first"
               status={ units === 'kg' ? 'checked' : 'unchecked' }
-              onPress={() => setUnits('kg')}
+              onPress={() => {setUnits('kg');refresh();}}
               color={Colors.primaryColorDark}
             />
           <Text>Kg & Metre</Text>
@@ -77,7 +106,7 @@ const CalculateScreen = ()=>{
             <RadioButton
               value="second"
               status={ units === 'feet' ? 'checked' : 'unchecked' }
-              onPress={() => setUnits('feet')}
+              onPress={() => {setUnits('feet');refresh();}}
               color={Colors.primaryColorDark}
             />
         <Text>lbs & Inches</Text>
@@ -93,15 +122,22 @@ const CalculateScreen = ()=>{
             <Text style={styles.label}>Height:</Text>
             <ThemeNumberInput value={height} placeholder='Enter height in Metre' onChangeText={(val) => {setHeight(val)}} keyboard={'numeric'} />
           </View>
+          <View style={{marginTop:10}}>
           { BMI && 
             <Text style={styles.calc}>{`Your BMI(Body Mass Index) is ${BMI}`}</Text>
             }
+            {category &&
+              <Text style={styles.calc}>{`You are ${category}`}</Text> 
+            }
+            </View>
             <View style = {{paddingTop:5}}>
              <ThemeButton title='Calculate' onPress={BMIcalculatorKG} />
              </View>
+             {errorText && 
+              <Text style={styles.errorText}>Please Enter Correct Weight and Height</Text>}
          </View>)
            :
-          (<View>
+          (<View style={styles.form}>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Weight:</Text>
             <ThemeNumberInput value={lbs} placeholder='Enter Weight in lbs' onChangeText={(val) => {setLbs(val)}} keyboard={'numeric'} />
@@ -110,12 +146,19 @@ const CalculateScreen = ()=>{
             <Text style={styles.label}>Height:</Text>
             <ThemeNumberInput value={inches} placeholder='Enter height in inches' onChangeText={(val) => {setInches(val)}} keyboard={'numeric'} />
           </View>  
+          <View style={{marginTop:10,}}>
           { BMI && 
             <Text style={styles.calc}>{`Your BMI(Body Mass Index) is ${BMI}`}</Text>
             }
+            {category &&
+              <Text style={styles.calc}>{`You are ${category}`}</Text> 
+            }
+            </View>
           <View style = {{paddingTop:5}}>
              <ThemeButton title='Calculate' onPress={BMIcalculatorFeet} />
              </View>
+             {errorText && 
+              <Text style={styles.errorText}>Please Enter Correct Weight and Height</Text>}
           </View>)}
     </View>  
     </View>
@@ -128,12 +171,18 @@ const styles = StyleSheet.create({
   container:{
       padding:7,
   },
+  errorText:{
+   color:Colors.warning,
+   textAlign:'center',
+   padding:3,
+   fontSize:12,
+  },
   form:{
     padding:5,
   },
   calc:{
    textAlign:'center',
-   padding:15,
+   padding:5,
   },
   label:{
     paddingTop:10,
