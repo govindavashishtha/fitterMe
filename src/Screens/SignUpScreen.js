@@ -36,22 +36,19 @@ const SignUpScreen = ({navigation})=>{
       <View style ={styles.container}>
       <Text style = {styles.heading}>Please Introduce yourself</Text>
       <View style={styles.formContainer} > 
-            {/* <Text style ={styles.label}>First Name</Text> */}
-            <TextInput mode = 'outline' placeholder={'Govinda'} underlineColor={Colors.primaryColor} label="First Name" value={firstName} onChangeText={(n)=>{setFirstName(n)}}/>
+            <TextInput mode = 'outlined' 
+                  theme={{ colors: { primary:Colors.primaryColorDark}}}
+              label="First Name" value={firstName} onChangeText={(n)=>{setFirstName(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            {/* <Text style ={styles.label}>Last Name</Text> */}
-            <TextInput mode = 'outline' placeholder={'Vashishtha'} underlineColor={Colors.primaryColor} label="Last Name" value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
+            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Last Name" value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            {/* <Text style ={styles.label}>Email</Text> */}
-            <TextInput mode = 'outline' placeholder={'abcd@xyz.com'} underlineColor={Colors.primaryColor} label="E-mail" value={email} onChangeText={(n)=>{setEmail(n)}}/>
+            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Email" value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
       </View>
       <View style ={{padding:20}}>
         <ThemeButton title={'Sign Up'} onPress={()=>{
-          //todo >>>> make a welcome Screen which can go to TabNavigator
-          //navigation.navigate('welcome');
           setUserData();
         }}/>
       </View>
