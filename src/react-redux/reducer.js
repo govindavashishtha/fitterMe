@@ -1,9 +1,11 @@
 import {
   SET_DATA,
+  SET_USER,
 } from './actions';
 
 const initialState = {
   data:'',
+  userDetails:{},
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,6 +14,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload,
+      };
+  }
+  switch (action.type) {
+    case SET_USER:
+      return {
+        ...state,
+        userDetails: action.payload,
       };
   }
 };

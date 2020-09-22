@@ -7,8 +7,12 @@ import ScreenNames from './../Constants/ScreenNames';
 import auth from '@react-native-firebase/auth';
 import LoadingDots from "react-native-loading-dots";
 import database from '@react-native-firebase/database';
+import {useDispatch} from 'react-redux';
+import { setUser } from '../react-redux/actions';
 
 const LoadingScreen = ({navigation})=>{
+
+   const dispatch = useDispatch();
   const checkUser = async()=>{
     if(auth().currentUser){
       const phone = await auth().currentUser.phoneNumber;
@@ -17,6 +21,8 @@ const LoadingScreen = ({navigation})=>{
       .once('value')
       .then(snapshot => {
         if(snapshot.val() && snapshot.val().firstName){
+          console.log(snapshot.val());
+          dispatch(setUser(snapshot.val()));
           navigation.navigate(ScreenNames.TabStack);
         }else{
           navigation.navigate(ScreenNames.LogInStack);                                                           

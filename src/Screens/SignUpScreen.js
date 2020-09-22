@@ -9,11 +9,17 @@ import Colors from './../Constants/Colors';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import {TextInput} from 'react-native-paper'
+import { setUser } from '../react-redux/actions';
+import {useDispatch} from 'react-redux';
+import ThemeButtonDisabled from '../Components/ThemeButtonDisabled';
+import Loader from '../Components/Loader';
 
 const SignUpScreen = ({navigation})=>{
   const [firstName , setFirstName] = useState('');
   const [lastName , setLastName] = useState('');
   const [email , setEmail] = useState('');
+  const [loader , setLoader] = useState(false);
+  const dispatch = useDispatch();
 
   const setUserData=()=>{
     if(firstName && lastName && email){
@@ -24,16 +30,19 @@ const SignUpScreen = ({navigation})=>{
      };
      const phone = auth().currentUser.phoneNumber;
      database().ref('/Users').child(phone).set(user).then(()=>{
+       dispatch(setUser(user));
+       setLoader(false);
        navigation.navigate('Welcome');
      })
     }else{
-      alert('please add all the info');
+      alert('Please Fill all the Details');
     }    
   }
 
     return (
       <>
-      <View style ={styles.container}>
+      <Loader show={loader} text={'Saving your Details'}/>
+      <View style = {styles.container}>
       <Text style = {styles.heading}>Please Introduce yourself</Text>
       <View style={styles.formContainer} > 
             <TextInput mode = 'outlined' 
@@ -48,9 +57,15 @@ const SignUpScreen = ({navigation})=>{
       </View>
       </View>
       <View style ={{padding:20}}>
-        <ThemeButton title={'Sign Up'} onPress={()=>{
+        {firstName && lastName && email ?(
+          <ThemeButton title={'Sign Up'} onPress={()=>{
+            setLoader(true);
           setUserData();
         }}/>
+        ):(
+          <ThemeButtonDisabled title={'Sign Up'} onPress={()=>{alert('Please Enter all the Details')}}  />
+        )}
+       
       </View>
       </>  
     )
@@ -59,8 +74,7 @@ export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
-   paddingVertical:20,
-   paddingHorizontal:15,
+   padding:20,
   },
   heading: {
     fontSize:32,
