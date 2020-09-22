@@ -74,14 +74,14 @@ const PhoneLoginScreen = ({navigation})=>{
       <View style ={styles.container}>
       <Text style = {styles.heading}>Log In</Text>
       <Text style = {styles.text}>Enter your 10 digits Phone Number:</Text>
-          {/* <View style = {styles.horizontal}>
+          <View style = {styles.horizontal}>
           <Text style={{fontSize:15, paddingBottom:6.5,fontFamily:'Karla-Regular',}}>+91 -</Text>
           <View style={{minWidth:'30%'}}>
           <ThemeNumberInput keyboard={'number-pad'} maxLength={10} onChangeText = {(text)=>{setPhone(text)}} placeholder={'9876543210'} value={phone}/>
           </View>
-          </View> */}
+          </View>
         </View>
-          <Droplist />
+          {/* <Droplist /> */}
           {!isValidPhone && <Text style={{color:'red', fontSize:10,padding:5, textAlign:'center'}}>Invalid Phone Number!</Text>}
          <View style={{marginTop:50,marginHorizontal:20,}}>
          <ThemeButton
