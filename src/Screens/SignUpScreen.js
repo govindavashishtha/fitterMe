@@ -8,6 +8,7 @@ import ScreenNames from './../Constants/ScreenNames';
 import Colors from './../Constants/Colors';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import {TextInput} from 'react-native-paper'
 
 const SignUpScreen = ({navigation})=>{
   const [firstName , setFirstName] = useState('');
@@ -27,8 +28,7 @@ const SignUpScreen = ({navigation})=>{
      })
     }else{
       alert('please add all the info');
-    }
-     
+    }    
   }
 
     return (
@@ -36,22 +36,19 @@ const SignUpScreen = ({navigation})=>{
       <View style ={styles.container}>
       <Text style = {styles.heading}>Please Introduce yourself</Text>
       <View style={styles.formContainer} > 
-            <Text style ={styles.label}>First Name</Text>
-            <ThemeTextInput placeholder={'Govinda'} value={firstName} onChangeText={(n)=>{setFirstName(n)}}/>
+            <TextInput mode = 'outlined' 
+                  theme={{ colors: { primary:Colors.primaryColorDark}}}
+              label="First Name" value={firstName} onChangeText={(n)=>{setFirstName(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            <Text style ={styles.label}>Last Name</Text>
-            <ThemeTextInput  placeholder={'Vashishtha'} value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
+            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Last Name" value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            <Text style ={styles.label}>Email</Text>
-            <ThemeTextInput  placeholder={'abcd@xyz.com'} value={email} onChangeText={(n)=>{setEmail(n)}}/>
+            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Email" value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
       </View>
       <View style ={{padding:20}}>
         <ThemeButton title={'Sign Up'} onPress={()=>{
-          //todo >>>> make a welcome Screen which can go to TabNavigator
-          //navigation.navigate('welcome');
           setUserData();
         }}/>
       </View>

@@ -5,7 +5,19 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Colors from "./src/Constants/Colors"
-import LoadingNavigationStack from './src/Navigation/SwitchNavigator'
+import LoadingNavigationStack from './src/Navigation/SwitchNavigator';
+import { Provider } from 'react-redux';
+import store from './src/react-redux/store';
+import SignUpScreen from './src/Screens/SignUpScreen'
+
+
+const AppWrapper = () =>{
+  return(
+    <Provider store={store}>
+    <App />
+  </Provider>
+  );
+}
 
  const  App = ()=> {
     return (
@@ -30,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default AppWrapper;
