@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import ThemeButtonDisabled from './../Components/ThemeButtonDisabled';
 import Loader from '../Components/Loader';
 import { setUser } from '../react-redux/actions';
+import toast from '../Components/Toast';
 
 
 const SettingsScreen = ({ navigation }) => {
@@ -81,7 +82,7 @@ const SettingsScreen = ({ navigation }) => {
           ):(
             <ThemeButtonDisabled title={'Update Details'} onPress={() => {
                //todo add toast
-               alert('Please Fill all the Details');
+               toast('Please Fill all the Details');
           }
           } />
           )}   
