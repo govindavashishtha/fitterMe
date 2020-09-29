@@ -1,41 +1,59 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import {
   StyleSheet,
-  View, Text, FlatList
+  View, Text, FlatList, RefreshControl
 } from 'react-native';
 import Header from './../Components/Header';
-import ThemeButton from '../Components/ThemeButton';
 import { useSelector } from 'react-redux';
 import NewsCard from '../Components/NewsCard';
 
+import { ScrollView } from 'react-native-gesture-handler';
+
 const HomeScreen = ({ navigation }) => {
-  const news = useSelector(state => state.data)
+  const [news, setNews] = useState(useSelector(state => state.data));
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const fetchAPI = () => {
+    console.log('refreshed');
+    fetch('http://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=59ed4d1096c14181ac87f374a460e0c1', {
+      method: 'GET'
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setNews(responseJson.articles);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   return (
     <>
       <Header title={'Home'} />
-      <View style={styles.container}>
-          <FlatList
-            data={news}
-            renderItem={({ item }) => (
-              <NewsCard
-                Item={item}
-              />
-            )}
-            scrollEnabled={true}
-            horizontal={false}
-            keyExtractor={(item, index) => index.toString()}
-            contentContainerStyle={{
-              flexGrow: 1,
-            }}
-          />
+      <ScrollView style={styles.container} refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={() => { fetchAPI() }} />
+      }>
+        <FlatList
+          data={news}
+          renderItem={({ item }) => (
+            <NewsCard
+              Item={item}
+            />
+          )}
+          scrollEnabled={true}
+          horizontal={false}
+          keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={{
+            flexGrow: 1,
+          }}
+        />
 
-      </View>
+      </ScrollView>
     </>
   )
 }
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     height: '100%',
     paddingHorizontal: 10,
   },

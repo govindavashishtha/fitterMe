@@ -161,6 +161,7 @@ const CalculateScreen = ()=>{
               <Text style={styles.errorText}>Please Enter Correct Weight and Height</Text>}
           </View>)}
     </View>  
+    
     </View>
     </>
     )

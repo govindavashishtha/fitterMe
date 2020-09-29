@@ -1,16 +1,15 @@
 import React from 'react';
 import {
-    StyleSheet,
-    View, Text, Image, ImageBackground,TouchableOpacity
+    StyleSheet,Linking,
+    View, Text, Image, ImageBackground,TouchableOpacity,SafeAreaView
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import Colors from '../Constants/Colors';
 
 
 const NewsCard = ({Item}) => {
     return (
         <View style={styles.container}>
-              <TouchableOpacity onPress ={()=>{}}>
+              <TouchableOpacity onPress ={()=>{Linking.openURL(Item.url)}}>
               <Image
                 style={styles.image}
                 source={{
@@ -31,7 +30,8 @@ const styles = StyleSheet.create({
         height:360,
         borderWidth:.5,
         borderRadius: 8,
-        overflow:'hidden'
+        overflow:'hidden',
+        backgroundColor:Colors.white,
     },
     image: {
         width: '100%',
