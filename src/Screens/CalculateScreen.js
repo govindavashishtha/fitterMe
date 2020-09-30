@@ -3,14 +3,17 @@ import {
   StyleSheet,
   View,
   Text,
+  ScrollView
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import Colors from '../Constants/Colors';
 import ThemeButton from '../Components/ThemeButton'
 import Header from './../Components/Header';
 import ThemeNumberInput from './../Components/ThemeNumberInput';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const CalculateScreen = ()=>{
+  // useStates for the calculation of the BMI(Body Mass Index)
   const [units, setUnits] = useState('kg')
   const [checked, setChecked] = useState('first')
   const [weight, setWeight] = useState();
@@ -20,6 +23,17 @@ const CalculateScreen = ()=>{
   const [BMI, setBMI] = useState(null);
   const [category, setCategory] = useState(null);
   const [errorText , setErrorText] = useState(false);
+  // useStates for the calculation of the Maintance Calories and BMR(Basal Metabolic Rate)
+  const [mass, setMass] = useState();
+  const [length, setLength] = useState();
+  const [age, setAge] = useState();
+  const [BMR, setBMR] = useState(null);
+  const [sex, setSex] = useState('Male');
+  const [active, setActive] = useState('1');
+  const [maintenance, setMaintenance] = useState(0);
+  const [error, setError] = useState(false);
+
+  //functions for BMI calculator
   const BMIcalculatorKG = () => {
     if(weight && height && weight !== 0 && height !== 0 ) {
        setErrorText(false);
@@ -49,6 +63,17 @@ const CalculateScreen = ()=>{
     setLbs(null);
     setErrorText(false);
   }
+
+  const refresh1 = () =>{
+    setMass(null);
+    setLength(null);
+    setAge(null);
+    setBMR(null);
+    setActive('1');
+    setMaintenance(null);
+    setError(false);
+  }
+
   const calcCategory = (BMI)=>{
     if(BMI){
       if(BMI<18.5){
@@ -63,8 +88,47 @@ const CalculateScreen = ()=>{
     }
   }
 
+  // functions for maintenance calories calculator
+
+  const BMRcalculator = () => {
+    if(sex ==='Male' && mass && length && age && active) {
+      setBMR(66.47 + (13.75 * mass) + (5.003 * length) - (6.755 * age));
+      if(active === 1) {
+        setMaintenance(Math.round(1.2*BMR),2)
+      } else if(active === 2) {
+        setMaintenance(Math.round(1.375 * BMR))
+      } else if(active === 3) {
+        setMaintenance(Math.round(1.55 * BMR))
+      } else if(active === 4) {
+        setMaintenance(Math.round(1.725 * BMR))
+      } else {
+        setMaintenance(Math.round(1.9 * BMR))
+      } 
+      console.log(maintenance);
+
+    } else if (sex === 'Female' && mass && length && age && active) {
+      setBMR(655.1 + (9.563 * mass) + (1.85 * length) - (4.676 * age));
+      if(active === 1) {
+        setMaintenance(Math.round(1.2*BMR))
+      } else if(active === 2) {
+        setMaintenance(Math.round(1.375 * BMR))
+      } else if(active === 3) {
+        setMaintenance(Math.round(1.55 * BMR))
+      } else if(active === 4) {
+        setMaintenance(Math.round(1.725 * BMR))
+      } else {
+        setMaintenance(Math.round(1.9 * BMR))
+      } 
+      console.log(maintenance);
+    } else {
+      console.log('Enter the correct data u dumbass')
+      setError(true)
+    }
+  }
+
      return (
        <>
+       <ScrollView>
        <Header title={'Calculate'} />
        <View style={styles.container}>
       <View style = {styles.childContainer}>
@@ -161,7 +225,75 @@ const CalculateScreen = ()=>{
               <Text style={styles.errorText}>Please Enter Correct Weight and Height</Text>}
           </View>)}
     </View>  
+
+
+    <View style = {styles.childContainer}>
+    <Text style={styles.heading}>MAINTENANCE CALORIES CALCULATOR</Text>
+    <View style={styles.row}>
+         <Text style ={styles.title}>Sex:</Text>
+          <View style={styles.button}>
+            <RadioButton
+              value="Male"
+              status={ sex === 'Male' ? 'checked' : 'unchecked' }
+              onPress={() => {setSex('Male');refresh1()}}
+              color={Colors.primaryColorDark}
+            />
+           <Text>Male</Text>
+          </View>
+          <View style={styles.button}>
+            <RadioButton
+              value="Female"
+              status={ sex === 'Female' ? 'checked' : 'unchecked' }
+              onPress={() => {setSex('Female');refresh1()}}
+              color={Colors.primaryColorDark}
+            />
+        <Text>Female</Text>
+        </View>
+        </View>
+
+        <View style={styles.form}>
+        <View style={styles.horizontal}>
+              <Text style={styles.label}>Age:</Text>
+              <ThemeNumberInput  placeholder='Enter Age in Years' onChangeText={(val) => {setAge(val)}} keyboard={'numeric'} />
+        </View>
+          <View style={styles.horizontal}>
+              <Text style={styles.label}>Weight:</Text>
+              <ThemeNumberInput  placeholder='Enter Weight in Kgs' onChangeText={(val) => {setMass(val)}} keyboard={'numeric'} />
+          </View>
+          <View style={styles.horizontal}>
+              <Text style={styles.label}>Height:</Text>
+              <ThemeNumberInput  placeholder='Enter Height in CentiMetres' onChangeText={(val) => {setLength(val)}} keyboard={'numeric'} />
+          </View> 
+        </View>
+        <DropDownPicker
+            items={[
+                {label: 'No Exercise(0 days)', value: '1'},
+                {label: 'Little Exercise(1-3 days per week)', value: '2'},
+                {label: 'Moderate Exercise(3-5 days a week)', value: '3'},
+                {label: 'Very Active(6-7 days a week)', value: '4'},
+                {label: 'Extra Active(very active + physical job)', value: '5'},
+            ]}
+            placeholder="Select your catgeory"
+            containerStyle={{height: 40}}
+            dropDownMaxHeight={80}
+            style={{backgroundColor:Colors.lightgray}}
+            dropDownStyle={{backgroundColor:Colors.lightgray}}
+            onChangeItem={item => setActive(item)}
+        />
+        <View style={{marginTop:10,}}>
+          {maintenance && 
+            <Text style={styles.calc}>{`Your Maintenance Calories are ${maintenance} KCal`}</Text>}
+          </View>
+        <View style = {{paddingTop:5}}>
+             <ThemeButton title='Calculate' onPress={BMRcalculator} />
+        </View>
+        {error && 
+              <Text style={styles.errorText}>Please Enter Correct Weight or Height or Age</Text>}
     </View>
+
+
+    </View>
+    </ScrollView>
     </>
     )
   } 
@@ -170,6 +302,7 @@ const CalculateScreen = ()=>{
 const styles = StyleSheet.create({
   container:{
       padding:7,
+      marginBottom: 100,
   },
   errorText:{
    color:Colors.warning,
@@ -195,6 +328,7 @@ const styles = StyleSheet.create({
      borderWidth:.2,
      borderRadius:5,
     elevation:1,
+    marginBottom:20,
   },
   title:{
     fontFamily:'Karla-Bold',
