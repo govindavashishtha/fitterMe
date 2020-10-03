@@ -8,11 +8,24 @@ import auth from '@react-native-firebase/auth';
 import LoadingDots from "react-native-loading-dots";
 import database from '@react-native-firebase/database';
 import {useDispatch} from 'react-redux';
-import { setUser } from '../react-redux/actions';
+import { setData, setUser } from '../react-redux/actions';
 
 const LoadingScreen = ({navigation})=>{
 
    const dispatch = useDispatch();
+
+   const fetchAPI=()=>{
+    fetch('http://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=59ed4d1096c14181ac87f374a460e0c1', {
+      method: 'GET'
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {
+      dispatch(setData(responseJson.articles))
+  })
+  .catch((error) => {
+      console.error(error);
+  });
+  }
   const checkUser = async()=>{
     if(auth().currentUser){
       const phone = await auth().currentUser.phoneNumber;
@@ -33,7 +46,8 @@ const LoadingScreen = ({navigation})=>{
     }
  }
   useEffect(() => {
-    setTimeout(checkUser,3000);
+    fetchAPI();
+    setTimeout(checkUser,2000);
   }, [navigation]);
     return (
       <View style={styles.container}>
