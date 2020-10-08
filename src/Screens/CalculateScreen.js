@@ -31,6 +31,14 @@ const CalculateScreen = () => {
   const [active, setActive] = useState('1');
   const [maintenance, setMaintenance] = useState(null);
   const [error, setError] = useState(false);
+  // useStates for the calculation of the Body Fat Percentage
+  const [gender, setGender] = useState('Male');
+  const [waist, setWaist] = useState();
+  const [hip, setHip] = useState();
+  const [neck, setNeck] = useState();
+  const [heights, setHeights] = useState();
+  const [fat, setFat] = useState();
+  const [err, setErr] = useState(false);
 
   //functions for BMI calculator
   const BMIcalculatorKG = () => {
@@ -70,6 +78,15 @@ const CalculateScreen = () => {
     setActive('1');
     setMaintenance(null);
     setError(false);
+  } 
+
+  const refresh2 = () => {
+    setFat(null);
+    setErr(false);
+    setHip(null);
+    setHeights(null);
+    setNeck(null);
+    setWaist(null);
   }
 
   const calcCategory = (BMI) => {
@@ -91,13 +108,13 @@ const CalculateScreen = () => {
   const BMRcalculator = () => {
     if (sex === 'Male' && mass && length && age && active) {
       const BMR = 66.47 + (13.75 * mass) + (5.003 * length) - (6.755 * age);
-      if (active === 1) {
-        setMaintenance(Math.round(1.2 * BMR), 2)
-      } else if (active === 2) {
+      if (active === '1') {
+        setMaintenance(Math.round(1.2 * BMR))
+      } else if (active === '2') {
         setMaintenance(Math.round(1.375 * BMR))
-      } else if (active === 3) {
+      } else if (active === '3') {
         setMaintenance(Math.round(1.55 * BMR))
-      } else if (active === 4) {
+      } else if (active === '4') {
         setMaintenance(Math.round(1.725 * BMR))
       } else {
         setMaintenance(Math.round(1.9 * BMR))
@@ -106,21 +123,35 @@ const CalculateScreen = () => {
 
     } else if (sex === 'Female' && mass && length && age && active) {
       const BMR = 655.1 + (9.563 * mass) + (1.85 * length) - (4.676 * age);
-      if (active === 1) {
+      if (active === '1') {
         setMaintenance(Math.round(1.2 * BMR))
-      } else if (active === 2) {
+      } else if (active === '2') {
         setMaintenance(Math.round(1.375 * BMR))
-      } else if (active === 3) {
+      } else if (active === '3') {
         setMaintenance(Math.round(1.55 * BMR))
-      } else if (active === 4) {
+      } else if (active === '4') {
         setMaintenance(Math.round(1.725 * BMR))
       } else {
         setMaintenance(Math.round(1.9 * BMR))
       }
       console.log(maintenance);
+      console.log(active)
     } else {
       console.log('Enter the correct data u dumbass')
       setError(true)
+    }
+  }
+
+  // functions for Body Fat Percentage
+  const BodyFatCalculator = () => {
+    if (gender === 'Male' && waist && neck && heights) {
+      setFat(495/(1.29579-((.35004*Math.log10(waist - neck)) + (.22100 * Math.log10(heights)))) - 450)
+      console.log(fat)
+    } else if(gender === 'Female'&& waist && neck && heights&&hip) {
+      setFat(495/(1.29579-((.35004*Math.log10((waist + hip) - neck)) + (.22100 * Math.log10(heights)))) - 450)
+    } else {
+      console.log('Enter the correct data')
+      setErr(true)
     }
   }
 
@@ -276,7 +307,7 @@ const CalculateScreen = () => {
               dropDownMaxHeight={100}
               style={{ backgroundColor: Colors.gray }}
               dropDownStyle={{ backgroundColor: Colors.gray }}
-              onChangeItem={item => setActive(item)}
+              onChangeItem={item => setActive(item.value)}
             />
             <View style={{ marginTop: 10, }}>
               {maintenance &&
@@ -288,6 +319,88 @@ const CalculateScreen = () => {
             </View>
             {error &&
               <Text style={styles.errorText}>Please Enter Correct Weight or Height or Age</Text>}
+          </View>
+
+          <View style={styles.childContainer}>
+          <Text style={styles.heading}>BODY FAT PERCENTAGE CALCULATOR</Text>
+          <View style={styles.row}>
+              <Text style={styles.title}>Sex:</Text>
+              <View style={styles.button}>
+                <RadioButton
+                  value="Male"
+                  status={gender === 'Male' ? 'checked' : 'unchecked'}
+                  onPress={() => { setGender('Male'); refresh2() }}
+                  color={Colors.primaryColorDark}
+                />
+                <Text>Male</Text>
+              </View>
+              <View style={styles.button}>
+                <RadioButton
+                  value="Female"
+                  status={gender === 'Female' ? 'checked' : 'unchecked'}
+                  onPress={() => { setGender('Female'); refresh2() }}
+                  color={Colors.primaryColorDark}
+                />
+                <Text>Female</Text>
+              </View>
+            </View>
+            {gender === "Male" ?
+           (<>
+              <View style={styles.horizontal}>
+                <Text style={styles.label}>Height:</Text>
+                <ThemeNumberInput value ={length} placeholder='Enter Height in Inches' onChangeText={(val) => { setHeights(val) }} keyboard={'numeric'} />
+              </View>
+              <View style={styles.horizontal}>
+                <Text style={styles.label}>Neck:</Text>
+                <ThemeNumberInput value ={length} placeholder='Enter Neck Parameter in Inches' onChangeText={(val) => { setNeck(val) }} keyboard={'numeric'} />
+              </View>
+              <View style={styles.horizontal}>
+                <Text style={styles.label}>Waist:</Text>
+                <ThemeNumberInput value ={length} placeholder='Enter Waist in Inches' onChangeText={(val) => { setWaist(val) }} keyboard={'numeric'} />
+              </View>
+                <View style={{ marginTop: 10, }}>
+                  {fat &&
+                    (<Text style={styles.calc}>{`Your Fat Percentage is ${fat} %`}</Text>)
+                  }
+                </View>
+                <View style={{ paddingTop: 5 }}>
+                <ThemeButton title='Calculate' onPress={BodyFatCalculator} />
+                </View>
+                {err &&
+                <Text style={styles.errorText}>Please Enter Correct Details</Text>}
+
+              </>) 
+           :
+            (
+              <>
+                <View style={styles.horizontal}>
+                  <Text style={styles.label}>Height:</Text>
+                  <ThemeNumberInput value ={length} placeholder='Enter Height in Inches' onChangeText={(val) => { setHeights(val) }} keyboard={'numeric'} />
+                </View>
+                <View style={styles.horizontal}>
+                  <Text style={styles.label}>Neck:</Text>
+                  <ThemeNumberInput value ={length} placeholder='Enter Neck Parameter in Inches' onChangeText={(val) => { setNeck(val) }} keyboard={'numeric'} />
+                </View>
+                <View style={styles.horizontal}>
+                  <Text style={styles.label}>Waist:</Text>
+                  <ThemeNumberInput value ={length} placeholder='Enter Waist Parameter in Inches' onChangeText={(val) => { setWaist(val) }} keyboard={'numeric'} />
+                </View>
+                <View style={styles.horizontal}>
+                  <Text style={styles.label}>Hip:</Text>
+                  <ThemeNumberInput value ={length} placeholder='Enter Hip Parameter in Inches' onChangeText={(val) => { setHip(val) }} keyboard={'numeric'} />
+                </View>
+                <View style={{ marginTop: 10, }}>
+                  {fat &&
+                    (<Text style={styles.calc}>{`Your Fat Percentage is ${fat} %`}</Text>)
+                  }
+                </View>
+                <View style={{ paddingTop: 5 }}>
+                <ThemeButton title='Calculate' onPress={BodyFatCalculator} />
+                </View>
+                {err &&
+              <Text style={styles.errorText}>Please Enter Correct Details</Text>}
+              </>
+            )}
           </View>
 
         </View>
