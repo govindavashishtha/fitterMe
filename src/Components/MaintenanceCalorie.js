@@ -122,7 +122,11 @@ const MaintenanceCalorie = () => {
             />
             <View style={{ marginTop: 10, }}>
                 {maintenance &&
-                    (<Text style={styles.calc}>{`Your Maintenance Calories are ${maintenance} KCal`}</Text>)
+                    (<View>
+                        <Text style={styles.calc}>{`Your Maintenance Calories are ${maintenance} KCal`}</Text>
+                        <Text style={styles.tip}>{`For Fat Loss eat between ${maintenance - 500} - ${maintenance - 200} KCal`}</Text>
+                        <Text style={styles.tip}>{`For Weight Gain eat between ${maintenance + 200} - ${maintenance + 500} KCal`}</Text>
+                    </View>)
                 }
             </View>
             <View style={{ paddingTop: 5 }}>
@@ -138,57 +142,63 @@ export default MaintenanceCalorie;
 
 const styles = StyleSheet.create({
     container: {
-      padding: 7,
-      marginBottom: 100,
+        padding: 7,
+        marginBottom: 100,
     },
     errorText: {
-      color: Colors.warning,
-      textAlign: 'center',
-      padding: 3,
-      fontSize: 12,
+        color: Colors.warning,
+        textAlign: 'center',
+        padding: 3,
+        fontSize: 12,
     },
     form: {
-      padding: 5,
+        padding: 5,
     },
     calc: {
-      textAlign: 'center',
-      padding: 5,
+        textAlign: 'center',
+        padding: 5,
+        fontWeight:'bold',
+    },
+    tip: {
+        textAlign: 'center',
+        padding: 5,
+        fontSize:13.5,
     },
     label: {
-      paddingTop: 10,
-      fontSize: 15,
-      color: Colors.charcoalGrey80,
-      fontFamily: 'Karla-Regular'
+        paddingTop: 10,
+        fontSize: 15,
+        color: Colors.charcoalGrey80,
+        fontFamily: 'Karla-Regular'
     },
     childContainer: {
-      padding: 10,
-      borderWidth: .2,
-      borderRadius: 5,
-      elevation: 1,
-      marginBottom: 20,
+        padding: 10,
+        borderWidth: .2,
+        borderRadius: 5,
+        elevation: 1,
+        marginBottom: 20,
     },
     title: {
-      fontFamily: 'Karla-Bold',
-      fontSize: 15,
+        fontFamily: 'Karla-Bold',
+        fontSize: 15,
     },
     button: {
-      flexDirection: 'row',
-      alignItems: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     horizontal: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingBottom: 5,
-      paddingHorizontal: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 5,
+        paddingHorizontal: 20,
     },
     row: {
-      flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
     },
     heading: {
-      fontSize: 15,
-      textAlign: 'center',
-      padding: 15,
+        fontSize: 15,
+        textAlign: 'center',
+        padding: 15,
     }
-  })
+})
