@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View, Text, FlatList, RefreshControl
@@ -10,17 +10,22 @@ import NewsCard from '../Components/NewsCard';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const HomeScreen = ({ navigation }) => {
+  const apiKey = ['59ed4d1096c14181ac87f374a460e0c1',
+    '4885a26a44d14c6cb3bd5aed4a203884',
+    '5329bf3ba3b840f9b426171a1bf4221f',
+    '927de1a2949a49f9aa2c7e1b973c3df4'];
   const [news, setNews] = useState(useSelector(state => state.data));
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchAPI = () => {
     console.log('refreshed');
-    fetch('http://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=59ed4d1096c14181ac87f374a460e0c1', {
+    fetch(`https://saurav.tech/NewsAPI/top-headlines/category/health/in.json`, {
       method: 'GET'
     })
       .then((response) => response.json())
       .then((responseJson) => {
         setNews(responseJson.articles);
+        console.log(responseJson.articles)
       })
       .catch((error) => {
         console.error(error);
@@ -46,7 +51,6 @@ const HomeScreen = ({ navigation }) => {
             flexGrow: 1,
           }}
         />
-
       </ScrollView>
     </>
   )

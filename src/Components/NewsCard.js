@@ -13,7 +13,7 @@ const NewsCard = ({Item}) => {
               <Image
                 style={styles.image}
                 source={{
-                    uri: Item.urlToImage,
+                    uri: Item.urlToImage ? Item.urlToImage : 'https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/fitterMe-Black.png?alt=media&token=62122a1e-07ac-4904-b2e1-e46aa7bb4ec4',
                 }}
                />
                <View style={{padding:5,justifyContent:'center', alignContent:'center', justifyContent:'center', alignItems:'center',height:'40%'}}>

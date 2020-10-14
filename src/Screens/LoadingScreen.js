@@ -15,7 +15,7 @@ const LoadingScreen = ({navigation})=>{
    const dispatch = useDispatch();
 
    const fetchAPI=()=>{
-    fetch('http://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=59ed4d1096c14181ac87f374a460e0c1', {
+    fetch('https://saurav.tech/NewsAPI/top-headlines/category/health/in.json', {
       method: 'GET'
   })
   .then((response) => response.json())
