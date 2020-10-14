@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
-  View, Text, ScrollView
+  View, Text, ScrollView, Keyboard
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import ThemeButton from './../Components/ThemeButton'
@@ -17,6 +17,7 @@ import ThemeButtonDisabled from './../Components/ThemeButtonDisabled';
 import Loader from '../Components/Loader';
 import { setUser } from '../react-redux/actions';
 import toast from '../Components/Toast';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const SettingsScreen = ({ navigation }) => {
@@ -25,6 +26,7 @@ const SettingsScreen = ({ navigation }) => {
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
   const [loader , setLoader] = useState(false);
+  const [isKeyboardVisible,setKeyboardVisible] = useState(false);
   const dispatch = useDispatch();
 
   const signOut = () => {
@@ -35,6 +37,27 @@ const SettingsScreen = ({ navigation }) => {
         navigation.navigate(ScreenNames.LoadingStack)
       });
   }
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
 
   const setUserData = () => {
     if (firstName && lastName && email) {
@@ -88,14 +111,16 @@ const SettingsScreen = ({ navigation }) => {
           )}   
           
         </View>
-
-        <View style={{ position: 'absolute', right: 15, bottom: 10 }}>
-          <Text style={{ fontSize: 16, color: Colors.red, fontFamily: 'Karla-Bold' }} onPress={() => {
+        {!isKeyboardVisible && 
+        <View style={{ position: 'absolute', right: 15, bottom: 10, alignItems:'center' }}>
+          <Icon name={'sign-out'} size={18} color={Colors.charcoalGreyMediocre} />
+          <Text style={{ fontSize: 15, color: Colors.charcoalGreyMediocre, fontFamily: 'Karla-Bold' }} onPress={() => {
             ConfirmDialog('Sign Out', 'Sure to SignOut?', signOut)
           }
           }>Sign Out</Text>
 
         </View>
+        }
       </View>
     </>
   )
