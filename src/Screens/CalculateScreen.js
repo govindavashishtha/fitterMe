@@ -40,7 +40,7 @@ const CalculateScreen = () => {
           </View>
           <ComponentRenderer />
         </View>
-      </ScrollView>
+      </ScrollView> 
     </>
   )
 }
