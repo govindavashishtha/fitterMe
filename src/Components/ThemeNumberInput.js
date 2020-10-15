@@ -3,9 +3,9 @@ import React from 'react';
 import Colors from '../Constants/Colors';
 
 
-const ThemeNumberInput = ({onChangeText , placeholder , value , keyboard , maxLength}) => {
+const ThemeNumberInput = ({onChangeText , placeholder , value , keyboard , maxLength , flex}) => {
   return (
-    <View style={styles.container}>
+    <View style={flex ? styles.containerFlex : styles.container}>
       <TextInput
         style={styles.textInput}
         onChangeText={value =>
@@ -30,6 +30,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1.5,
     overflow: 'hidden',
     //flex:1,
+  },
+  containerFlex: {
+    marginHorizontal: 5,
+    paddingLeft: 5,
+    borderColor: Colors.primaryColorDark,
+    borderBottomWidth: 1.5,
+    overflow: 'hidden',
+    flex:1,
   },
   textInput: {
     paddingHorizontal: 2,

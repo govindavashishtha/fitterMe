@@ -32,4 +32,9 @@ export default {
     cloudyWhite50: 'rgba(0,0,0,0.15)',
     cloudyWhite70: 'rgba(146,140,140,0.7)',
     accentColorRGBA: '#fdedb5',
+    underWeightYellow:'#e3c830',
+    normalWeightGreen:'#2abd1c',
+    overWeightOrange:'#e67b02',
+    obeseRed:'#e60202'
+
   };
