@@ -15,7 +15,7 @@ const MaintenanceCalorie = () => {
     const [length, setLength] = useState();
     const [age, setAge] = useState();
     const [sex, setSex] = useState('Male');
-    const [active, setActive] = useState('1');
+    const [active, setActive] = useState('');
     const [maintenance, setMaintenance] = useState(null);
     const [error, setError] = useState(false);
 
@@ -23,14 +23,15 @@ const MaintenanceCalorie = () => {
         setMass(null);
         setLength(null);
         setAge(null);
-        setActive('1');
+        setActive('');
         setMaintenance(null);
         setError(false);
     }
 
     const BMRcalculator = () => {
         if (sex === 'Male' && mass && length && age && active) {
-            const BMR = 66.47 + (13.75 * mass) + (5.003 * length) - (6.755 * age);
+            const BMR = Math.round(5 + Math.round(10 * mass) + Math.round(6.25 * length) - Math.round(5 * age));
+            console.log(BMR)
             if (active === '1') {
                 setMaintenance(Math.round(1.2 * BMR))
             } else if (active === '2') {
@@ -45,7 +46,8 @@ const MaintenanceCalorie = () => {
             console.log(maintenance);
 
         } else if (sex === 'Female' && mass && length && age && active) {
-            const BMR = 655.1 + (9.563 * mass) + (1.85 * length) - (4.676 * age);
+            const BMR = Math.round(Math.round(10 * mass) + Math.round(6.25 * length) - Math.round(5 * age) - 161);
+            console.log(BMR)
             if (active === '1') {
                 setMaintenance(Math.round(1.2 * BMR))
             } else if (active === '2') {
@@ -58,7 +60,6 @@ const MaintenanceCalorie = () => {
                 setMaintenance(Math.round(1.9 * BMR))
             }
             console.log(maintenance);
-            console.log(active)
         } else {
             console.log('Enter the correct data u dumbass')
             setError(true)
@@ -124,7 +125,7 @@ const MaintenanceCalorie = () => {
                 {maintenance &&
                     (<View>
                         <Text style={styles.calc}>{`Your Maintenance Calories are ${maintenance} KCal`}</Text>
-                        <Text style={styles.tip}>{`For Fat Loss eat between ${maintenance - 500} - ${maintenance - 200} KCal`}</Text>
+                        <Text style={styles.tip}>{`For Weight Loss eat between ${maintenance - 500} - ${maintenance - 200} KCal`}</Text>
                         <Text style={styles.tip}>{`For Weight Gain eat between ${maintenance + 200} - ${maintenance + 500} KCal`}</Text>
                     </View>)
                 }
@@ -133,7 +134,7 @@ const MaintenanceCalorie = () => {
                 <ThemeButton title='Calculate' onPress={BMRcalculator} />
             </View>
             {error &&
-                <Text style={styles.errorText}>Please Enter Correct Weight or Height or Age</Text>}
+                <Text style={styles.errorText}>Please Enter Correct Weight or Height or Age or catgeory</Text>}
         </View>
     )
 
