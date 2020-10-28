@@ -30,6 +30,7 @@ const AppWrapper = () =>{
          <LoadingNavigationStack />
       </NavigationContainer>
       </SafeAreaProvider>
+      // <SignUpScreen />
     );
   }
 

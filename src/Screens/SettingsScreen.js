@@ -25,6 +25,10 @@ const SettingsScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
+  const [gender , setGender] = useState('Male');
+  const [dob , setDob] = useState('');
+  const [weight , setWeight] = useState('');
+  const [height , setHeight] = useState('');
   const [loader , setLoader] = useState(false);
   const [isKeyboardVisible,setKeyboardVisible] = useState(false);
   const dispatch = useDispatch();
@@ -60,11 +64,15 @@ const SettingsScreen = ({ navigation }) => {
 
 
   const setUserData = () => {
-    if (firstName && lastName && email) {
+    if (firstName && lastName && email && gender && weight && height && dob) {
       let user = {
         firstName: firstName,
         lastName: lastName,
         email: email,
+        gender: gender,
+        height: height,
+        weight: weight,
+        dob: dob,
       };
       const phone = auth().currentUser.phoneNumber;
       database().ref('/Users').child(phone).set(user).then(() => {
@@ -79,6 +87,7 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <>
+    <ScrollView>
       <Loader show={loader} text={'Updating Details'}/>
       <Header title={'Settings'} />
       <View style={styles.container}>
@@ -92,11 +101,62 @@ const SettingsScreen = ({ navigation }) => {
         <View style={styles.formContainer} >
           <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Last Name" value={lastName} onChangeText={(n) => { setLastName(n) }} />
         </View>
+                  <View style={styles.row}>
+                    <Text style={styles.title}>Sex:</Text>
+                    <View style={styles.button}>
+                        <RadioButton
+                            value="Male"
+                            status={gender === 'Male' ? 'checked' : 'unchecked'}
+                            onPress={() => { setGender('Male')}}
+                            color={Colors.primaryColorDark}
+                        />
+                        <Text>Male</Text>
+                    </View>
+                    <View style={styles.button}>
+                        <RadioButton
+                            value="Female"
+                            status={gender === 'Female' ? 'checked' : 'unchecked'}
+                            onPress={() => { setGender('Female')}}
+                            color={Colors.primaryColorDark}
+                        />
+                        <Text>Female</Text>
+                    </View>
+                </View>
+        <View style={styles.formContainer} > 
+              <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in KGs)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
+        </View>
+        <View style={styles.formContainer} > 
+              <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in CentiMeters)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
+        </View>
         <View style={styles.formContainer} >
           <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Email" value={email} onChangeText={(n) => { setEmail(n) }} />
         </View>
+        <DatePicker
+        style={{width: '100%',paddingTop: 25}}
+        date={dob}
+        mode="date"
+        placeholder="select DOB"
+        format="DD-MM-YYYY"
+        minDate="01-01-1901"
+        maxDate="01-01-2091"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            right: 0,
+            top: 4,
+            marginLeft: 0
+          },
+          dateInput: {
+
+          }
+          // ... You can check the source to find the other keys.
+        }}
+        onDateChange={(date) => {setDob(date)}}
+      />
         <View style={{ paddingVertical: 30, paddingHorizontal: 10, }}>
-          {firstName && lastName && email ? (
+          {firstName && lastName && email && gender && weight && height && dob ? (
             <ThemeButton title={'Update Details'} onPress={() => {
               setLoader(true);
               setUserData();
@@ -122,6 +182,7 @@ const SettingsScreen = ({ navigation }) => {
         </View>
         }
       </View>
+      </ScrollView>
     </>
   )
 }
