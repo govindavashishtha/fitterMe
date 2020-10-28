@@ -1,7 +1,8 @@
 import React ,{useEffect } from 'react';
 import {
   StyleSheet,
-  View,Text
+  View,Text,
+  Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from './../Components/Header';
@@ -30,7 +31,12 @@ const DesignScreen = ()=>{
     return (
       <>
        <Header title={'Design'}/>
-       <View style={styles.container}></View>
+       <View style={styles.container}>
+       <Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/coming_soon.jpg?alt=media&token=b5352822-2f37-4209-abe7-06c2f63e3127'}}
+             style={{width:'100%',height: '80%', borderRadius: 10}} />
+        <Text style={styles.text}>We are currenlty working on this Feature. It will be out shortly.</Text>
+        <Text style={styles.text}>Thanks for your patience:)</Text>
+       </View>
       </>  
     )
 }
@@ -39,5 +45,11 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
   },
+  text: {
+    fontSize: 20,
+    fontFamily: 'Karla-BoldItalic',
+    padding: 10,
+    textAlign: 'center'
+  }
 })
 export default DesignScreen;

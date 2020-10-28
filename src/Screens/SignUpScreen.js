@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import {
-  View,Text,Button,StyleSheet
+  View,Text,Button,StyleSheet,
+  ScrollView
 } from 'react-native';
 import ThemeButton from '../Components/ThemeButton';
 import ThemeTextInput from '../Components/ThemeTextInput';
@@ -8,7 +9,8 @@ import ScreenNames from './../Constants/ScreenNames';
 import Colors from './../Constants/Colors';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import {TextInput} from 'react-native-paper'
+import {TextInput, RadioButton} from 'react-native-paper'
+import DatePicker from 'react-native-datepicker';
 import { setUser } from '../react-redux/actions';
 import {useDispatch} from 'react-redux';
 import ThemeButtonDisabled from '../Components/ThemeButtonDisabled';
@@ -18,15 +20,23 @@ const SignUpScreen = ({navigation})=>{
   const [firstName , setFirstName] = useState('');
   const [lastName , setLastName] = useState('');
   const [email , setEmail] = useState('');
+  const [gender , setGender] = useState('Male');
+  const [dob , setDob] = useState('');
+  const [weight , setWeight] = useState('');
+  const [height , setHeight] = useState('');
   const [loader , setLoader] = useState(false);
   const dispatch = useDispatch();
 
   const setUserData=()=>{
-    if(firstName && lastName && email){
+    if(firstName && lastName && email && gender && dob && weight && height){
       let user = {
         firstName : firstName,
         lastName : lastName,
         email : email,
+        gender : gender,
+        dob : dob,
+        weight : weight,
+        height : height,
      };
      const phone = auth().currentUser.phoneNumber;
      database().ref('/Users').child(phone).set(user).then(()=>{
@@ -41,6 +51,7 @@ const SignUpScreen = ({navigation})=>{
 
     return (
       <>
+      <ScrollView>
       <Loader show={loader} text={'Saving your Details'}/>
       <View style = {styles.container}>
       <Text style = {styles.heading}>Please Introduce yourself</Text>
@@ -52,12 +63,63 @@ const SignUpScreen = ({navigation})=>{
       <View style={styles.formContainer} > 
             <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Last Name" value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
       </View>
+                <View style={styles.row}>
+                    <Text style={styles.title}>Sex:</Text>
+                    <View style={styles.button}>
+                        <RadioButton
+                            value="Male"
+                            status={gender === 'Male' ? 'checked' : 'unchecked'}
+                            onPress={() => { setGender('Male')}}
+                            color={Colors.primaryColorDark}
+                        />
+                        <Text>Male</Text>
+                    </View>
+                    <View style={styles.button}>
+                        <RadioButton
+                            value="Female"
+                            status={gender === 'Female' ? 'checked' : 'unchecked'}
+                            onPress={() => { setGender('Female')}}
+                            color={Colors.primaryColorDark}
+                        />
+                        <Text>Female</Text>
+                    </View>
+                </View>
+      <View style={styles.formContainer} > 
+            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in KGs)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
+      </View>
+      <View style={styles.formContainer} > 
+            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in CentiMeters)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
+      </View>
       <View style={styles.formContainer} > 
             <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Email" value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
+      <DatePicker
+        style={{width: '100%',paddingTop: 25}}
+        date={dob}
+        mode="date"
+        placeholder="select DOB"
+        format="DD-MM-YYYY"
+        minDate="01-01-1901"
+        maxDate="01-01-2091"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+          dateIcon: {
+            position: 'absolute',
+            right: 0,
+            top: 4,
+            marginLeft: 0
+          },
+          dateInput: {
+
+          }
+          // ... You can check the source to find the other keys.
+        }}
+        onDateChange={(date) => {setDob(date)}}
+      />
       </View>
       <View style ={{padding:20}}>
-        {firstName && lastName && email ?(
+        {firstName && lastName && email && dob && gender && weight && height ?(
           <ThemeButton title={'Sign Up'} onPress={()=>{
             setLoader(true);
           setUserData();
@@ -67,6 +129,7 @@ const SignUpScreen = ({navigation})=>{
         )}
        
       </View>
+      </ScrollView>
       </>  
     )
 }
@@ -91,6 +154,20 @@ const styles = StyleSheet.create({
     color:Colors.charcoalGrey80,
   },
   formContainer:{
-    paddingTop:30,
-  }
+    paddingTop:20,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  title: {
+    fontFamily: 'Karla-Bold',
+    fontSize: 15,
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
