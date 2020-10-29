@@ -1,11 +1,9 @@
 import React,{useState} from 'react';
 import {
-  View,Text,Button,StyleSheet,
+  View,Text,StyleSheet,
   ScrollView
 } from 'react-native';
 import ThemeButton from '../Components/ThemeButton';
-import ThemeTextInput from '../Components/ThemeTextInput';
-import ScreenNames from './../Constants/ScreenNames';
 import Colors from './../Constants/Colors';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
@@ -54,7 +52,7 @@ const SignUpScreen = ({navigation})=>{
       <ScrollView>
       <Loader show={loader} text={'Saving your Details'}/>
       <View style = {styles.container}>
-      <Text style = {styles.heading}>Please Introduce yourself</Text>
+      <Text style = {styles.heading}>Sign Up</Text>
       <View style={styles.formContainer} > 
             <TextInput mode = 'outlined' 
                   theme={{ colors: { primary:Colors.primaryColorDark}}}
@@ -84,12 +82,14 @@ const SignUpScreen = ({navigation})=>{
                         <Text>Female</Text>
                     </View>
                 </View>
+      <View style= {{flexDirection:'row'}}>         
       <View style={styles.formContainer} > 
-            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in KGs)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
+            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in kg)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in CentiMeters)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
+            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in cm)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
       </View>
+      </View> 
       <View style={styles.formContainer} > 
             <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Email" value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
@@ -113,7 +113,6 @@ const SignUpScreen = ({navigation})=>{
           dateInput: {
 
           }
-          // ... You can check the source to find the other keys.
         }}
         onDateChange={(date) => {setDob(date)}}
       />
@@ -140,11 +139,11 @@ const styles = StyleSheet.create({
    padding:20,
   },
   heading: {
-    fontSize:32,
+    fontSize:26,
     color:Colors.charcoalGrey80,
-    textAlign:'center',
-    padding:20,
-    marginBottom:20,
+    paddingTop:10,
+    paddingLeft:5,
+    paddingBottom:5,
     fontFamily: 'Karla-Bold',
   },
   label:{
@@ -154,7 +153,9 @@ const styles = StyleSheet.create({
     color:Colors.charcoalGrey80,
   },
   formContainer:{
-    paddingTop:20,
+    paddingHorizontal:2.5,
+    paddingTop:10,
+    flex:1,
   },
   row: {
     flexDirection: 'row',

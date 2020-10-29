@@ -8,8 +8,9 @@ import ThemeButton from './../Components/ThemeButton'
 import ScreenNames from '../Constants/ScreenNames';
 import Header from './../Components/Header';
 import ConfirmDialog from '../Components/ConfirmDialog';
-import { useSelector } from 'react-redux'
-import { TextInput } from 'react-native-paper';
+import { useSelector } from 'react-redux';
+import DatePicker from 'react-native-datepicker';
+import { TextInput, RadioButton } from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import Colors from './../Constants/Colors';
 import { useDispatch } from 'react-redux';
@@ -25,10 +26,10 @@ const SettingsScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
-  const [gender , setGender] = useState('Male');
-  const [dob , setDob] = useState('');
-  const [weight , setWeight] = useState('');
-  const [height , setHeight] = useState('');
+  const [gender , setGender] = useState(user.gender);
+  const [dob , setDob] = useState(user.dob);
+  const [weight , setWeight] = useState(user.weight);
+  const [height , setHeight] = useState(user.height);
   const [loader , setLoader] = useState(false);
   const [isKeyboardVisible,setKeyboardVisible] = useState(false);
   const dispatch = useDispatch();
@@ -92,7 +93,7 @@ const SettingsScreen = ({ navigation }) => {
       <Header title={'Settings'} />
       <View style={styles.container}>
 
-        <Text style={styles.heading}>Your Profile</Text>
+        <Text style={styles.heading}>Profile</Text>
         <View style={styles.formContainer} >
           <TextInput mode='outlined'
             theme={{ colors: { primary: Colors.primaryColorDark } }}
@@ -102,7 +103,7 @@ const SettingsScreen = ({ navigation }) => {
           <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Last Name" value={lastName} onChangeText={(n) => { setLastName(n) }} />
         </View>
                   <View style={styles.row}>
-                    <Text style={styles.title}>Sex:</Text>
+                    <Text style={styles.title}>Gender:</Text>
                     <View style={styles.button}>
                         <RadioButton
                             value="Male"
@@ -122,17 +123,20 @@ const SettingsScreen = ({ navigation }) => {
                         <Text>Female</Text>
                     </View>
                 </View>
+        <View style={{flexDirection:'row'}}>        
         <View style={styles.formContainer} > 
-              <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in KGs)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
+              <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in Kg)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
         </View>
         <View style={styles.formContainer} > 
-              <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in CentiMeters)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
+              <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in cm)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
+        </View>
         </View>
         <View style={styles.formContainer} >
           <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Email" value={email} onChangeText={(n) => { setEmail(n) }} />
         </View>
+        <Text style={{fontSize:11.5, marginTop:10, paddingLeft:7, color:Colors.charcoalGrey80}}>Date of Birth</Text>
         <DatePicker
-        style={{width: '100%',paddingTop: 25}}
+        style={{width: '100%',padding:5}}
         date={dob}
         mode="date"
         placeholder="select DOB"
@@ -146,11 +150,8 @@ const SettingsScreen = ({ navigation }) => {
             position: 'absolute',
             right: 0,
             top: 4,
-            marginLeft: 0
+            marginLeft: 0,
           },
-          dateInput: {
-
-          }
           // ... You can check the source to find the other keys.
         }}
         onDateChange={(date) => {setDob(date)}}
@@ -172,7 +173,13 @@ const SettingsScreen = ({ navigation }) => {
           
         </View>
         {!isKeyboardVisible && 
-        <View style={{ position: 'absolute', right: 15, bottom: 10, alignItems:'center' }}>
+        <View style={{ position: 'absolute', right: 15, bottom: 10, alignItems:'center'
+        
+        
+        
+        
+        
+         }}>
           <Icon name={'sign-out'} size={18} color={Colors.charcoalGreyMediocre} />
           <Text style={{ fontSize: 15, color: Colors.charcoalGreyMediocre, fontFamily: 'Karla-Bold' }} onPress={() => {
             ConfirmDialog('Sign Out', 'Sure to SignOut?', signOut)
@@ -192,14 +199,25 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   heading: {
-    fontSize: 25,
+    fontSize: 26,
     color: Colors.charcoalGrey80,
-    textAlign: 'center',
-    padding: 5,
+    paddingHorizontal: 10,
+    paddingBottom:15,
+    paddingTop:5,
     fontFamily: 'Karla-Bold',
   },
   formContainer: {
-    paddingTop: 30,
+    padding: 5,
+    flex:1,
+  },
+  row:{
+    flexDirection:'row',
+    justifyContent:"space-evenly",
+    alignItems:'center',
+  },
+  button:{
+    flexDirection:'row',
+    alignItems:'center',
   }
 })
 export default SettingsScreen;

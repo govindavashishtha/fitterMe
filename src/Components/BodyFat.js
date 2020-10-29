@@ -126,9 +126,9 @@ const BodyFat = () => {
             </View>
             <View style={styles.text}>
             <Text style={styles.title}>How to measure:-</Text>
-            <Text stlye ={{color: Colors.charcoalGrey80, fontSize: 10}}>1) Measure the circumference of the subject's waist at a horizontal level around the navel for men, and at the level with the smallest width for women. Ensure that the subject does not pull their stomach inwards to obtain accurate measurements.</Text>
-            <Text stlye ={{color: Colors.charcoalGrey80, fontSize: 10}}>2) Measure the circumference of the subject's neck starting below the larynx, with the tape sloping downward to the front. The subject should avoid flaring their neck outwards.</Text>
-            <Text stlye ={{color: Colors.charcoalGrey80, fontSize: 10}}>3) <Text style={{fontWeight: "bold"}}>For women only:-</Text> Measure the circumference of the subject's hips at the largest horizontal measure.</Text>
+            <Text style ={{color: Colors.charcoalGrey80, fontSize: 12}}>1) Measure the circumference of the subject's waist at a horizontal level around the navel for men, and at the level with the smallest width for women. Ensure that the subject does not pull their stomach inwards to obtain accurate measurements.</Text>
+            <Text style ={{color: Colors.charcoalGrey80, fontSize: 12}}>2) Measure the circumference of the subject's neck starting below the larynx, with the tape sloping downward to the front. The subject should avoid flaring their neck outwards.</Text>
+            <Text style ={{color: Colors.charcoalGrey80, fontSize: 12}}>3) <Text style={{fontWeight: "bold"}}>For women only:-</Text> Measure the circumference of the subject's hips at the largest horizontal measure.</Text>
             </View>
             </>
         </ScrollView>
@@ -193,6 +193,6 @@ const styles = StyleSheet.create({
       padding: 15,
     },
     text: {
-        padding: 15,
+        paddingHorizontal:15
     }
   })
