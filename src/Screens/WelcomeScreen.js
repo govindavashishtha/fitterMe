@@ -1,20 +1,24 @@
 import React from 'react';
 import {
-    View,Text,Image,StyleSheet
+    View,Text,ImageBackground,StyleSheet
   } from 'react-native';
-  import ThemeButton from '../Components/ThemeButton';
+import ThemeButton from '../Components/ThemeButton';
+
 
   const Welcome = ({navigation}) => {
       return(
         <View style = {{flex:1 , justifyContent:'space-evenly'}}>
-            <Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/welcome.jpg?alt=media&token=3c404b6e-6127-4300-8c76-98ac0978cc40'}}
-             style={{width:'100%',height: '80%', borderRadius: 10}} />
-              <Text style ={styles.text}>Welcome</Text>
-              <View style={{marginHorizontal:20,}}>
-              <ThemeButton title={'Continue➝'} onPress={()=>{
-                  navigation.navigate('TabStack');
-              }}/>
-              </View> 
+            <ImageBackground source={{uri: 'https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/deadlift1.jpg?alt=media&token=e71adc28-6818-479c-b1dd-e15e87d6151d'}}
+             style={{width:'100%',height: '100%'}} >
+              <View style={styles.end}>
+                <Text style ={styles.text}>Welcome</Text>
+                <View style={{marginHorizontal:20,}}>
+                <ThemeButton title={'Continue➝'} onPress={()=>{
+                    navigation.navigate('TabStack');
+                }}/>
+                </View> 
+              </View>
+              </ImageBackground>
         </View>
       )
   }
@@ -24,7 +28,14 @@ import {
         fontSize: 30,
         fontFamily: 'Pacifico-Regular',
         textAlign:'center',
-        color: '#333',
+        color: '#fff',
+        letterSpacing: 3,
+      }, 
+      end: {
+        flexDirection: 'column',
+        position: 'absolute',
+        bottom: 30,
+        left: '30%',
       }
   })
 
