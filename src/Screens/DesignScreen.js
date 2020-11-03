@@ -1,31 +1,35 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
-  View,Text,TextInput,
+  View, Text, TextInput,
   TouchableOpacity
 } from 'react-native';
-import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
 import Header from './../Components/Header';
 
-const DesignScreen = ()=>{
+const DesignScreen = () => {
 
   const [query, setQuery] = useState('');
   const [error, setError] = useState(false);
 
   const fetchAPI = () => {
     console.log('refreshed');
-    let YOUR_APP_ID = '0dd5e843';
-    let YOUR_APP_KEY = '3ffcdd627a25d5dbf157a3a3854af603';
+    const YOUR_APP_ID = '0dd5e843';
+    const YOUR_APP_KEY = '3ffcdd627a25d5dbf157a3a3854af603';
     let Query = query.replace(/\s/g, '%20')
     fetch(`https://api.edamam.com/api/nutrition-data?app_id=${YOUR_APP_ID}&app_key=${YOUR_APP_KEY}&ingr=${Query}`, {
       method: 'GET'
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson)
-        setError(false);
+        if (responseJson.calories == 0) {
+          setError(true);
+        } else {
+          setError(false);
+        }
+        console.log(responseJson.calories)
+
       })
       .catch((error) => {
         console.error(error);
@@ -33,34 +37,51 @@ const DesignScreen = ()=>{
       });
   }
 
-    return (
-      <>
-       <Header title={'Design'}/>
-       <View style={styles.container}>
-        <View  style={styles.icon}> 
-          <TouchableOpacity onPressIn={fetchAPI}>
-           <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
+  return (
+    <>
+      <Header title={'Design'} />
+      <View style={styles.container}>
+        <View style={styles.icon}>
+          <TouchableOpacity onPress={fetchAPI}>
+            <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
           </TouchableOpacity>
         </View>
-          <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => {setQuery(n)}} />
-          <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
-       </View>
-      </>  
-    )
+        <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} />
+        <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
+        { error ? (
+        <View style={styles.errorContainer}>
+          
+          <View style={{padding:10, marginTop:-20}}>
+            <Icon name={'paper-plane'} size={50} color={Colors.charcoalGrey80} />
+          </View>
+          <Text>Sorry, Unable to search for this Query</Text>
+          <Text>Try using another keywords</Text>
+
+        </View>) : (<></>)
+        }
+      </View>
+    </>
+  )
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent:'flex-start',
-    alignItems:'center',
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     zIndex: 0,
   },
+  errorContainer: {
+    flex: 1,
+    width: "100%",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   text: {
-    fontSize: 22,
+    fontSize: 13,
     fontFamily: 'Karla-Regular',
-    padding: 20,
-    textAlign: 'center'
+    paddingVertical: 10,
+    textAlign: 'center',
   },
   search: {
     borderColor: Colors.primaryColorDark,
@@ -70,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 12,
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 15,
   },
   icon: {
     position: 'absolute',
@@ -78,8 +99,6 @@ const styles = StyleSheet.create({
     top: 27,
     zIndex: 1,
   },
-  searchcontainer: {
 
-  }
 })
 export default DesignScreen;
