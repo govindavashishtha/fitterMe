@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import {
   StyleSheet,
   View, Text, TextInput,
-  TouchableOpacity
+  TouchableOpacity,Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
 import Header from './../Components/Header';
+import CaloriesCard from './../Components/CaloriesCard'
 
 const DesignScreen = () => {
 
   const [query, setQuery] = useState('');
   const [error, setError] = useState(false);
+  const [data, setData] = useState('');
 
   const fetchAPI = () => {
     console.log('refreshed');
@@ -27,6 +29,8 @@ const DesignScreen = () => {
           setError(true);
         } else {
           setError(false);
+          console.log(responseJson)
+          setData(responseJson);
         }
         console.log(responseJson.calories)
 
@@ -57,7 +61,11 @@ const DesignScreen = () => {
           <Text>Sorry, Unable to search for this Query</Text>
           <Text>Try using another keywords</Text>
 
-        </View>) : (<></>)
+        </View>) : (
+          <>
+              {/* <CaloriesCard Item={data} /> */}
+          </>
+        )
         }
       </View>
     </>
