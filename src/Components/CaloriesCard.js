@@ -8,7 +8,7 @@ import Colors from '../Constants/Colors';
 const CaloriesCard = ({Item}) => {
     return(
         <>
-            <View>
+            <View style ={styles.container}>
                 <Text>
                 {Item.totalNutrients.PROCNT.label} : {Item.totalNutrients.PROCNT.quantity} {Item.totalNutrients.PROCNT.unit}
                 </Text>
@@ -70,5 +70,10 @@ const CaloriesCard = ({Item}) => {
         </>
     )
 }
+const styles =  StyleSheet.create({
+    container:{
+        borderWidth:1,
+    }
+})
 
 export default CaloriesCard

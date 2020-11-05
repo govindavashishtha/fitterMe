@@ -7,13 +7,23 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
 import Header from './../Components/Header';
-import CaloriesCard from './../Components/CaloriesCard'
+import CaloriesCard from './../Components/CaloriesCard';
+import Loader from './../Components/Loader';
 
 const DesignScreen = () => {
 
   const [query, setQuery] = useState('');
   const [error, setError] = useState(false);
-  const [data, setData] = useState('');
+  const [data, setData] = useState(null);
+  const [loader , setLoader] = useState(false);
+
+  const ShowData = () =>{
+    if(data){
+      return(<CaloriesCard Item={data}/>)
+    }else{
+      return(null);
+    }
+  }
 
   const fetchAPI = () => {
     console.log('refreshed');
@@ -27,26 +37,28 @@ const DesignScreen = () => {
       .then((responseJson) => {
         if (responseJson.calories == 0) {
           setError(true);
+          setLoader(false);
         } else {
           setError(false);
           console.log(responseJson)
           setData(responseJson);
+          setLoader(false);
         }
-        console.log(responseJson.calories)
-
       })
       .catch((error) => {
         console.error(error);
         setError(true);
+        setLoader(false);
       });
   }
 
   return (
     <>
+     <Loader  show={loader} text={'Searching'}/>
       <Header title={'Design'} />
       <View style={styles.container}>
         <View style={styles.icon}>
-          <TouchableOpacity onPress={fetchAPI}>
+          <TouchableOpacity onPress={()=>{setLoader(true); fetchAPI();}}>
             <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
           </TouchableOpacity>
         </View>
@@ -62,9 +74,7 @@ const DesignScreen = () => {
           <Text>Try using another keywords</Text>
 
         </View>) : (
-          <>
-              {/* <CaloriesCard Item={data} /> */}
-          </>
+           <ShowData/>
         )
         }
       </View>
