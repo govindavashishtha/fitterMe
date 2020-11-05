@@ -4,68 +4,74 @@ import {
     View, Text, Image, ImageBackground,TouchableOpacity,SafeAreaView
 } from 'react-native';
 import Colors from '../Constants/Colors';
+import ExtenedLine from './../Components/ExtendedLine'
 
 const CaloriesCard = ({Item}) => {
     return(
         <>
             <View style ={styles.container}>
-                <Text>
-                {Item.totalNutrients.PROCNT.label} : {Item.totalNutrients.PROCNT.quantity} {Item.totalNutrients.PROCNT.unit}
+                <Text style={styles.text}>
+                    Total Calories : {Item.calories} Kcal
                 </Text>
-                <Text>
-                {Item.totalNutrients.CHOCDF.label} : {Item.totalNutrients.CHOCDF.quantity} {Item.totalNutrients.CHOCDF.unit}
+                <Text style={styles.text}>
+                    Total Weight : {Item.totalWeight} g
                 </Text>
-                <Text>
-                {Item.totalNutrients.ENERC_KCAL.label} : {Item.totalNutrients.ENERC_KCAL.quantity} {Item.totalNutrients.ENERC_KCAL.unit}
+                {/* <ExtenedLine /> */}
+                <Text style={styles.text}>
+                {Item.totalNutrients.PROCNT.label} : {Item.totalNutrients.PROCNT.quantity.toFixed(3)} {Item.totalNutrients.PROCNT.unit}
                 </Text>
-                <Text>
-                {Item.totalNutrients.FAT.label} : {Item.totalNutrients.FAT.quantity} {Item.totalNutrients.FAT.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.FATRN.label} : {Item.totalNutrients.FATRN.quantity} {Item.totalNutrients.FATRN.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.FASAT.label} : {Item.totalNutrients.FASAT.quantity} {Item.totalNutrients.FASAT.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.FAPU.label} : {Item.totalNutrients.FAPU.quantity} {Item.totalNutrients.FAPU.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.FAMS.label} : {Item.totalNutrients.FAMS.quantity} {Item.totalNutrients.FAMS.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.FE.label} : {Item.totalNutrients.FE.quantity} {Item.totalNutrients.FE.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.K.label} : {Item.totalNutrients.K.quantity} {Item.totalNutrients.K.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.MG.label} : {Item.totalNutrients.MG.quantity} {Item.totalNutrients.MG.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.NA.label} : {Item.totalNutrients.NA.quantity} {Item.totalNutrients.NA.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.ZN.label} : {Item.totalNutrients.ZN.quantity} {Item.totalNutrients.ZN.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.P.label} : {Item.totalNutrients.P.quantity} {Item.totalNutrients.P.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.VITA_RAE.label} : {Item.totalNutrients.VITA_RAE.quantity} {Item.totalNutrients.VITA_RAE.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.VITC.label} : {Item.totalNutrients.VITC.quantity} {Item.totalNutrients.VITC.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.VITD.label} : {Item.totalNutrients.VITD.quantity} {Item.totalNutrients.VITD.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.TOCPHA.label} : {Item.totalNutrients.TOCPHA.quantity} {Item.totalNutrients.TOCPHA.unit}
-                </Text>
-                <Text>
-                {Item.totalNutrients.WATER.label} : {Item.totalNutrients.WATER.quantity} {Item.totalNutrients.WATER.unit}
-                </Text>
+                {/* <ExtenedLine /> */}
+                {Item.totalNutrients.CHOCDF ? (<Text style={styles.text}>
+                {Item.totalNutrients.CHOCDF.label} : {Item.totalNutrients.CHOCDF.quantity.toFixed(3)} {Item.totalNutrients.CHOCDF.unit}
+                </Text>) : (<></>)}
+                
+                {/* <ExtenedLine /> */}
+                {Item.totalNutrients.FAT ? (<Text style={styles.text}>
+                Total {Item.totalNutrients.FAT.label} : {Item.totalNutrients.FAT.quantity.toFixed(3)} {Item.totalNutrients.FAT.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.FASAT ? (<Text style={styles.text1}>
+                {Item.totalNutrients.FASAT.label} Fat : {Item.totalNutrients.FASAT.quantity.toFixed(3)} {Item.totalNutrients.FASAT.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.FAT && Item.totalNutrients.FASAT ? (<Text style={styles.text1}>
+                Unsaturated Fat : {Item.totalNutrients.FAT.quantity.toFixed(3) - Item.totalNutrients.FASAT.quantity.toFixed(3)} {Item.totalNutrients.FAPU.unit}
+                </Text>) : (<></>)}
+                
+                {/* <ExtenedLine /> */}
+                <Text style={styles.text}>Macros and Micros</Text>
+                {Item.totalNutrients.FE ? (<Text style={styles.text1}>
+                {Item.totalNutrients.FE.label} : {Item.totalNutrients.FE.quantity.toFixed(3)} {Item.totalNutrients.FE.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.K ? (<Text style={styles.text1}>
+                {Item.totalNutrients.K.label} : {Item.totalNutrients.K.quantity.toFixed(3)} {Item.totalNutrients.K.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.MG ? (<Text style={styles.text1}>
+                {Item.totalNutrients.MG.label} : {Item.totalNutrients.MG.quantity.toFixed(3)} {Item.totalNutrients.MG.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.NA ? (<Text style={styles.text1}>
+                {Item.totalNutrients.NA.label} : {Item.totalNutrients.NA.quantity.toFixed(3)} {Item.totalNutrients.NA.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.ZN ? (<Text style={styles.text1}>
+                {Item.totalNutrients.ZN.label} : {Item.totalNutrients.ZN.quantity.toFixed(3)} {Item.totalNutrients.ZN.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.P ? (<Text style={styles.text1}>
+                {Item.totalNutrients.P.label} : {Item.totalNutrients.P.quantity.toFixed(3)} {Item.totalNutrients.P.unit}
+                </Text>) : (<></>)}
+                
+                {/* <ExtenedLine /> */}
+                <Text style={styles.text}>Vitamins</Text>
+                {Item.totalNutrients.VITA_RAE ? (<Text style={styles.text1}>
+                {Item.totalNutrients.VITA_RAE.label} : {Item.totalNutrients.VITA_RAE.quantity.toFixed(3)} {Item.totalNutrients.VITA_RAE.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.VITC ? (<Text style={styles.text1}>
+                {Item.totalNutrients.VITC.label} : {Item.totalNutrients.VITC.quantity.toFixed(3)} {Item.totalNutrients.VITC.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.VITD ? (<Text style={styles.text1}>
+                {Item.totalNutrients.VITD.label} : {Item.totalNutrients.VITD.quantity.toFixed(3)} {Item.totalNutrients.VITD.unit}
+                </Text>) : (<></>)}
+                {Item.totalNutrients.TOCPHA ? (<Text style={styles.text1}>
+                {Item.totalNutrients.TOCPHA.label} : {Item.totalNutrients.TOCPHA.quantity.toFixed(3)} {Item.totalNutrients.TOCPHA.unit}
+                </Text>) : (<></>)}
+                
             </View>
         </>
     )
@@ -73,6 +79,20 @@ const CaloriesCard = ({Item}) => {
 const styles =  StyleSheet.create({
     container:{
         borderWidth:1,
+        borderRadius: 10,
+        padding: 20,
+        width: '60%',
+        alignItems: 'baseline',
+        justifyContent: 'center'
+    },
+    text: {
+        fontFamily: 'Karla-Bold',
+        fontSize: 16,
+        marginTop: 10,
+    },
+    text1: {
+        fontFamily: 'Karla-Regular',
+        fontSize: 14,
     }
 })
 
