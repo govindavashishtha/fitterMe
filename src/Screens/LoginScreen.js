@@ -30,12 +30,12 @@ const renderItem = ({item , index}) =>{
 }
 const  carouselItems =  [
   {
-    title:"https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/food.jpg?alt=media&token=05e7d672-5cc6-46bf-a96d-7fcf6feb9c1f",
+    title:"https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/food.jpg?alt=media&token=26bf1ee7-bf59-4ed5-85bf-6b19199151b4",
       text: "Explore Foods and Dishes",
     
   },
   {
-      title:"https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/diet.jpg?alt=media&token=ddcbc379-6353-45bf-870a-e9230f31572e",
+      title:"https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/diet.jpg?alt=media&token=268b3e21-699f-441f-9491-4a473c09274d",
       text: "Plan your own Diet",
   },
   {

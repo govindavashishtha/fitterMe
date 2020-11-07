@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "559570895605-323v5hgvg79urvsjp17s5t6nupd3vort.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitfut",
+            "certificate_hash": "3912a48650daa043f0742a88e6d75cc9a344088e"
+          }
+        },
+        {
+          "client_id": "559570895605-b4kue0u8des5j8gpmsci9fiiu9h752dt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitfut",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "559570895605-qdtsaf1oc04nmn14vhhebfe5oq20n9in.apps.googleusercontent.com",
           "client_type": 3
         }
