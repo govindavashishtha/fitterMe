@@ -14,7 +14,7 @@ const CaloriesCard = ({Item}) => {
                     Total Calories : {Item.calories} Kcal
                 </Text>
                 <Text style={styles.text}>
-                    Total Weight : {Item.totalWeight} g
+                    Total Weight : {Item.totalWeight.toFixed(3)} g
                 </Text>
                 {/* <ExtenedLine /> */}
                 <Text style={styles.text}>
