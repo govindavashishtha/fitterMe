@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  View, Text, StyleSheet
+  View, Text, StyleSheet, Alert, Linking, BackHandler
 } from 'react-native';
 import Colors from '../Constants/Colors';
 import ScreenNames from './../Constants/ScreenNames';
@@ -9,7 +9,7 @@ import LoadingDots from "react-native-loading-dots";
 import database from '@react-native-firebase/database';
 import { useDispatch } from 'react-redux';
 import { setData, setUser } from '../react-redux/actions';
-
+import VersionCheck from 'react-native-version-check';
 const LoadingScreen = ({ navigation }) => {
   const apiKeys = ['59ed4d1096c14181ac87f374a460e0c1',
     '4885a26a44d14c6cb3bd5aed4a203884',
@@ -29,6 +29,30 @@ const LoadingScreen = ({ navigation }) => {
         console.error(error);
       });
   }
+
+  const checkVersion = async () => {
+    try {
+      let updateNeeded = await VersionCheck.needUpdate();
+
+      if(updateNeeded && updateNeeded.isNeeded) {
+        Alert.alert(
+          'New Update',
+          'New update available, Update for better performance and bug fixes.',
+          [
+            {
+              text: 'Update Now',
+              onPress: () => {
+                BackHandler.exitApp();
+                Linking.openURL('https://play.google.com/store/apps/details?id=com.fitfut');
+              },
+            },
+          ], 
+            {cancelable: false},
+        );
+      }
+    } catch(error) {console.log(error)}
+  };
+
   const checkUser = async () => {
     if (auth().currentUser) {
       const phone = await auth().currentUser.phoneNumber;
@@ -51,6 +75,7 @@ const LoadingScreen = ({ navigation }) => {
   useEffect(() => {
     fetchAPI();
     setTimeout(checkUser, 2000);
+    // checkVersion();
   }, [navigation]);
   return (
     <View style={styles.container}>
