@@ -75,7 +75,7 @@ const LoadingScreen = ({ navigation }) => {
   useEffect(() => {
     fetchAPI();
     setTimeout(checkUser, 2000);
-    // checkVersion();
+    checkVersion();
   }, [navigation]);
   return (
     <View style={styles.container}>

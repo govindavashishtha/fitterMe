@@ -44,9 +44,7 @@ const  carouselItems =  [
   },
 ]
 const LoginScreen = ({navigation})=>{
-  const loginHandler = ()=>{
-      
-  }
+ 
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../assets/loading.jpg')} style={styles.image}>

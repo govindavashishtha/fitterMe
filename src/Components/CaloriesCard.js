@@ -10,16 +10,25 @@ const CaloriesCard = ({Item}) => {
     return(
         <>
             <View style ={styles.container}>
-                <Text style={styles.text}>
+                {Item.calories ? (
+                    <Text style={styles.text}>
                     Total Calories : {Item.calories} Kcal
                 </Text>
-                <Text style={styles.text}>
+                ) : null}
+
+                {Item.totalWeight ? (
+                    <Text style={styles.text}>
                     Total Weight : {Item.totalWeight.toFixed(3)} g
                 </Text>
+                ) : null}
+                
                 {/* <ExtenedLine /> */}
-                <Text style={styles.text}>
+                {Item.totalNutrients.PROCNT ? (
+                    <Text style={styles.text}>
                 {Item.totalNutrients.PROCNT.label} : {Item.totalNutrients.PROCNT.quantity.toFixed(3)} {Item.totalNutrients.PROCNT.unit}
                 </Text>
+                ) : null}
+               
                 {/* <ExtenedLine /> */}
                 {Item.totalNutrients.CHOCDF ? (<Text style={styles.text}>
                 {Item.totalNutrients.CHOCDF.label} : {Item.totalNutrients.CHOCDF.quantity.toFixed(3)} {Item.totalNutrients.CHOCDF.unit}

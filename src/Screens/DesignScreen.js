@@ -16,7 +16,15 @@ const DesignScreen = () => {
   const [error, setError] = useState(false);
   const [data, setData] = useState(null);
   const [loader , setLoader] = useState(false);
-
+  
+  const apiKeys = [
+    {id:'4e18da1c',key:'f3febcf06129e0a997f01ca869a8fc9b'},
+    {id:'637f0343',key:'f11ca2c4da5076e81c83b2ba5aed2c56a'},
+    {id:'e301e438',key:'10d90fe5af2e277e39179d43cbd2cd09'},
+    {id:'9d5826ac',key:'21d803b54cf439280a6a243119672e0d'},
+    {id:'53ec4d19',key:'e61fdb3cd19724aa1bd74ce7db12b871'},
+    {id:'0dd5e843',key:'3ffcdd627a25d5dbf157a3a3854af603'},
+  ]
   const ShowData = () =>{
     if(data){
       return(<CaloriesCard Item={data}/>)
@@ -24,13 +32,15 @@ const DesignScreen = () => {
       return(null);
     }
   }
+   
+  const YOUR_APP_ID = 'e301e438';
+  const YOUR_APP_KEY = '10d90fe5af2e277e39179d43cbd2cd09';
 
   const fetchAPI = () => {
+    const index = Math.floor(Math.random() * 6);
     console.log('refreshed');
-    const YOUR_APP_ID = '0dd5e843';
-    const YOUR_APP_KEY = '3ffcdd627a25d5dbf157a3a3854af603';
     let Query = query.replace(/\s/g, '%20')
-    fetch(`https://api.edamam.com/api/nutrition-data?app_id=${YOUR_APP_ID}&app_key=${YOUR_APP_KEY}&ingr=${Query}`, {
+     fetch(`https://api.edamam.com/api/nutrition-data?app_id=${apiKeys[index].id}&app_key=${apiKeys[index].key}&ingr=${Query}`, { 
       method: 'GET'
     })
       .then((response) => response.json())
@@ -113,8 +123,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    right: '10%',
-    top: "4%",
+    right: 40,
+    top: 27,
     zIndex: 1,
   },
 
