@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   StyleSheet,
   View, Text, TextInput,
-  TouchableOpacity,Image
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    right: 37,
-    top: 27,
+    right: '10%',
+    top: "4%",
     zIndex: 1,
   },
 

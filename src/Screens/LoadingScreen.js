@@ -18,7 +18,7 @@ const LoadingScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const fetchAPI = () => {
-    fetch(`http://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${apiKeys[Math.floor(Math.random() * 4)]}`, {
+    fetch(`https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${apiKeys[Math.floor(Math.random() * 4)]}`, {
       method: 'GET'
     })
       .then((response) => response.json())
