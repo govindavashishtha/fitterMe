@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   StyleSheet,
   View, Text, TextInput,
-  TouchableOpacity,
+  TouchableOpacity,ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
@@ -66,6 +66,7 @@ const DesignScreen = () => {
     <>
      <Loader  show={loader} text={'Searching'}/>
       <Header title={'Design'} />
+      <ScrollView>
       <View style={styles.container}>
         <View style={styles.icon}>
           <TouchableOpacity onPress={()=>{setLoader(true); fetchAPI();}}>
@@ -88,6 +89,7 @@ const DesignScreen = () => {
         )
         }
       </View>
+      </ScrollView>
     </>
   )
 }

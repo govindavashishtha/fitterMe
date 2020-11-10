@@ -31,16 +31,17 @@ const CalculateScreen = () => {
   return (
     <>
       <Header title={'Calculate'} />
-      <ScrollView>
+      
         <View style={styles.container}>
           <View style={styles.horizontal}>
             <Text style={index == 0 ?styles.activeText:styles.text} onPress={() => { setIndex(0) }}>BMI</Text>
             <Text style={index == 1 ?styles.activeText:styles.text} onPress={() => { setIndex(1) }}>Maintain</Text>
             <Text style={index == 2 ?styles.activeText:styles.text} onPress={() => { setIndex(2) }}>BodyFat</Text>
           </View>
+          <ScrollView>
           <ComponentRenderer />
+          </ScrollView>
         </View>
-      </ScrollView> 
     </>
   )
 }

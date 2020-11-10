@@ -88,9 +88,10 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <>
-    <ScrollView>
+    
       <Loader show={loader} text={'Updating Details'}/>
       <Header title={'Settings'} />
+      <ScrollView>
       <View style={styles.container}>
 
         <Text style={styles.heading}>Profile</Text>
