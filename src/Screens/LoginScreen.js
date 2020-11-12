@@ -7,12 +7,14 @@ import Carousel from 'react-native-snap-carousel';
 import Colors from '../Constants/Colors';
 
 const screen = Dimensions.get("screen");
+const carouselItemWidth = screen.width / 1.12;
+const carouselItemHeight = screen.height / 2.1;
 const renderItem = ({item , index}) =>{
   return (
     <View style={{
         backgroundColor:'floralwhite',
         borderRadius: 10,
-        height: 400,
+        height: carouselItemHeight,
         marginLeft: 25,
         marginRight: 30, }}>
       <View style={{marginBottom:-22}}>
@@ -49,13 +51,13 @@ const LoginScreen = ({navigation})=>{
     <View style={styles.container}>
       <ImageBackground source={require('./../assets/loading.jpg')} style={styles.image}>
       <View style={styles.ImageContainer}> 
-      <View style ={ { flex: 1, flexDirection:'row', justifyContent: 'center',marginTop:40, }}>
+      <View style ={ { flex: 1, flexDirection:'row', justifyContent: 'center',marginTop:'15%', }}>
       <Carousel
             layout={'stack'}
             data={carouselItems}
             renderItem={renderItem}
             sliderWidth={screen.width}
-            itemWidth={350}
+            itemWidth={carouselItemWidth}
             autoplay={true}
             autoplayInterval={1500}
           />
@@ -63,7 +65,7 @@ const LoginScreen = ({navigation})=>{
       <View>
       <Text style ={{fontSize:30,color:'white', fontFamily:'Pacifico-Regular', textAlign:'center',}}>fitterMe</Text>
       </View>
-      <View style={{margin:10,}}>
+      <View style={{margin:"3%",}}>
       <ThemeButton  onPress={()=>{
         navigation.navigate('PhoneLogIn')}} title={'Log In'}/>
       </View>
