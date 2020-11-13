@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import {
-  StyleSheet, StatusBar
+  StyleSheet, StatusBar, Text , TextInput
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -8,10 +8,20 @@ import Colors from "./src/Constants/Colors"
 import LoadingNavigationStack from './src/Navigation/SwitchNavigator';
 import { Provider } from 'react-redux';
 import store from './src/react-redux/store';
-import SignUpScreen from './src/Screens/SignUpScreen'
 
 
 const AppWrapper = () =>{
+
+  useEffect(() => {
+    // for force Scaling Text and TextInput to default Size
+
+    if (Text.defaultProps == null) Text.defaultProps = {};
+    Text.defaultProps.allowFontScaling = false;
+
+    if (TextInput.defaultProps == null) TextInput.defaultProps = {};
+    TextInput.defaultProps.allowFontScaling = false;
+    
+  });
   return(
     <Provider store={store}>
     <App />
@@ -30,7 +40,6 @@ const AppWrapper = () =>{
          <LoadingNavigationStack />
       </NavigationContainer>
       </SafeAreaProvider>
-      // <SignUpScreen />
     );
   }
 

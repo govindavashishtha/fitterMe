@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button, TextInput, View, Text,StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
@@ -7,7 +6,7 @@ import ThemeNumberInput from '../Components/ThemeNumberInput';
 import Colors from '../Constants/Colors';
 import Loader from '../Components/Loader';
 import database from '@react-native-firebase/database';
-import Droplist from '../Components/Droplist'
+
 const PhoneLoginScreen = ({navigation})=>{
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [confirm, setConfirm] = useState(null);
@@ -77,11 +76,10 @@ const PhoneLoginScreen = ({navigation})=>{
           <View style = {styles.horizontal}>
           <Text style={{fontSize:15, paddingBottom:6.5,fontFamily:'Karla-Regular',}}>+91 -</Text>
           <View style={{minWidth:'30%'}}>
-          <ThemeNumberInput keyboard={'number-pad'} maxLength={10} onChangeText = {(text)=>{setPhone(text)}} placeholder={'e.g. 9876543210'} value={phone}/>
+          <ThemeNumberInput keyboard={'number-pad'} maxLength={10} onChangeText = {(text)=>{setPhone(text)}} placeholder={' 9876543210 '} value={phone}/>
           </View>
           </View>
         </View>
-          {/* <Droplist /> */}
           {!isValidPhone && <Text style={{color:'red', fontSize:10,padding:5, textAlign:'center'}}>Invalid Phone Number!</Text>}
          <View style={{marginTop:50,marginHorizontal:20,}}>
          <ThemeButton
@@ -102,7 +100,7 @@ const PhoneLoginScreen = ({navigation})=>{
       <Text style = {styles.text}>Enter the OTP sent to +91-{phone}</Text>
           <View style = {styles.horizontal}>
           <View style={{minWidth:'21%'}}>
-          <ThemeNumberInput keyboard={'number-pad'} maxLength={6} value={code} onChangeText={text => setCode(text)} placeholder={'e.g. 123456'}/>
+          <ThemeNumberInput keyboard={'number-pad'} maxLength={6} value={code} onChangeText={text => setCode(text)} placeholder={' 123456 '}/>
           </View>
           </View>
           {invalidOTP && <Text style={{color:'red', fontSize:10,padding:5, textAlign:'center'}}>Invalid OTP! Try Again...</Text>}
