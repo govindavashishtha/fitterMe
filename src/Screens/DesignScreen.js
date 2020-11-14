@@ -9,6 +9,7 @@ import Colors from '../Constants/Colors';
 import Header from './../Components/Header';
 import CaloriesCard from './../Components/CaloriesCard';
 import Loader from './../Components/Loader';
+import DropDownPicker from "react-native-dropdown-picker";
 
 const DesignScreen = () => {
 
@@ -27,7 +28,29 @@ const DesignScreen = () => {
   ]
   const ShowData = () =>{
     if(data){
-      return(<CaloriesCard Item={data}/>)
+      return(
+        <>
+      <CaloriesCard Item={data}/>
+      <Text style={styles.text1}>Add to the diet:</Text>
+      <View style={styles.list}>
+           <DropDownPicker
+                items={[
+                    { label: 'Breakfast', value: '1' },
+                    { label: 'Lunch', value: '2' },
+                    { label: 'Pre-Workout', value: '3' },
+                    { label: 'Post-Workout', value: '4' },
+                    { label: 'Dinner', value: '5' },
+                ]}
+                placeholder="Select...."
+                containerStyle={{ height: 40 }}
+                dropDownMaxHeight={150}
+                style={{ backgroundColor: Colors.gray }}
+                dropDownStyle={{ backgroundColor: Colors.gray }}
+                onChangeItem={item => console.log(item.value)}
+            />
+           </View>
+      </>
+      )
     }else{
       return(null);
     }
@@ -85,7 +108,9 @@ const DesignScreen = () => {
           <Text>Try using another keywords</Text>
 
         </View>) : (
-           <ShowData/>
+          <View>
+           <ShowData/>  
+           </View>  
         )
         }
       </View>
@@ -100,6 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     zIndex: 0,
+    position: 'relative',
   },
   errorContainer: {
     flex: 1,
@@ -111,6 +137,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: 'Karla-Regular',
     paddingVertical: 10,
+    textAlign: 'center',
+  },
+  text1: {
+    fontSize: 13,
+    fontFamily: 'Karla-Bold',
+    paddingVertical: 20,
     textAlign: 'center',
   },
   search: {
@@ -129,6 +161,12 @@ const styles = StyleSheet.create({
     top: 27,
     zIndex: 1,
   },
+  list: {
+    position: 'relative',
+    zIndex:1,
+    marginBottom: 180,
+    flex:1
+  }
 
 })
 export default DesignScreen;
