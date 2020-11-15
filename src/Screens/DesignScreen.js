@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   StyleSheet,
   View, Text, TextInput,
-  TouchableOpacity,ScrollView
+  TouchableOpacity, ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
@@ -10,60 +10,66 @@ import Header from './../Components/Header';
 import CaloriesCard from './../Components/CaloriesCard';
 import Loader from './../Components/Loader';
 import DropDownPicker from "react-native-dropdown-picker";
+import ThemeButton from './../Components/ThemeButton';
+import ThemeButtonDisabled from './../Components/ThemeButtonDisabled';
+import toast from './../Components/Toast';
 
 const DesignScreen = () => {
 
   const [query, setQuery] = useState('');
   const [error, setError] = useState(false);
   const [data, setData] = useState(null);
-  const [loader , setLoader] = useState(false);
-  
+  const [loader, setLoader] = useState(false);
+  const [mealTime, setMealTime] = useState();
+
   const apiKeys = [
-    {id:'4e18da1c',key:'f3febcf06129e0a997f01ca869a8fc9b'},
-    {id:'637f0343',key:'f11ca2c4da5076e81c83b2ba5aed2c56a'},
-    {id:'e301e438',key:'10d90fe5af2e277e39179d43cbd2cd09'},
-    {id:'9d5826ac',key:'21d803b54cf439280a6a243119672e0d'},
-    {id:'53ec4d19',key:'e61fdb3cd19724aa1bd74ce7db12b871'},
-    {id:'0dd5e843',key:'3ffcdd627a25d5dbf157a3a3854af603'},
+    { id: '4e18da1c', key: 'f3febcf06129e0a997f01ca869a8fc9b' },
+    { id: '637f0343', key: 'f11ca2c4da5076e81c83b2ba5aed2c56a' },
+    { id: 'e301e438', key: '10d90fe5af2e277e39179d43cbd2cd09' },
+    { id: '9d5826ac', key: '21d803b54cf439280a6a243119672e0d' },
+    { id: '53ec4d19', key: 'e61fdb3cd19724aa1bd74ce7db12b871' },
+    { id: '0dd5e843', key: '3ffcdd627a25d5dbf157a3a3854af603' },
   ]
-  const ShowData = () =>{
-    if(data){
-      return(
+  const ShowData = () => {
+    if (data) {
+      return (
         <>
-      <CaloriesCard Item={data}/>
-      <Text style={styles.text1}>Add to the diet:</Text>
-      <View style={styles.list}>
-           <DropDownPicker
-                items={[
-                    { label: 'Breakfast', value: '1' },
-                    { label: 'Lunch', value: '2' },
-                    { label: 'Pre-Workout', value: '3' },
-                    { label: 'Post-Workout', value: '4' },
-                    { label: 'Dinner', value: '5' },
-                ]}
-                placeholder="Select...."
-                containerStyle={{ height: 40 }}
-                dropDownMaxHeight={150}
-                style={{ backgroundColor: Colors.gray }}
-                dropDownStyle={{ backgroundColor: Colors.gray }}
-                onChangeItem={item => console.log(item.value)}
+          <CaloriesCard Item={data} />
+          <Text style={styles.text1}>Add to the diet:</Text>
+          <View style={styles.list}>
+            <DropDownPicker
+              items={[
+                { label: 'Breakfast', value: '1' },
+                { label: 'Lunch', value: '2' },
+                { label: 'Pre-Workout', value: '3' },
+                { label: 'Post-Workout', value: '4' },
+                { label: 'Dinner', value: '5' },
+              ]}
+              placeholder="Select a meal time..."
+              containerStyle={{ height: 40 }}
+              dropDownMaxHeight={100}
+              style={{ backgroundColor: Colors.gray }}
+              dropDownStyle={{ backgroundColor: Colors.gray }}
+              onChangeItem={item => setMealTime(item.value)}
             />
-           </View>
-      </>
+            <View>
+              {mealTime ?
+                <ThemeButton onPress={() => { console.log(mealTime) }} title={'Add'} /> :
+                <ThemeButtonDisabled onPress={() => { toast("Please select a meal time") }} title={'Add'} />}
+            </View>
+          </View>
+        </>
       )
-    }else{
-      return(null);
+    } else {
+      return (null);
     }
   }
-   
-  const YOUR_APP_ID = 'e301e438';
-  const YOUR_APP_KEY = '10d90fe5af2e277e39179d43cbd2cd09';
 
   const fetchAPI = () => {
     const index = Math.floor(Math.random() * 6);
     console.log('refreshed');
     let Query = query.replace(/\s/g, '%20')
-     fetch(`https://api.edamam.com/api/nutrition-data?app_id=${apiKeys[index].id}&app_key=${apiKeys[index].key}&ingr=${Query}`, { 
+    fetch(`https://api.edamam.com/api/nutrition-data?app_id=${apiKeys[index].id}&app_key=${apiKeys[index].key}&ingr=${Query}`, {
       method: 'GET'
     })
       .then((response) => response.json())
@@ -87,33 +93,33 @@ const DesignScreen = () => {
 
   return (
     <>
-     <Loader  show={loader} text={'Searching'}/>
+      <Loader show={loader} text={'Searching'} />
       <Header title={'Design'} />
       <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.icon}>
-          <TouchableOpacity onPress={()=>{setLoader(true); fetchAPI();}}>
-            <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
-          </TouchableOpacity>
-        </View>
-        <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} />
-        <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
-        { error ? (
-        <View style={styles.errorContainer}>
-          
-          <View style={{padding:10, marginTop:-20}}>
-            <Icon name={'paper-plane'} size={50} color={Colors.charcoalGrey80} />
+        <View style={styles.container}>
+          <View style={styles.icon}>
+            <TouchableOpacity onPress={() => { setLoader(true); fetchAPI(); }}>
+              <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
+            </TouchableOpacity>
           </View>
-          <Text>Sorry, Unable to search for this Query</Text>
-          <Text>Try using another keywords</Text>
+          <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} />
+          <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
+          {error ? (
+            <View style={styles.errorContainer}>
 
-        </View>) : (
-          <View>
-           <ShowData/>  
-           </View>  
-        )
-        }
-      </View>
+              <View style={{ padding: 10, marginTop: -20 }}>
+                <Icon name={'paper-plane'} size={50} color={Colors.charcoalGrey80} />
+              </View>
+              <Text>Sorry, Unable to search for this Query</Text>
+              <Text>Try using another keywords</Text>
+
+            </View>) : (
+              <View>
+                <ShowData />
+              </View>
+            )
+          }
+        </View>
       </ScrollView>
     </>
   )
@@ -142,7 +148,7 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: 13,
     fontFamily: 'Karla-Bold',
-    paddingVertical: 20,
+    paddingVertical: 10,
     textAlign: 'center',
   },
   search: {
@@ -163,9 +169,9 @@ const styles = StyleSheet.create({
   },
   list: {
     position: 'relative',
-    zIndex:1,
-    marginBottom: 180,
-    flex:1
+    marginBottom: 60,
+    flex: 1,
+    marginHorizontal: "-20%",
   }
 
 })
