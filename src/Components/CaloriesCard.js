@@ -3,8 +3,7 @@ import {
     StyleSheet,Linking,
     View, Text, Image, ImageBackground,TouchableOpacity,SafeAreaView
 } from 'react-native';
-import Colors from '../Constants/Colors';
-import ExtenedLine from './../Components/ExtendedLine'
+
 
 const CaloriesCard = ({Item}) => {
     return(
@@ -23,7 +22,7 @@ const CaloriesCard = ({Item}) => {
                 ) : null}
                 
                 {/* <ExtenedLine /> */}
-                {Item.totalNutrients.PROCNT ? (
+                {Item.totalNutrients.PROCNT && Item.totalNutrients? (
                     <Text style={styles.text}>
                 {Item.totalNutrients.PROCNT.label} : {Item.totalNutrients.PROCNT.quantity.toFixed(3)} {Item.totalNutrients.PROCNT.unit}
                 </Text>

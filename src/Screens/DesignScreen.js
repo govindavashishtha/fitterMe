@@ -29,7 +29,12 @@ const DesignScreen = () => {
     { id: '9d5826ac', key: '21d803b54cf439280a6a243119672e0d' },
     { id: '53ec4d19', key: 'e61fdb3cd19724aa1bd74ce7db12b871' },
     { id: '0dd5e843', key: '3ffcdd627a25d5dbf157a3a3854af603' },
-  ]
+  ];
+
+  const addToDiet = () =>{
+    console.log(mealTime);
+    console.log(data);
+  }
   const ShowData = () => {
     if (data) {
       return (
@@ -39,11 +44,11 @@ const DesignScreen = () => {
           <View style={styles.list}>
             <DropDownPicker
               items={[
-                { label: 'Breakfast', value: '1' },
-                { label: 'Lunch', value: '2' },
-                { label: 'Pre-Workout', value: '3' },
-                { label: 'Post-Workout', value: '4' },
-                { label: 'Dinner', value: '5' },
+                { label: 'Breakfast', value: 'Breakfast' },
+                { label: 'Lunch', value: 'Lunch' },
+                { label: 'Pre-Workout', value: 'Pre-Workout' },
+                { label: 'Post-Workout', value: 'Post-Workout' },
+                { label: 'Dinner', value: 'Dinner' },
               ]}
               placeholder="Select a meal time..."
               containerStyle={{ height: 40 }}
@@ -54,7 +59,7 @@ const DesignScreen = () => {
             />
             <View>
               {mealTime ?
-                <ThemeButton onPress={() => { console.log(mealTime) }} title={'Add'} /> :
+                <ThemeButton onPress={addToDiet} title={'Add'} /> :
                 <ThemeButtonDisabled onPress={() => { toast("Please select a meal time") }} title={'Add'} />}
             </View>
           </View>
@@ -67,8 +72,7 @@ const DesignScreen = () => {
 
   const fetchAPI = () => {
     const index = Math.floor(Math.random() * 6);
-    console.log('refreshed');
-    let Query = query.replace(/\s/g, '%20')
+    let Query = query.trim().replace(/\s/g, '%20');
     fetch(`https://api.edamam.com/api/nutrition-data?app_id=${apiKeys[index].id}&app_key=${apiKeys[index].key}&ingr=${Query}`, {
       method: 'GET'
     })
@@ -79,7 +83,6 @@ const DesignScreen = () => {
           setLoader(false);
         } else {
           setError(false);
-          console.log(responseJson)
           setData(responseJson);
           setLoader(false);
         }
@@ -98,7 +101,9 @@ const DesignScreen = () => {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.icon}>
-            <TouchableOpacity onPress={() => { setLoader(true); fetchAPI(); }}>
+            <TouchableOpacity onPress={() => {if(query == 0){
+              toast('Please add a query');
+            }else{setLoader(true); fetchAPI();} }}>
               <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
             </TouchableOpacity>
           </View>
@@ -107,7 +112,7 @@ const DesignScreen = () => {
           {error ? (
             <View style={styles.errorContainer}>
 
-              <View style={{ padding: 10, marginTop: -20 }}>
+              <View style={{ padding: 10, marginTop: '40%' }}>
                 <Icon name={'paper-plane'} size={50} color={Colors.charcoalGrey80} />
               </View>
               <Text>Sorry, Unable to search for this Query</Text>
