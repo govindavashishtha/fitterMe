@@ -4,6 +4,7 @@ import {
   View, Text, TextInput,
   TouchableOpacity, ScrollView
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
 import Header from './../Components/Header';
@@ -13,6 +14,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import ThemeButton from './../Components/ThemeButton';
 import ThemeButtonDisabled from './../Components/ThemeButtonDisabled';
 import toast from './../Components/Toast';
+import database from '@react-native-firebase/database';
 
 const DesignScreen = () => {
 
@@ -21,6 +23,7 @@ const DesignScreen = () => {
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
   const [mealTime, setMealTime] = useState();
+  const phone = auth().currentUser.phoneNumber;
 
   const apiKeys = [
     { id: '4e18da1c', key: 'f3febcf06129e0a997f01ca869a8fc9b' },
@@ -31,9 +34,11 @@ const DesignScreen = () => {
     { id: '0dd5e843', key: '3ffcdd627a25d5dbf157a3a3854af603' },
   ];
 
-  const addToDiet = () =>{
+  const addToDiet = () => {
     console.log(mealTime);
     console.log(data);
+    console.log(query);
+    database().ref('/Users').child(phone).child('diet').child(mealTime).child(query).set(data);
   }
   const ShowData = () => {
     if (data) {
@@ -103,9 +108,11 @@ const DesignScreen = () => {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.icon}>
-            <TouchableOpacity onPress={() => {if(query == 0){
-              toast('Please add a query');
-            }else{setLoader(true); fetchAPI();} }}>
+            <TouchableOpacity onPress={() => {
+              if (query == 0) {
+                toast('Please add a query');
+              } else { setLoader(true); fetchAPI(); }
+            }}>
               <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
             </TouchableOpacity>
           </View>
