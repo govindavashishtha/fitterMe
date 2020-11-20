@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View, Text, TextInput,
-  TouchableOpacity, ScrollView
+  TouchableOpacity, ScrollView, BackHandler, Alert
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,6 +15,7 @@ import ThemeButton from './../Components/ThemeButton';
 import ThemeButtonDisabled from './../Components/ThemeButtonDisabled';
 import toast from './../Components/Toast';
 import database from '@react-native-firebase/database';
+import DietScreen from './DietScreen';
 
 const DesignScreen = () => {
 
@@ -23,6 +24,7 @@ const DesignScreen = () => {
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
   const [mealTime, setMealTime] = useState();
+  const [isDiet, setIsDiet] = useState(true);
   const phone = auth().currentUser.phoneNumber;
 
   const apiKeys = [
@@ -38,8 +40,25 @@ const DesignScreen = () => {
     console.log(mealTime);
     console.log(data);
     console.log(query);
-    database().ref('/Users').child(phone).child('diet').child(mealTime).child(query).set(data);
+    database().ref('/Users').child(phone).child('diet').child(mealTime).child(query).set(data).then(() => {
+      toast('Food added to your Diet.');
+    });
   }
+
+  useEffect(() => {
+    const backAction = () => {
+      setIsDiet(true);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   const ShowData = () => {
     if (data) {
       return (
@@ -77,7 +96,7 @@ const DesignScreen = () => {
 
   const fetchAPI = () => {
     const index = Math.floor(Math.random() * 6);
-    let query1 = query.replace(/^\s+|\s+$/gm,'');
+    let query1 = query.replace(/^\s+|\s+$/gm, '');
     let Query = query1.replace(/\s/g, '%20');
     fetch(`https://api.edamam.com/api/nutrition-data?app_id=${apiKeys[index].id}&app_key=${apiKeys[index].key}&ingr=${Query}`, {
       method: 'GET'
@@ -102,40 +121,46 @@ const DesignScreen = () => {
 
   return (
     <>
-      <Loader show={loader} text={'Searching'} />
-      <Header title={'Design'} />
-      <ScrollView>
-        <View style={styles.container}>
-          <View style={styles.icon}>
-            <TouchableOpacity onPress={() => {
-              if (query == 0) {
-                toast('Please add a query');
-              } else { setLoader(true); fetchAPI(); }
-            }}>
-              <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
-            </TouchableOpacity>
-          </View>
-          <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} />
-          <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
-          {error ? (
-            <View style={styles.errorContainer}>
-
-              <View style={{ padding: 10, marginTop: '40%' }}>
-                <Icon name={'paper-plane'} size={50} color={Colors.charcoalGrey80} />
+      {isDiet ? (
+        <>
+          <Loader show={loader} text={'Searching'} />
+          <Header title={'Design'} />
+          <ScrollView>
+            <View style={styles.container}>
+              <View style={styles.icon}>
+                <TouchableOpacity onPress={() => {
+                  if (query == 0) {
+                    toast('Please add a query');
+                  } else { setLoader(true); fetchAPI(); }
+                }}>
+                  <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
+                </TouchableOpacity>
               </View>
-              <Text>Sorry, Unable to search for this Query</Text>
-              <Text>Try using another keywords</Text>
+              <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} />
+              <Text onPress={() => { setIsDiet(false) }} style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
+              {error ? (
+                <View style={styles.errorContainer}>
 
-            </View>) : (
-              <View>
-                <ShowData />
-              </View>
-            )
-          }
-        </View>
-      </ScrollView>
+                  <View style={{ padding: 10, marginTop: '40%' }}>
+                    <Icon name={'paper-plane'} size={50} color={Colors.charcoalGrey80} />
+                  </View>
+                  <Text>Sorry, Unable to search for this Query</Text>
+                  <Text>Try using another keywords</Text>
+
+                </View>) : (
+                  <View>
+                    <ShowData />
+                  </View>
+                )
+              }
+            </View>
+          </ScrollView>
+        </>
+      ) : (
+          <DietScreen setIsDiet={setIsDiet} />
+        )}
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
