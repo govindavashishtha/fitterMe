@@ -42,6 +42,8 @@ const DesignScreen = () => {
     console.log(query);
     database().ref('/Users').child(phone).child('diet').child(mealTime).child(query).set(data).then(() => {
       toast('Food added to your Diet.');
+      setData(null);
+      setQuery('');
     });
   }
 
@@ -125,6 +127,9 @@ const DesignScreen = () => {
         <>
           <Loader show={loader} text={'Searching'} />
           <Header title={'Design'} />
+          <View style={{ justifyContent: 'space-between' }}>
+                <Text onPress={() => { setIsDiet(false) }} style={ styles.goToDietText}> Go to Personal Diet ➜</Text>
+              </View>
           <ScrollView>
             <View style={styles.container}>
               <View style={styles.icon}>
@@ -137,7 +142,7 @@ const DesignScreen = () => {
                 </TouchableOpacity>
               </View>
               <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} />
-              <Text onPress={() => { setIsDiet(false) }} style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
+              <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
               {error ? (
                 <View style={styles.errorContainer}>
 
@@ -178,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   text: {
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: 'Karla-Regular',
     paddingVertical: 10,
     textAlign: 'center',
@@ -210,6 +215,15 @@ const styles = StyleSheet.create({
     marginBottom: 60,
     flex: 1,
     marginHorizontal: "-20%",
+  },
+  goToDietText: {
+    paddingTop: 10,
+    textAlign: "right",
+    fontSize: 13.5,
+    paddingRight:10,
+    fontFamily: 'Karla-Bold',
+    color:Colors.primaryColorDark,
+    textDecorationLine: 'underline'
   }
 
 })
