@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     container: {
         borderTopWidth: .5,
         borderBottomWidth: .5,
-        borderColor: Colors.charcoalGrey,
+        borderColor: Colors.primaryColorDark,
         paddingVertical: 5,
         paddingLeft: 15,
         paddingRight: 5,
