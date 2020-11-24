@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
-    Text,
+    Text, FlatList,
     SafeAreaView
 } from 'react-native';
 import Header from './../Components/Header';
@@ -15,6 +15,7 @@ const DietScreen = ({ setIsDiet }) => {
     const phone = auth().currentUser.phoneNumber;
     const [object, setObject] = useState([]);
     useEffect(() => {
+        let arr = [];
         database()
             .ref('/Users/').child(phone).child('diet').child('Breakfast')
             .once('value')
@@ -26,26 +27,27 @@ const DietScreen = ({ setIsDiet }) => {
                         title: key,
                         item: value
                     }
-                    setObject([...object, single]);
-                });
+                    arr.push(single);
+                    console.log('heyy');
+                })
+            }).then(() => {
+                console.log(arr);
+                setObject(arr);
             });
-
-    });
+    }, []);
 
     return (
         <>
             <Header title={'Your Diet'} />
             <Text onPress={() => { setIsDiet(true) }}>Go Back</Text>
             <SafeAreaView style={styles.container}>
-                {
-                    object.map((obj) => {
-                        console.log(obj);
-                        return (
-                            <View>
-                                <MealCard Item={obj.item} title={obj.title} />
-                            </View>
-                        )
-                    })}
+                <FlatList
+                    data={object}
+                    renderItem={({item}) =>
+                           <MealCard Item={item.item} title={item.title}/>
+                    }
+                    keyExtractor={(item, index) => index.toString()}
+                />
             </SafeAreaView>
         </>)
 }

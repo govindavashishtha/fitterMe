@@ -10,15 +10,15 @@ const MealCard = ({ Item, title }) => {
     return (
         <View style={styles.container}>
             <View style={styles.horizontalFar}>
-                <Text style={styles.title}>1 egg</Text>
+                <Text style={styles.title}>{title}</Text>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.label}>Carbs: 10gm</Text>
-                    <Text style={styles.label}>Protein : 5.6gm</Text>
+                    <Text style={styles.label}>Carbs: {Item.totalNutrients.CHOCDF.quantity.toFixed(3)} gm</Text>
+                    <Text style={styles.label}>Protein : {Item.totalNutrients.PROCNT.quantity.toFixed(3)} gm</Text>
                 </View>
             </View>
             <View style={styles.horizontalFar}>
-                <Text style={styles.label}>Total Calories : 50kcal</Text>
-                <Text style={styles.label}>Fats : 5.6gm</Text>
+                <Text style={styles.label}>Total Calories : {Item.calories} Kcal</Text>
+                <Text style={styles.label}>Fats : {Item.totalNutrients.FAT.quantity.toFixed(3)} gm</Text>
             </View>
         </View>
     )
