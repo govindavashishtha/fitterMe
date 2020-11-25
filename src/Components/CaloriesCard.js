@@ -41,7 +41,7 @@ const CaloriesCard = ({Item}) => {
                 {Item.totalNutrients.FASAT.label} Fat : {Item.totalNutrients.FASAT.quantity.toFixed(3)} {Item.totalNutrients.FASAT.unit}
                 </Text>) : (<></>)}
                 {Item.totalNutrients.FAT && Item.totalNutrients.FASAT ? (<Text style={styles.text1}>
-                Unsaturated Fat : {Item.totalNutrients.FAT.quantity.toFixed(3) - Item.totalNutrients.FASAT.quantity.toFixed(3)} {Item.totalNutrients.FAPU.unit}
+                Unsaturated Fat : {(Item.totalNutrients.FAT.quantity - Item.totalNutrients.FASAT.quantity).toFixed(3)} {Item.totalNutrients.FAPU.unit}
                 </Text>) : (<></>)}
                 
                 {/* <ExtenedLine /> */}

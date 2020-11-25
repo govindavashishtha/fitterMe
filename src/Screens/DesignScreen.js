@@ -95,7 +95,8 @@ const DesignScreen = () => {
 
   const fetchAPI = () => {
     const index = Math.floor(Math.random() * 6);
-    let query1 = query.replace(/^\s+|\s+$/gm, '');
+    let query0 = query.replace(/[^a-zA-Z0-9]/g, ' ');
+    let query1 = query0.replace(/^\s+|\s+$/gm,'');
     let Query = query1.replace(/\s/g, '%20');
     fetch(`https://api.edamam.com/api/nutrition-data?app_id=${apiKeys[index].id}&app_key=${apiKeys[index].key}&ingr=${Query}`, {
       method: 'GET'
