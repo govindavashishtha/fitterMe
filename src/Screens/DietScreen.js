@@ -22,12 +22,19 @@ const DietScreen = ({ setIsDiet }) => {
     const [dinner, setDinner] = useState([]);
     const [loader, setLoader] = useState(true);
     const [calorie, setCalorie] = useState(0);
+    const [protein, setProtein] = useState(0);
+    const [totalCarbs, setCarbs] = useState(0);
+    const [fats, setFats] = useState(0);
     useEffect(() => {
         let arr1 = [];
         let arr2 = [];
         let arr3 = [];
         let arr4 = [];
         let arr5 = [];
+        let cal = 0;
+        let pro = 0;
+        let carbs = 0;
+        let fat = 0;
 
         //Breakfast data 
         database()
@@ -42,7 +49,10 @@ const DietScreen = ({ setIsDiet }) => {
                             item: value
                         }
                         arr1.push(single);
-                        setCalorie(calorie + single.item.calories);
+                        cal = cal + single.item.calories;
+                        pro = pro + single.item.totalNutrients.PROCNT.quantity;
+                        carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
+                        fat = fat + single.item.totalNutrients.FAT.quantity;
                     });
                 }
                 if (snapshot.val().Lunch) {
@@ -53,41 +63,57 @@ const DietScreen = ({ setIsDiet }) => {
                             item: value
                         }
                         arr2.push(single);
-                        setCalorie(calorie + single.item.calories);
+                        cal = cal + single.item.calories;
+                        pro = pro + single.item.totalNutrients.PROCNT.quantity;
+                        carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
+                        fat = fat + single.item.totalNutrients.FAT.quantity;
                     });
                 }
-                 if(snapshot.val().PreWorkout){
-                Object.keys(snapshot.val().PreWorkout).map(key => {
-                    let value = snapshot.val().PreWorkout[key];
-                    let single = {
-                        title: key,
-                        item: value
-                    }
-                    arr3.push(single);
-                    setCalorie(calorie + single.item.calories);
-                });}
-                
-                if(snapshot.val().PostWorkout){
-                Object.keys(snapshot.val().PostWorkout).map(key => {
-                    let value = snapshot.val().PostWorkout[key];
-                    let single = {
-                        title: key,
-                        item: value
-                    }
-                    arr4.push(single);
-                    setCalorie(calorie + single.item.calories);
-                });}
+                if (snapshot.val().PreWorkout) {
+                    Object.keys(snapshot.val().PreWorkout).map(key => {
+                        let value = snapshot.val().PreWorkout[key];
+                        let single = {
+                            title: key,
+                            item: value
+                        }
+                        arr3.push(single);
+                        cal = cal + single.item.calories;
+                        pro = pro + single.item.totalNutrients.PROCNT.quantity;
+                        carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
+                        fat = fat + single.item.totalNutrients.FAT.quantity;
+                    });
+                }
 
-                if(snapshot.val().Dinner){
-                Object.keys(snapshot.val().Dinner).map(key => {
-                    let value = snapshot.val().Dinner[key];
-                    let single = {
-                        title: key,
-                        item: value
-                    }
-                    arr5.push(single);
-                    setCalorie(calorie + single.item.calories);
-                })}
+                if (snapshot.val().PostWorkout) {
+                    Object.keys(snapshot.val().PostWorkout).map(key => {
+                        let value = snapshot.val().PostWorkout[key];
+                        let single = {
+                            title: key,
+                            item: value
+                        }
+                        arr4.push(single);
+                        cal = cal + single.item.calories;
+                        pro = pro + single.item.totalNutrients.PROCNT.quantity;
+                        carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
+                        fat = fat + single.item.totalNutrients.FAT.quantity;
+                    });
+                }
+
+                if (snapshot.val().Dinner) {
+                    Object.keys(snapshot.val().Dinner).map(key => {
+                        let value = snapshot.val().Dinner[key];
+                        let single = {
+                            title: key,
+                            item: value
+                        }
+                        arr5.push(single);
+
+                        cal = cal + single.item.calories;
+                        pro = pro + single.item.totalNutrients.PROCNT.quantity;
+                        carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
+                        fat = fat + single.item.totalNutrients.FAT.quantity;
+                    })
+                }
 
             }).then(() => {
                 setBreakfast(arr1);
@@ -96,6 +122,10 @@ const DietScreen = ({ setIsDiet }) => {
                 setPostworkout(arr4);
                 setDinner(arr5);
                 setLoader(false);
+                setCalorie(cal);
+                setCarbs(carbs);
+                setFats(fat);
+                setProtein(pro);
             });
     }, []);
 
@@ -107,9 +137,6 @@ const DietScreen = ({ setIsDiet }) => {
         <>
             <Loader show={loader} text={'Please wait...'} />
             <Header title={'Your Diet'} backPress={onBackPress} />
-            {/* <View style={{padding:5,}}>
-              <Icon onPress={() => { setIsDiet(true) }} name={'arrow-left'} size={30} color={Colors.primaryColorDark} />
-            </View> */}
             <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.datacontainer}>
@@ -190,6 +217,19 @@ const DietScreen = ({ setIsDiet }) => {
                             )}
 
                     </View>
+                    <View>
+                      <View style = {{borderTopWidth:2,}}/>
+                     <Text style={styles.total}> Your Total Macros:</Text>
+                    <View style={styles.horizontal}>
+                    <Text>Calories : {calorie} Kcal</Text>
+                    <Text>Protein : {protein.toFixed(2)} g</Text>
+                    </View>
+                    <View style={styles.horizontal}>
+                    <Text>Carbs : {totalCarbs.toFixed(2)} g</Text>
+                    <Text>Fat : {fats.toFixed(2)} g</Text>
+                    </View>     
+                    </View>
+
                 </ScrollView>
             </View>
         </>)
@@ -200,8 +240,13 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: '2%',
     },
+    horizontal: {
+        paddingHorizontal:15,
+        flexDirection:'row',
+        justifyContent:'space-between'
+    },
     datacontainer: {
-        paddingBottom: 20,
+        paddingBottom: 15,
     },
     emptyText: {
         fontSize: 11,
@@ -216,9 +261,18 @@ const styles = StyleSheet.create({
         fontFamily: 'Karla-Bold',
         textAlign: 'center',
         fontSize: 15,
-        letterSpacing: 2,
+        letterSpacing: 1,
         paddingBottom: 10,
         paddingTop: 10,
+    },
+    total: {
+        fontFamily: 'Karla-Bold',
+        //textAlign: 'center',
+        fontSize: 15,
+        letterSpacing: 1,
+        paddingBottom: 10,
+        paddingTop: 10,
+        paddingLeft:10,
     }
 })
 
