@@ -37,9 +37,6 @@ const DesignScreen = () => {
   ];
 
   const addToDiet = () => {
-    console.log(mealTime);
-    console.log(data);
-    console.log(query);
     database().ref('/Users').child(phone).child('diet').child(mealTime).child(query).set(data).then(() => {
       toast('Food added to your Diet.');
       setData(null);
@@ -47,19 +44,19 @@ const DesignScreen = () => {
     });
   }
 
-  useEffect(() => {
-    const backAction = () => {
-      setIsDiet(true);
-      return true;
-    };
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     setIsDiet(true);
+  //     return true;
+  //   };
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction
+  //   );
 
-    return () => backHandler.remove();
-  }, []);
+  //   return () => backHandler.remove();
+  // }, []);
 
   const ShowData = () => {
     if (data) {
@@ -72,8 +69,8 @@ const DesignScreen = () => {
               items={[
                 { label: 'Breakfast', value: 'Breakfast' },
                 { label: 'Lunch', value: 'Lunch' },
-                { label: 'Pre-Workout', value: 'Pre-Workout' },
-                { label: 'Post-Workout', value: 'Post-Workout' },
+                { label: 'Pre-Workout', value: 'PreWorkout' },
+                { label: 'Post-Workout', value: 'PostWorkout' },
                 { label: 'Dinner', value: 'Dinner' },
               ]}
               placeholder="Select a meal time..."
@@ -141,7 +138,7 @@ const DesignScreen = () => {
                   <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
                 </TouchableOpacity>
               </View>
-              <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} />
+              <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} value={query}/>
               <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
               {error ? (
                 <View style={styles.errorContainer}>

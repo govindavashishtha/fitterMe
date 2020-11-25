@@ -20,8 +20,8 @@ const DietScreen = ({ setIsDiet }) => {
     const [preworkout, setPreworkout] = useState([]);
     const [postworkout, setPostworkout] = useState([]);
     const [dinner, setDinner] = useState([]);
-    const [loader , setLoader] = useState(true);
-    const [calorie , setCalorie] = useState(0);
+    const [loader, setLoader] = useState(true);
+    const [calorie, setCalorie] = useState(0);
     useEffect(() => {
         let arr1 = [];
         let arr2 = [];
@@ -31,92 +31,69 @@ const DietScreen = ({ setIsDiet }) => {
 
         //Breakfast data 
         database()
-            .ref('/Users/').child(phone).child('diet').child('Breakfast')
+            .ref('/Users/').child(phone).child('diet')
             .once('value')
             .then(snapshot => {
-                let items = Object.keys(snapshot.val());
-                items.map(key => {
-                    let value = snapshot.val()[key];
-                    let single = {
-                        title: key,
-                        item: value
-                    }
-                    arr1.push(single);
-                    setCalorie(calorie + single.item.calories);
-                })
-            }).then(() => {
-                setBreakfast(arr1);
-            });
-        // Lunch Data
-        database()
-            .ref('/Users/').child(phone).child('diet').child('Lunch')
-            .once('value')
-            .then(snapshot => {
-                let items = Object.keys(snapshot.val());
-                items.map(key => {
-                    let value = snapshot.val()[key];
-                    let single = {
-                        title: key,
-                        item: value
-                    }
-                    arr2.push(single);
-                    setCalorie(calorie + single.item.calories);
-                })
-            }).then(() => {
-                setLunch(arr2);
-            });
-        // Pre-Workout Data
-        database()
-            .ref('/Users/').child(phone).child('diet').child('Pre-Workout')
-            .once('value')
-            .then(snapshot => {
-                let items = Object.keys(snapshot.val());
-                items.map(key => {
-                    let value = snapshot.val()[key];
+                if (snapshot.val().Breakfast) {
+                    Object.keys(snapshot.val().Breakfast).map(key => {
+                        let value = snapshot.val().Breakfast[key];
+                        let single = {
+                            title: key,
+                            item: value
+                        }
+                        arr1.push(single);
+                        setCalorie(calorie + single.item.calories);
+                    });
+                }
+                if (snapshot.val().Lunch) {
+                    Object.keys(snapshot.val().Lunch).map(key => {
+                        let value = snapshot.val().Lunch[key];
+                        let single = {
+                            title: key,
+                            item: value
+                        }
+                        arr2.push(single);
+                        setCalorie(calorie + single.item.calories);
+                    });
+                }
+                 if(snapshot.val().PreWorkout){
+                Object.keys(snapshot.val().PreWorkout).map(key => {
+                    let value = snapshot.val().PreWorkout[key];
                     let single = {
                         title: key,
                         item: value
                     }
                     arr3.push(single);
                     setCalorie(calorie + single.item.calories);
-                })
-            }).then(() => {
-                setPreworkout(arr3);
-            });
-        // Post-Workout Data
-        database()
-            .ref('/Users/').child(phone).child('diet').child('Post-Workout')
-            .once('value')
-            .then(snapshot => {
-                let items = Object.keys(snapshot.val());
-                items.map(key => {
-                    let value = snapshot.val()[key];
+                });}
+                
+                if(snapshot.val().PostWorkout){
+                Object.keys(snapshot.val().PostWorkout).map(key => {
+                    let value = snapshot.val().PostWorkout[key];
                     let single = {
                         title: key,
                         item: value
                     }
                     arr4.push(single);
                     setCalorie(calorie + single.item.calories);
-                })
-            }).then(() => {
-                setPostworkout(arr4);
-            });
-        // Dinner Data
-        database()
-            .ref('/Users/').child(phone).child('diet').child('Dinner')
-            .once('value')
-            .then(snapshot => {
-                let items = Object.keys(snapshot.val());
-                items.map(key => {
-                    let value = snapshot.val()[key];
+                });}
+
+                if(snapshot.val().Dinner){
+                Object.keys(snapshot.val().Dinner).map(key => {
+                    let value = snapshot.val().Dinner[key];
                     let single = {
                         title: key,
                         item: value
                     }
                     arr5.push(single);
                     setCalorie(calorie + single.item.calories);
-                })
+                })}
+
             }).then(() => {
+                setBreakfast(arr1);
+                setLunch(arr2);
+                setPreworkout(arr3);
+                setPostworkout(arr4);
                 setDinner(arr5);
                 setLoader(false);
             });
@@ -128,8 +105,8 @@ const DietScreen = ({ setIsDiet }) => {
 
     return (
         <>
-           <Loader show={loader} text={'Please wait...'}/>
-            <Header title={'Your Diet'} backPress={ onBackPress } />
+            <Loader show={loader} text={'Please wait...'} />
+            <Header title={'Your Diet'} backPress={onBackPress} />
             {/* <View style={{padding:5,}}>
               <Icon onPress={() => { setIsDiet(true) }} name={'arrow-left'} size={30} color={Colors.primaryColorDark} />
             </View> */}
@@ -139,16 +116,16 @@ const DietScreen = ({ setIsDiet }) => {
                         <Text style={styles.text}>Breakfast</Text>
                         {breakfast.length != 0 ? (
                             <FlatList
-                            data={breakfast}
-                            renderItem={({ item }) =>
-                                <MealCard Item={item.item} title={item.title} />
-                            }
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                        ):(
-                            <Text style={styles.emptyText}>Seems like Empty in here</Text>
-                        )}
-                        
+                                data={breakfast}
+                                renderItem={({ item }) =>
+                                    <MealCard Item={item.item} title={item.title} />
+                                }
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        ) : (
+                                <Text style={styles.emptyText}>Seems like Empty in here</Text>
+                            )}
+
                     </View>
 
                     <View style={styles.datacontainer}>
@@ -162,56 +139,56 @@ const DietScreen = ({ setIsDiet }) => {
                                 keyExtractor={(item, index) => index.toString()}
                             />
                         ) : (
-                            <Text style={styles.emptyText}>Seems like Empty in here</Text>
+                                <Text style={styles.emptyText}>Seems like Empty in here</Text>
                             )}
                     </View>
 
                     <View style={styles.datacontainer}>
                         <Text style={styles.text}>Pre-Workout</Text>
-                        {preworkout.length !=0 ?(
+                        {preworkout.length != 0 ? (
                             <FlatList
-                            data={preworkout}
-                            renderItem={({ item }) =>
-                                <MealCard Item={item.item} title={item.title} />
-                            }
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                        ):(
-                            <Text style={styles.emptyText}>Seems like Empty in here</Text>
-                        )}
-                        
+                                data={preworkout}
+                                renderItem={({ item }) =>
+                                    <MealCard Item={item.item} title={item.title} />
+                                }
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        ) : (
+                                <Text style={styles.emptyText}>Seems like Empty in here</Text>
+                            )}
+
                     </View>
 
                     <View style={styles.datacontainer}>
                         <Text style={styles.text}>Post-Workout</Text>
-                         {postworkout.length != 0 ? (
+                        {postworkout.length != 0 ? (
                             <FlatList
-                            data={postworkout}
-                            renderItem={({ item }) =>
-                                <MealCard Item={item.item} title={item.title} />
-                            }
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                         ) : (
-                            <Text style={styles.emptyText}>Seems like Empty in here</Text>
-                         )}
-                       
+                                data={postworkout}
+                                renderItem={({ item }) =>
+                                    <MealCard Item={item.item} title={item.title} />
+                                }
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        ) : (
+                                <Text style={styles.emptyText}>Seems like Empty in here</Text>
+                            )}
+
                     </View>
 
                     <View style={styles.datacontainer}>
                         <Text style={styles.text}>Dinner</Text>
-                        {dinner.length !=0 ? (
+                        {dinner.length != 0 ? (
                             <FlatList
-                            data={dinner}
-                            renderItem={({ item }) =>
-                                <MealCard Item={item.item} title={item.title} />
-                            }
-                            keyExtractor={(item, index) => index.toString()}
-                        />
+                                data={dinner}
+                                renderItem={({ item }) =>
+                                    <MealCard Item={item.item} title={item.title} />
+                                }
+                                keyExtractor={(item, index) => index.toString()}
+                            />
                         ) : (
-                            <Text style={styles.emptyText}>Seems like Empty in here</Text>
-                        )}
-                       
+                                <Text style={styles.emptyText}>Seems like Empty in here</Text>
+                            )}
+
                     </View>
                 </ScrollView>
             </View>
@@ -224,16 +201,16 @@ const styles = StyleSheet.create({
         margin: '2%',
     },
     datacontainer: {
-        paddingBottom:20,
+        paddingBottom: 20,
     },
     emptyText: {
-        fontSize:11,
-        color:Colors.charcoalGrey,
-        paddingVertical:7,
-        textAlign:'center',
-        borderTopWidth:.5,
-        borderBottomWidth:.5,
-        borderColor:Colors.primaryColorDark,
+        fontSize: 11,
+        color: Colors.charcoalGrey,
+        paddingVertical: 7,
+        textAlign: 'center',
+        borderTopWidth: .5,
+        borderBottomWidth: .5,
+        borderColor: Colors.primaryColorDark,
     },
     text: {
         fontFamily: 'Karla-Bold',
