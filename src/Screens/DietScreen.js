@@ -25,7 +25,8 @@ const DietScreen = ({ setIsDiet }) => {
     const [protein, setProtein] = useState(0);
     const [totalCarbs, setCarbs] = useState(0);
     const [fats, setFats] = useState(0);
-    useEffect(() => {
+
+    const refresh = ()=>{
         let arr1 = [];
         let arr2 = [];
         let arr3 = [];
@@ -41,7 +42,7 @@ const DietScreen = ({ setIsDiet }) => {
             .ref('/Users/').child(phone).child('diet')
             .once('value')
             .then(snapshot => {
-                if (snapshot.val().Breakfast) {
+                if (snapshot.val() && snapshot.val().Breakfast) {
                     Object.keys(snapshot.val().Breakfast).map(key => {
                         let value = snapshot.val().Breakfast[key];
                         let single = {
@@ -55,7 +56,7 @@ const DietScreen = ({ setIsDiet }) => {
                         fat = fat + single.item.totalNutrients.FAT.quantity;
                     });
                 }
-                if (snapshot.val().Lunch) {
+                if (snapshot.val() && snapshot.val().Lunch) {
                     Object.keys(snapshot.val().Lunch).map(key => {
                         let value = snapshot.val().Lunch[key];
                         let single = {
@@ -69,7 +70,7 @@ const DietScreen = ({ setIsDiet }) => {
                         fat = fat + single.item.totalNutrients.FAT.quantity;
                     });
                 }
-                if (snapshot.val().PreWorkout) {
+                if (snapshot.val() && snapshot.val().PreWorkout) {
                     Object.keys(snapshot.val().PreWorkout).map(key => {
                         let value = snapshot.val().PreWorkout[key];
                         let single = {
@@ -84,7 +85,7 @@ const DietScreen = ({ setIsDiet }) => {
                     });
                 }
 
-                if (snapshot.val().PostWorkout) {
+                if (snapshot.val() && snapshot.val().PostWorkout) {
                     Object.keys(snapshot.val().PostWorkout).map(key => {
                         let value = snapshot.val().PostWorkout[key];
                         let single = {
@@ -99,7 +100,7 @@ const DietScreen = ({ setIsDiet }) => {
                     });
                 }
 
-                if (snapshot.val().Dinner) {
+                if (snapshot.val() && snapshot.val().Dinner) {
                     Object.keys(snapshot.val().Dinner).map(key => {
                         let value = snapshot.val().Dinner[key];
                         let single = {
@@ -127,6 +128,9 @@ const DietScreen = ({ setIsDiet }) => {
                 setFats(fat);
                 setProtein(pro);
             });
+    }
+    useEffect(() => {
+        refresh();
     }, []);
 
     const onBackPress = () => {
@@ -145,7 +149,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={breakfast}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} />
+                                    <MealCard Item={item.item} title={item.title} mealTime={"Breakfast"} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -161,7 +165,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={lunch}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} />
+                                    <MealCard Item={item.item} title={item.title} mealTime={'Lunch'} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -176,7 +180,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={preworkout}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} />
+                                    <MealCard Item={item.item} title={item.title} mealTime={'PreWorkout'} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -192,7 +196,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={postworkout}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} />
+                                    <MealCard Item={item.item} title={item.title} mealTime={'PostWorkout'} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -208,7 +212,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={dinner}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} />
+                                    <MealCard Item={item.item} title={item.title} mealTime={'Dinner'} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />

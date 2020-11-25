@@ -1,13 +1,24 @@
 import React from 'react';
 import {
     StyleSheet,
-    View, Text
+    View, Text, TouchableOpacity
 } from 'react-native';
 import Colors from '../Constants/Colors';
+import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
+import ConfirmDialog from './ConfirmDialog';
 
-
-const MealCard = ({ Item, title }) => {
+const MealCard = ({ Item, title, mealTime , refresh }) => {
+    const phone = auth().currentUser.phoneNumber;
+    const deleteItem =  async() => {
+        await database()
+            .ref('/Users/').child(phone).child('diet').child(mealTime).child(title)
+            .set(null).then(()=>{
+                refresh();
+            });
+    }
     return (
+        <TouchableOpacity onLongPress={()=>{ConfirmDialog('Delete', 'Sure to Delete', deleteItem)}}>
         <View style={styles.container}>
             <View style={styles.horizontalFar}>
                 <Text style={styles.title}>{title}</Text>
@@ -21,6 +32,7 @@ const MealCard = ({ Item, title }) => {
                 <Text style={styles.label}>Fats : {Item.totalNutrients.FAT.quantity.toFixed(3)} gm</Text>
             </View>
         </View>
+        </TouchableOpacity>
     )
 }
 const styles = StyleSheet.create({
@@ -35,7 +47,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingLeft: 15,
         paddingRight: 5,
-        marginBottom:2,
+        marginBottom: 2,
     },
     label: {
         fontSize: 12,
