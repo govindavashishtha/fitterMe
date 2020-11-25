@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View, Text, TextInput,
-  TouchableOpacity, ScrollView
+  TouchableOpacity, ScrollView, BackHandler, Alert
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,6 +15,7 @@ import ThemeButton from './../Components/ThemeButton';
 import ThemeButtonDisabled from './../Components/ThemeButtonDisabled';
 import toast from './../Components/Toast';
 import database from '@react-native-firebase/database';
+import DietScreen from './DietScreen';
 
 const DesignScreen = () => {
 
@@ -23,6 +24,7 @@ const DesignScreen = () => {
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
   const [mealTime, setMealTime] = useState();
+  const [isDiet, setIsDiet] = useState(true);
   const phone = auth().currentUser.phoneNumber;
 
   const apiKeys = [
@@ -35,11 +37,27 @@ const DesignScreen = () => {
   ];
 
   const addToDiet = () => {
-    console.log(mealTime);
-    console.log(data);
-    console.log(query);
-    database().ref('/Users').child(phone).child('diet').child(mealTime).child(query).set(data);
+    database().ref('/Users').child(phone).child('diet').child(mealTime).child(query).set(data).then(() => {
+      toast('Food added to your Diet.');
+      setData(null);
+      setQuery('');
+    });
   }
+
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     setIsDiet(true);
+  //     return true;
+  //   };
+
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction
+  //   );
+
+  //   return () => backHandler.remove();
+  // }, []);
+
   const ShowData = () => {
     if (data) {
       return (
@@ -51,8 +69,8 @@ const DesignScreen = () => {
               items={[
                 { label: 'Breakfast', value: 'Breakfast' },
                 { label: 'Lunch', value: 'Lunch' },
-                { label: 'Pre-Workout', value: 'Pre-Workout' },
-                { label: 'Post-Workout', value: 'Post-Workout' },
+                { label: 'Pre-Workout', value: 'PreWorkout' },
+                { label: 'Post-Workout', value: 'PostWorkout' },
                 { label: 'Dinner', value: 'Dinner' },
               ]}
               placeholder="Select a meal time..."
@@ -103,40 +121,49 @@ const DesignScreen = () => {
 
   return (
     <>
-      <Loader show={loader} text={'Searching'} />
-      <Header title={'Design'} />
-      <ScrollView>
-        <View style={styles.container}>
-          <View style={styles.icon}>
-            <TouchableOpacity onPress={() => {
-              if (query == 0) {
-                toast('Please add a query');
-              } else { setLoader(true); fetchAPI(); }
-            }}>
-              <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
-            </TouchableOpacity>
-          </View>
-          <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} />
-          <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
-          {error ? (
-            <View style={styles.errorContainer}>
-
-              <View style={{ padding: 10, marginTop: '40%' }}>
-                <Icon name={'paper-plane'} size={50} color={Colors.charcoalGrey80} />
+      {isDiet ? (
+        <>
+          <Loader show={loader} text={'Searching'} />
+          <Header title={'Design'} />
+          <View style={{ justifyContent: 'space-between' }}>
+                <Text onPress={() => { setIsDiet(false) }} style={ styles.goToDietText}> Go to Personal Diet ➜</Text>
               </View>
-              <Text>Sorry, Unable to search for this Query</Text>
-              <Text>Try using another keywords</Text>
-
-            </View>) : (
-              <View>
-                <ShowData />
+          <ScrollView>
+            <View style={styles.container}>
+              <View style={styles.icon}>
+                <TouchableOpacity onPress={() => {
+                  if (query == 0) {
+                    toast('Please add a query');
+                  } else { setLoader(true); fetchAPI(); }
+                }}>
+                  <Icon name={'search'} size={20} color={Colors.charcoalGrey80} />
+                </TouchableOpacity>
               </View>
-            )
-          }
-        </View>
-      </ScrollView>
+              <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} value={query}/>
+              <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
+              {error ? (
+                <View style={styles.errorContainer}>
+
+                  <View style={{ padding: 10, marginTop: '40%' }}>
+                    <Icon name={'paper-plane'} size={50} color={Colors.charcoalGrey80} />
+                  </View>
+                  <Text>Sorry, Unable to search for this Query</Text>
+                  <Text>Try using another keywords</Text>
+
+                </View>) : (
+                  <View>
+                    <ShowData />
+                  </View>
+                )
+              }
+            </View>
+          </ScrollView>
+        </>
+      ) : (
+          <DietScreen setIsDiet={setIsDiet} />
+        )}
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -154,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   text: {
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: 'Karla-Regular',
     paddingVertical: 10,
     textAlign: 'center',
@@ -186,6 +213,15 @@ const styles = StyleSheet.create({
     marginBottom: 60,
     flex: 1,
     marginHorizontal: "-20%",
+  },
+  goToDietText: {
+    paddingTop: 10,
+    textAlign: "right",
+    fontSize: 13.5,
+    paddingRight:10,
+    fontFamily: 'Karla-Bold',
+    color:Colors.primaryColorDark,
+    textDecorationLine: 'underline'
   }
 
 })
