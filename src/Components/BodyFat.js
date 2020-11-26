@@ -78,7 +78,7 @@ const BodyFat = () => {
                         </View>
                         <View style={styles.horizontal}>
                             <Text style={styles.label}>Waist:  </Text>
-                            <ThemeNumberInput flex={true} value={waist} placeholder='Waist in Inches' onChangeText={(val) => { setWaist(val) }} keyboard={'numeric'} />
+                            <ThemeNumberInput flex={true} value={waist} placeholder='Waist Parameter in Inches' onChangeText={(val) => { setWaist(val) }} keyboard={'numeric'} />
                         </View>
                         <View style={{ marginTop: 10, }}>
                             {fat &&

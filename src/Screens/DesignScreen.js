@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../Constants/Colors';
 import Header from './../Components/Header';
 import CaloriesCard from './../Components/CaloriesCard';
@@ -111,8 +112,10 @@ const DesignScreen = () => {
         <>
           <Loader show={loader} text={'Searching'} />
           <Header title={'Design'} />
-          <View style={{ justifyContent: 'space-between' }}>
-            <Text onPress={() => { setIsDiet(false) }} style={styles.goToDietText}> Go to Personal Diet ➜</Text>
+          <View style={styles.iconcontainer}>
+            <TouchableOpacity onPress={() => { setIsDiet(false) }}>
+            <Icon1 name={'food-apple'} size={40} color={Colors.charcoalGrey80} />
+            </TouchableOpacity>
           </View>
           <ScrollView>
             <View style={styles.container}>
@@ -207,6 +210,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla-Bold',
     color: Colors.primaryColorDark,
     textDecorationLine: 'underline'
+  },
+  iconcontainer: {
+    backgroundColor: Colors.primaryColorDark,
+    borderRadius: 50,
+    position: 'absolute',
+    right: 15,
+    bottom: 15,
+    padding: 10,
+    zIndex: 1,
   }
 
 })

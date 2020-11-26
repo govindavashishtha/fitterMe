@@ -138,6 +138,22 @@ const DietScreen = ({ setIsDiet }) => {
         setIsDiet(true);
     }
 
+    const limitRecipeTitle = (title, limit = 15 ) => {
+        const newTitle = [];
+        if(title.length > limit) {
+            title.split(' ').reduce((acc, cur) => {
+                if(acc + cur.length <= limit) {
+                    newTitle.push(cur);
+                }
+                return acc + cur.length
+            }, 0)
+    
+            // return the result
+            return `${newTitle.join(' ')} ...`
+        }
+        return title
+    }
+
     return (
         <>
             <Loader show={loader} text={'Please wait...'} />
@@ -150,7 +166,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={breakfast}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} mealTime={"Breakfast"} refresh={refresh}/>
+                                    <MealCard Item={item.item} title={limitRecipeTitle(item.title)} mealTime={"Breakfast"} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -166,7 +182,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={lunch}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} mealTime={'Lunch'} refresh={refresh}/>
+                                    <MealCard Item={item.item} title={limitRecipeTitle(item.title)} mealTime={'Lunch'} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -181,7 +197,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={preworkout}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} mealTime={'PreWorkout'} refresh={refresh}/>
+                                    <MealCard Item={item.item} title={limitRecipeTitle(item.title)} mealTime={'PreWorkout'} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -197,7 +213,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={postworkout}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} mealTime={'PostWorkout'} refresh={refresh}/>
+                                    <MealCard Item={item.item} title={limitRecipeTitle(item.title)} mealTime={'PostWorkout'} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
@@ -213,7 +229,7 @@ const DietScreen = ({ setIsDiet }) => {
                             <FlatList
                                 data={dinner}
                                 renderItem={({ item }) =>
-                                    <MealCard Item={item.item} title={item.title} mealTime={'Dinner'} refresh={refresh}/>
+                                    <MealCard Item={item.item} title={limitRecipeTitle(item.title)} mealTime={'Dinner'} refresh={refresh}/>
                                 }
                                 keyExtractor={(item, index) => index.toString()}
                             />
