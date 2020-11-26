@@ -9,7 +9,7 @@ const Header = ({title , backPress}) =>{
     <View style = {{height:'7%',flexDirection:'row', backgroundColor:Colors.primaryColorDark, alignItems:'center' ,justifyContent: backPress ?'space-between':'center',}}>
          {backPress && 
             <View style={{paddingLeft:10,}}>
-              <Icon onPress={()=>{backPress()}} name={'arrow-left'} size={25} color={Colors.white} />
+              <Text style={{fontSize:40, color:Colors.white}} onPress={()=>{backPress()}} >￩</Text>
             </View>
           }
           
