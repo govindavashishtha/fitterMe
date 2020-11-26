@@ -70,15 +70,15 @@ const BodyFat = () => {
                     (<>
                         <View style={styles.horizontal}>
                             <Text style={styles.label}>Height: </Text>
-                            <ThemeNumberInput flex={true} value={heights} placeholder='Enter Height in Inches' onChangeText={(val) => { setHeights(val) }} keyboard={'numeric'} />
+                            <ThemeNumberInput flex={true} value={heights} placeholder='Height in Inches' onChangeText={(val) => { setHeights(val) }} keyboard={'numeric'} />
                         </View>
                         <View style={styles.horizontal}>
                             <Text style={styles.label}>Neck:    </Text>
-                            <ThemeNumberInput flex={true} value={neck} placeholder='Enter Neck Parameter in Inches' onChangeText={(val) => { setNeck(val) }} keyboard={'numeric'} />
+                            <ThemeNumberInput flex={true} value={neck} placeholder='Neck Parameter in Inches' onChangeText={(val) => { setNeck(val) }} keyboard={'numeric'} />
                         </View>
                         <View style={styles.horizontal}>
                             <Text style={styles.label}>Waist:  </Text>
-                            <ThemeNumberInput flex={true} value={waist} placeholder='Enter Waist in Inches' onChangeText={(val) => { setWaist(val) }} keyboard={'numeric'} />
+                            <ThemeNumberInput flex={true} value={waist} placeholder='Waist in Inches' onChangeText={(val) => { setWaist(val) }} keyboard={'numeric'} />
                         </View>
                         <View style={{ marginTop: 10, }}>
                             {fat &&
@@ -97,19 +97,19 @@ const BodyFat = () => {
                         <>
                             <View style={styles.horizontal}>
                                 <Text style={styles.label}>Height: </Text>
-                                <ThemeNumberInput flex={true} value={heights} placeholder='Enter Height in Inches' onChangeText={(val) => { setHeights(val) }} keyboard={'numeric'} />
+                                <ThemeNumberInput flex={true} value={heights} placeholder='Height in Inches' onChangeText={(val) => { setHeights(val) }} keyboard={'numeric'} />
                             </View>
                             <View style={styles.horizontal}>
                                 <Text style={styles.label}>Neck:    </Text>
-                                <ThemeNumberInput flex={true} value={neck} placeholder='Enter Neck Parameter in Inches' onChangeText={(val) => { setNeck(val) }} keyboard={'numeric'} />
+                                <ThemeNumberInput flex={true} value={neck} placeholder='Neck Parameter in Inches' onChangeText={(val) => { setNeck(val) }} keyboard={'numeric'} />
                             </View>
                             <View style={styles.horizontal}>
                                 <Text style={styles.label}>Waist:  </Text>
-                                <ThemeNumberInput flex={true} value={waist} placeholder='Enter Waist Parameter in Inches' onChangeText={(val) => { setWaist(val) }} keyboard={'numeric'} />
+                                <ThemeNumberInput flex={true} value={waist} placeholder='Waist Parameter in Inches' onChangeText={(val) => { setWaist(val) }} keyboard={'numeric'} />
                             </View>
                             <View style={styles.horizontal}>
                                 <Text style={styles.label}>Hip:      </Text>
-                                <ThemeNumberInput flex={true} value={hip} placeholder='Enter Hip Parameter in Inches' onChangeText={(val) => { setHip(val) }} keyboard={'numeric'} />
+                                <ThemeNumberInput flex={true} value={hip} placeholder='Hip Parameter in Inches' onChangeText={(val) => { setHip(val) }} keyboard={'numeric'} />
                             </View>
                             <View style={{ marginTop: 10, }}>
                                 {fat &&

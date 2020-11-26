@@ -11,6 +11,7 @@ import auth from '@react-native-firebase/auth';
 import MealCard from '../Components/MealCard';
 import Colors from '../Constants/Colors';
 import Loader from './../Components/Loader';
+import { Col } from 'native-base';
 
 const DietScreen = ({ setIsDiet }) => {
 
@@ -222,7 +223,7 @@ const DietScreen = ({ setIsDiet }) => {
 
                     </View>
                     <View>
-                      <View style = {{borderTopWidth:2,}}/>
+                      <View style = {{borderTopWidth:2,borderColor:Colors.charcoalGrey}}/>
                      <Text style={styles.total}> Your Total Macros:</Text>
                     <View style={styles.horizontal}>
                     <Text>Calories : {calorie} Kcal</Text>

@@ -95,15 +95,15 @@ const MaintenanceCalorie = () => {
             <View style={styles.form}>
                 <View style={styles.horizontal}>
                     <Text style={styles.label}>Age:        </Text>
-                    <ThemeNumberInput flex={true} value={age} placeholder='Enter Age in Years' onChangeText={(val) => { setAge(val) }} keyboard={'numeric'} />
+                    <ThemeNumberInput flex={true} value={age} placeholder='Age in Years' onChangeText={(val) => { setAge(val) }} keyboard={'numeric'} />
                 </View>
                 <View style={styles.horizontal}>
                     <Text style={styles.label}>Weight: </Text>
-                    <ThemeNumberInput flex={true} value={mass} placeholder='Enter Weight in Kgs' onChangeText={(val) => { setMass(val) }} keyboard={'numeric'} />
+                    <ThemeNumberInput flex={true} value={mass} placeholder='Weight in Kgs' onChangeText={(val) => { setMass(val) }} keyboard={'numeric'} />
                 </View>
                 <View style={styles.horizontal}>
                     <Text style={styles.label}>Height: </Text>
-                    <ThemeNumberInput flex={true} value={length} placeholder='Enter Height in CentiMetres' onChangeText={(val) => { setLength(val) }} keyboard={'numeric'} />
+                    <ThemeNumberInput flex={true} value={length} placeholder='Height in CentiMetres' onChangeText={(val) => { setLength(val) }} keyboard={'numeric'} />
                 </View>
             </View>
             <DropDownPicker

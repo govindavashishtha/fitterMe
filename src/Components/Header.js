@@ -1,7 +1,6 @@
 import {Text, View} from 'react-native';
 import React from 'react';
 import Colors from '../Constants/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Header = ({title , backPress}) =>{
 

@@ -128,11 +128,11 @@ const BodyMassIndex = () => {
         (<View style={styles.form}>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Weight:</Text>
-            <ThemeNumberInput flex={true} value={weight} placeholder='Enter Weight in Kilograms' onChangeText={(val) => { setWeight(val) }} keyboard={'numeric'} />
+            <ThemeNumberInput flex={true} value={weight} placeholder='Weight in Kilograms' onChangeText={(val) => { setWeight(val) }} keyboard={'numeric'} />
           </View>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Height:</Text>
-            <ThemeNumberInput flex={true} value={height} placeholder='Enter height in centimeters' onChangeText={(val) => { setHeight(val) }} keyboard={'numeric'} />
+            <ThemeNumberInput flex={true} value={height} placeholder='Height in centimeters' onChangeText={(val) => { setHeight(val) }} keyboard={'numeric'} />
           </View>
           <View style={{ marginTop: 10 }}>
             {BMI &&
@@ -155,11 +155,11 @@ const BodyMassIndex = () => {
         (<View style={styles.form}>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Weight:</Text>
-            <ThemeNumberInput flex={true} value={lbs} placeholder='Enter Weight in lbs' onChangeText={(val) => { setLbs(val) }} keyboard={'numeric'} />
+            <ThemeNumberInput flex={true} value={lbs} placeholder='Weight in lbs' onChangeText={(val) => { setLbs(val) }} keyboard={'numeric'} />
           </View>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Height:</Text>
-            <ThemeNumberInput flex={true} value={inches} placeholder='Enter height in inches' onChangeText={(val) => { setInches(val) }} keyboard={'numeric'} />
+            <ThemeNumberInput flex={true} value={inches} placeholder='Height in inches' onChangeText={(val) => { setInches(val) }} keyboard={'numeric'} />
           </View>
           <View style={{ marginTop: 10, }}>
             {BMI &&
