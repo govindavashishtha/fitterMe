@@ -21,7 +21,6 @@ import toast from '../Components/Toast';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-
 const SettingsScreen = ({ navigation }) => {
   const user = useSelector(state => state.userDetails);
   const [firstName, setFirstName] = useState(user.firstName);
@@ -97,7 +96,7 @@ const SettingsScreen = ({ navigation }) => {
         dob: dob,
       };
       const phone = auth().currentUser.phoneNumber;
-      database().ref('/Users').child(phone).set(user).then(() => {
+      database().ref('/Users').child(phone).update(user).then(() => {
         dispatch(setUser(user));
         setLoader(false);
         navigation.navigate('Welcome');

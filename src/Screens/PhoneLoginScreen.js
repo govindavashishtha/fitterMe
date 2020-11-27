@@ -6,6 +6,8 @@ import ThemeNumberInput from '../Components/ThemeNumberInput';
 import Colors from '../Constants/Colors';
 import Loader from '../Components/Loader';
 import database from '@react-native-firebase/database';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../react-redux/actions';
 
 const PhoneLoginScreen = ({navigation})=>{
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -15,6 +17,7 @@ const PhoneLoginScreen = ({navigation})=>{
   const [loader, setLoader] = useState(false);
   const [code, setCode] = useState('');
   const [invalidOTP,setInvalidOTP] = useState(false);
+  const dispatch = useDispatch();
 
   const checkUser = () => {
     database()
@@ -22,6 +25,7 @@ const PhoneLoginScreen = ({navigation})=>{
     .once('value')
     .then(snapshot => {
       if(snapshot.val() && snapshot.val().firstName){
+        dispatch(setUser(snapshot.val()));
         navigation.navigate('Welcome');
       }else{
         navigation.navigate('SignUp')
