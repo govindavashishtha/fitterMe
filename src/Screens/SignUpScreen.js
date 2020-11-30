@@ -84,10 +84,10 @@ const SignUpScreen = ({navigation})=>{
                 </View>
       <View style= {{flexDirection:'row'}}>         
       <View style={styles.formContainer} > 
-            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in kg)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
+            <TextInput keyboardType={'number-pad'} mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in kg)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in cm)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
+            <TextInput keyboardType={'number-pad'} mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in cm)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
       </View>
       </View> 
       <View style={styles.formContainer} > 

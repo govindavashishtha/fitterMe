@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
-  View, Text, ScrollView, Keyboard,Share,TouchableOpacity 
+  View, Text, ScrollView, Keyboard, Share, TouchableOpacity
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import ThemeButton from './../Components/ThemeButton'
@@ -113,12 +113,12 @@ const SettingsScreen = ({ navigation }) => {
       <Header title={'Settings'} />
       <ScrollView>
         <View style={styles.container}>
-          <View style ={{flexDirection:'row' , justifyContent:'space-between'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.heading}>Profile</Text>
-            <TouchableOpacity style={{paddingTop:12,paddingRight:10}} onPress={()=>{onShare()}}>
+            <TouchableOpacity style={{ paddingTop: 12, paddingRight: 10 }} onPress={() => { onShare() }}>
               <Icon name={'share-alt'} size={20} color={Colors.charcoalGrey80} />
             </TouchableOpacity>
-    
+
           </View>
           <View style={styles.formContainer} >
             <TextInput mode='outlined'
@@ -151,10 +151,10 @@ const SettingsScreen = ({ navigation }) => {
           </View>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.formContainer} >
-              <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Weight(in Kg)" value={weight} onChangeText={(n) => { setWeight(n) }} />
+              <TextInput keyboardType={'number-pad'} mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Weight(in Kg)" value={weight} onChangeText={(n) => { setWeight(n) }} />
             </View>
             <View style={styles.formContainer} >
-              <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Height(in cm)" value={height} onChangeText={(n) => { setHeight(n) }} />
+              <TextInput keyboardType={'number-pad'} mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Height(in cm)" value={height} onChangeText={(n) => { setHeight(n) }} />
             </View>
           </View>
           <View style={styles.formContainer} >
@@ -201,11 +201,6 @@ const SettingsScreen = ({ navigation }) => {
           {!isKeyboardVisible &&
             <View style={{
               position: 'absolute', right: 15, bottom: 10, alignItems: 'center'
-
-
-
-
-
             }}>
               <Icon name={'sign-out'} size={18} color={Colors.charcoalGreyMediocre} />
               <Text style={{ fontSize: 15, color: Colors.charcoalGreyMediocre, fontFamily: 'Karla-Bold' }} onPress={() => {
