@@ -8,7 +8,8 @@ import auth from '@react-native-firebase/auth';
 import LoadingDots from "react-native-loading-dots";
 import database from '@react-native-firebase/database';
 import { useDispatch } from 'react-redux';
-import { setData, setUser } from '../react-redux/actions';
+import { setData, setReduxSteps, setUser } from '../react-redux/actions';
+import GoogleFit, { Scopes } from 'react-native-google-fit';
 import VersionCheck from 'react-native-version-check';
 const LoadingScreen = ({ navigation }) => {
   const apiKeys = ['59ed4d1096c14181ac87f374a460e0c1',
@@ -16,6 +17,67 @@ const LoadingScreen = ({ navigation }) => {
     '5329bf3ba3b840f9b426171a1bf4221f',
     '927de1a2949a49f9aa2c7e1b973c3df4'];  
   const dispatch = useDispatch();
+
+  const getDistance =()=>{
+    const opt = {
+      endDate: new Date().toISOString(), // required
+      bucketUnit: "DAY", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+      bucketInterval: 1, // optional - default 1. 
+    };
+   
+    GoogleFit.getDailyDistanceSamples(opt).then((res)=>{
+      console.log("Distance" ,res);
+    });
+  }
+  const getSteps = () => {
+    const opt = {
+      endDate: new Date().toISOString(), // required ISO8601Timestamp
+      bucketUnit: "DAY", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+      bucketInterval: 1, // optional - default 1. 
+    };
+
+    GoogleFit.getDailyStepCountSamples(opt)
+      .then((res) => {
+        console.log('steps  ',res)
+        res.map(item => {
+          if (item.steps[0]) {
+            dispatch(setReduxSteps(item.steps[0].value));
+            console.log('steps  ', item.steps[0])
+          }
+        })
+      })
+      .catch((err) => { console.warn(err) })
+  }
+
+  
+  const options = {
+    scopes: [
+      Scopes.FITNESS_ACTIVITY_READ,
+      Scopes.FITNESS_ACTIVITY_WRITE,
+      Scopes.FITNESS_BODY_READ,
+      Scopes.FITNESS_BODY_WRITE,
+    ],
+  }
+
+  const fitAuth = ()=>{
+    GoogleFit.authorize(options)
+      .then(authResult => {
+        if (authResult.success) {
+          console.log('AUTH_SUCCESS');
+          GoogleFit.startRecording((callback) => {
+            console.log('getting Fit data');
+            getSteps();
+            getDistance();
+          });
+        } else {
+          console.log("AUTH_DENIED", authResult.message);
+          fitAuth();
+        }
+      })
+      .catch(() => {
+        console.error("AUTH_ERROR");
+      })
+  }
 
   const fetchAPI = () => {
     fetch(`https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${apiKeys[Math.floor(Math.random() * 4)]}`, {
@@ -74,7 +136,7 @@ const LoadingScreen = ({ navigation }) => {
   }
   useEffect(() => {
     fetchAPI();
-    setTimeout(checkUser, 2000);
+    setTimeout(()=>{checkUser();fitAuth();}, 2000);
     checkVersion();
   }, [navigation]);
   return (

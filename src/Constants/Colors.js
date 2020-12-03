@@ -35,6 +35,7 @@ export default {
     underWeightYellow:'#e3c830',
     normalWeightGreen:'#2abd1c',
     overWeightOrange:'#e67b02',
-    obeseRed:'#e60202'
-
+    obeseRed:'#e60202',
+    innerCircle:'#099FFF',
+    outerCircle:'#00FF00',
   };
