@@ -10,7 +10,7 @@ const initialState = {
   data: '',
   userDetails: {},
   calories: '',
-  steps: '',
+  steps: '0',
   targetSteps: '5000',
 };
 

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
-  View, Text, FlatList, RefreshControl
+  View, Text, FlatList, RefreshControl,
 } from 'react-native';
 import Header from './../Components/Header';
 import { useSelector } from 'react-redux';
 import NewsCard from '../Components/NewsCard';
-
+import GoogleFit, {Scopes} from 'react-native-google-fit';
 import ThemeButton from './../Components/ThemeButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -15,11 +15,11 @@ import Colors from '../Constants/Colors';
 import FitImage from '../Components/FitImage';
 
 const HomeScreen = ({ navigation }) => {
+
   const [news, setNews] = useState(useSelector(state => state.data));
   const [refreshing, setRefreshing] = useState(false);
   const steps = useSelector(state => state.steps);
   const stepsGoal = 5000;
-  console.log(steps);
 
   const [calories, setCalories] = useState();
 
@@ -50,26 +50,31 @@ const HomeScreen = ({ navigation }) => {
       }>
         <View>
           <View>
-            <FitImage innerCircleFillPercentage={steps/10} outerCircleFillPercentage={(steps/stepsGoal)*100} />
+            <FitImage innerCircleFillPercentage={(steps/stepsGoal)*100} outerCircleFillPercentage={(steps/stepsGoal)*100} />
           </View>
-
           <View>
             <View style={styles.row}>
-              <View style={styles.row}>
+            <View style={{alignItems:'center'}}>
+            <View style={styles.row}>
                 <Icon name={'walk'} size={30} color={Colors.charcoalGrey80} />
-                <Text>{steps}</Text>
+                <Text style={styles.text}>{steps}</Text>
               </View>
+              <Text style={styles.label}>Steps</Text>
+            </View>
+              <View style={{alignItems:'center'}}>
               <View style={styles.row}>
                 <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
-                <Text>{steps}</Text>
+                <Text style={styles.text}>{steps}</Text>
               </View>
+              <Text style={styles.label}>Calories</Text>
+              </View>
+             
             </View>
 
           </View>
         </View>
-
-
-        {/* <FlatList
+        <View style={{paddingTop:20}}>
+        <FlatList
           data={news}
           renderItem={({ item }) => (
             <NewsCard
@@ -77,12 +82,14 @@ const HomeScreen = ({ navigation }) => {
             />
           )}
           scrollEnabled={true}
-          horizontal={false}
+          horizontal={true}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={{
             flexGrow: 1,
           }}
-        /> */}
+        />
+        </View>
+        
       </ScrollView>
     </>
   )
@@ -94,8 +101,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   row: {
+    alignItems:'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+  },
+  text:{
+    fontFamily:'Karla-Bold',
+    fontSize:16,
+    paddingHorizontal:10
+  },
+  label:{
+     fontSize:13,
   }
 })
 

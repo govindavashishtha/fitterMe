@@ -1,10 +1,11 @@
 import React from 'react';
 import {
     StyleSheet,Linking,
-    View, Text, Image, ImageBackground,TouchableOpacity,SafeAreaView
+    View, Text, Image, ImageBackground,TouchableOpacity,SafeAreaView,Dimensions
 } from 'react-native';
 import Colors from '../Constants/Colors';
 
+const screen = Dimensions.get("screen");
 
 const NewsCard = ({Item}) => {
     return (
@@ -26,12 +27,15 @@ const NewsCard = ({Item}) => {
 }
 const styles = StyleSheet.create({
     container: {
+        width:screen.width-100,
         marginVertical:5,
         height:360,
+        margin:5,
         borderWidth:.5,
         borderRadius: 8,
         overflow:'hidden',
         backgroundColor:Colors.white,
+        flex:1,
     },
     image: {
         width: '100%',
