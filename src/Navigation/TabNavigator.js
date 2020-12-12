@@ -54,6 +54,9 @@ const TabNavigator = ({ navigation }) => {
         activeTintColor: Colors.primaryColorDark,
         inactiveTintColor: 'gray',
         keyboardHidesTabBar: true,
+        tabStyle:{
+          paddingBottom:5 
+        }
       }}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Calculate" component={Calculate} />
