@@ -1,117 +1,69 @@
 import React, {useState} from 'react';
 import {
   StyleSheet,
-  View, Text, FlatList, RefreshControl,
+  View, Text,
 } from 'react-native';
 import Header from './../Components/Header';
-import { useSelector } from 'react-redux';
-import NewsCard from '../Components/NewsCard';
-import GoogleFit, {Scopes} from 'react-native-google-fit';
-import ThemeButton from './../Components/ThemeButton';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import News from '../Components/News';
+import Pedometer from '../Components/Pedometer';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from '../Constants/Colors';
-import FitImage from '../Components/FitImage';
 
 const HomeScreen = ({ navigation }) => {
 
-  const [news, setNews] = useState(useSelector(state => state.data));
-  const [refreshing, setRefreshing] = useState(false);
-  const steps = useSelector(state => state.steps);
-  const stepsGoal = 5000;
+  const [index, setIndex] = useState(0);
 
-  const [calories, setCalories] = useState();
-
-  const apiKeys = ['59ed4d1096c14181ac87f374a460e0c1',
-    '4885a26a44d14c6cb3bd5aed4a203884',
-    '5329bf3ba3b840f9b426171a1bf4221f',
-    '927de1a2949a49f9aa2c7e1b973c3df4'];
-
-  const fetchAPI = () => {
-    console.log('refreshed');
-    fetch(`https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${apiKeys[Math.floor(Math.random() * 4)]}`, {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setNews(responseJson.articles);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const ComponentRenderer = () => {
+    if (index == 0) {
+      return (<Pedometer />)
+    } else {
+      return(<News />)  
+    }
   }
+
   return (
     <>
       <Header title={'Home'} />
-
-      <ScrollView style={styles.container} refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={() => { fetchAPI() }} />
-      }>
-        <View>
-          <View>
-            <FitImage innerCircleFillPercentage={(steps/stepsGoal)*100} outerCircleFillPercentage={(steps/stepsGoal)*100} />
+        <View style={styles.container}>
+          <View style={styles.horizontal}>
+            <Text style={index == 0 ?styles.activeText:styles.text} onPress={() => { setIndex(0) }}>Pedometer</Text>
+            <Text style={index == 1 ?styles.activeText:styles.text} onPress={() => { setIndex(1) }}>News</Text>
           </View>
-          <View>
-            <View style={styles.row}>
-            <View style={{alignItems:'center'}}>
-            <View style={styles.row}>
-                <Icon name={'walk'} size={30} color={Colors.charcoalGrey80} />
-                <Text style={styles.text}>{steps}</Text>
-              </View>
-              <Text style={styles.label}>Steps</Text>
-            </View>
-              <View style={{alignItems:'center'}}>
-              <View style={styles.row}>
-                <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
-                <Text style={styles.text}>{steps}</Text>
-              </View>
-              <Text style={styles.label}>Calories</Text>
-              </View>
-             
-            </View>
-
-          </View>
+          <ScrollView>
+          <ComponentRenderer />
+          </ScrollView>
         </View>
-        <View style={{paddingTop:20}}>
-        <FlatList
-          data={news}
-          renderItem={({ item }) => (
-            <NewsCard
-              Item={item}
-            />
-          )}
-          scrollEnabled={true}
-          horizontal={true}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{
-            flexGrow: 1,
-          }}
-        />
-        </View>
-        
-      </ScrollView>
     </>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: '100%',
-    paddingHorizontal: 10,
+    padding: 7,
+    marginBottom: 100,
   },
-  row: {
-    alignItems:'center',
+  horizontal: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   text:{
-    fontFamily:'Karla-Bold',
-    fontSize:16,
-    paddingHorizontal:10
+    width:'50%',
+    textAlign:'center',
+    padding:5,
+    fontFamily:'Karla-Regular',
+    color:Colors.charcoalGreyMediocre,
+    fontSize:14.5,
   },
-  label:{
-     fontSize:13,
+  activeText:{
+    width:'50%',
+    textAlign:'center',
+    borderBottomColor:Colors.primaryColorDark,
+    borderBottomWidth:3,
+    padding:5,
+    color:Colors.primaryColorDark,
+    fontFamily:'Karla-Bold',
+    fontSize:14.9,
   }
 })
 
