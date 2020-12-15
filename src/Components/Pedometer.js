@@ -4,6 +4,7 @@ import {
   View, Text, RefreshControl,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -13,7 +14,15 @@ import FitImage from '../Components/FitImage';
 const Pedometer = () => {
     const [refreshing, setRefreshing] = useState(false);
     const steps = useSelector(state => state.steps);
+    const user = useSelector(state => state.userDetails);
+   
+    const [height,setHeight] =useState(user.height);
+    const stride = height*0.43*0.0328084;
+    const dist = stride*steps;
+   ;
+    const distGoal =stride*500;
     const stepsGoal = 5000;
+    const distGoals = stride*5000;
     const [calories, setCalories] = useState();
 
     return (
@@ -33,11 +42,22 @@ const Pedometer = () => {
                   </View>
                   <Text style={styles.label}>Steps</Text>
                 </View>
+                <View style={{alignItems:'center'}}>
+                  <View style={styles.row}>
+                    <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
+                    <Text style={styles.text}>{dist}</Text>
+                  </View>
+                
+                  <Text style={styles.label}>Distance</Text>
+                  </View>   
+
+
                   <View style={{alignItems:'center'}}>
                   <View style={styles.row}>
                     <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
                     <Text style={styles.text}>{steps}</Text>
                   </View>
+                
                   <Text style={styles.label}>Calories</Text>
                   </View>          
                 </View>
