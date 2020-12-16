@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { setData, setReduxSteps, setUser } from '../react-redux/actions';
 import GoogleFit, { Scopes } from 'react-native-google-fit';
 import VersionCheck from 'react-native-version-check';
+import { Flag } from 'react-native-svg-flagkit'
 const LoadingScreen = ({ navigation }) => {
   const apiKeys = [
     '59ed4d1096c14181ac87f374a460e0c1',
@@ -167,18 +168,21 @@ const LoadingScreen = ({ navigation }) => {
   }, [navigation]);
   return (
     <View style={styles.container}>
-      <Text
-        onPress={() => {
-          navigation.navigate(ScreenNames.LogInStack);
-        }}
-        style={styles.logoText}>
-        fitterMe
-      </Text>
-      <View style={{ width: '10%', paddingVertical: 30, marginLeft: '45%' }}>
-        <LoadingDots
-          dots={3}
-          colors={['#FFFFFF', '#FFFFFF', '#FFFFFF']}
-          size={5}
+      <View style={{justifyContent: 'center'}}>
+        <Text style={styles.logoText}>fitterMe</Text>
+        <View style={{ width: '10%', paddingVertical: 30, marginLeft: '45%' }}>
+          <LoadingDots dots={4} colors={['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF']} size={5} />
+        </View>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.text}>Handcrafted in India </Text>
+        <Flag 
+          id={'IN'}
+          width={24}
+          height={24}
+          onPress={() => {
+            Linking.openURL('https://en.wikipedia.org/wiki/India');
+          }}
         />
       </View>
     </View>
@@ -197,7 +201,20 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: 'Pacifico-Regular',
     textAlign: 'center',
+    alignItems: 'center'
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: '5%',
+    right: '20%',
+  },
+  text: {
+    fontSize: 18,
+    fontFamily: 'Karla-Bold',
+    color: Colors.white,
+  }
 });
 
 export default LoadingScreen;
