@@ -30,6 +30,7 @@ const SettingsScreen = ({ navigation }) => {
   const [dob, setDob] = useState(user.dob);
   const [weight, setWeight] = useState(user.weight);
   const [height, setHeight] = useState(user.height);
+  const [steps, setSteps] = useState(user.steps);
   const [loader, setLoader] = useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const dispatch = useDispatch();
@@ -85,7 +86,7 @@ const SettingsScreen = ({ navigation }) => {
 
 
   const setUserData = () => {
-    if (firstName && lastName && email && gender && weight && height && dob) {
+    if (firstName && lastName && email && gender && weight && height && dob && steps) {
       let user = {
         firstName: firstName,
         lastName: lastName,
@@ -94,6 +95,7 @@ const SettingsScreen = ({ navigation }) => {
         height: height,
         weight: weight,
         dob: dob,
+        steps: steps,
       };
       const phone = auth().currentUser.phoneNumber;
       database().ref('/Users').child(phone).update(user).then(() => {
@@ -160,6 +162,9 @@ const SettingsScreen = ({ navigation }) => {
           <View style={styles.formContainer} >
             <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Email" value={email} onChangeText={(n) => { setEmail(n) }} />
           </View>
+          <View style={styles.formContainer} >
+            <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Target Steps" value={steps} onChangeText={(n) => { setSteps(n) }} />
+          </View>
           <Text style={{ fontSize: 11.5, marginTop: 10, paddingLeft: 7, color: Colors.charcoalGrey80 }}>Date of Birth</Text>
           <DatePicker
             style={{ width: '100%', padding: 5 }}
@@ -183,7 +188,7 @@ const SettingsScreen = ({ navigation }) => {
             onDateChange={(date) => { setDob(date) }}
           />
           <View style={{ paddingVertical: 30, paddingHorizontal: 10, }}>
-            {firstName && lastName && email && gender && weight && height && dob ? (
+            {firstName && lastName && email && gender && weight && height && dob && steps ? (
               <ThemeButton title={'Update Details'} onPress={() => {
                 setLoader(true);
                 setUserData();

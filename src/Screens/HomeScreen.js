@@ -1,66 +1,70 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
-  View, Text, FlatList, RefreshControl
+  View, Text,
 } from 'react-native';
 import Header from './../Components/Header';
-import { useSelector } from 'react-redux';
-import NewsCard from '../Components/NewsCard';
-
+import News from '../Components/News';
+import Pedometer from '../Components/Pedometer';
 import { ScrollView } from 'react-native-gesture-handler';
+import Colors from '../Constants/Colors';
 
 const HomeScreen = ({ navigation }) => {
-  const [news, setNews] = useState(useSelector(state => state.data));
-  const [refreshing, setRefreshing] = useState(false);
-  const apiKeys = ['59ed4d1096c14181ac87f374a460e0c1',
-  '4885a26a44d14c6cb3bd5aed4a203884',
-  '5329bf3ba3b840f9b426171a1bf4221f',
-  '927de1a2949a49f9aa2c7e1b973c3df4'];  
 
-  const fetchAPI = () => {
-    console.log('refreshed');
-    fetch(`https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${apiKeys[Math.floor(Math.random() * 4)]}`, {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setNews(responseJson.articles);
-        console.log(responseJson.articles)
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const [index, setIndex] = useState(0);
+
+  const ComponentRenderer = () => {
+    if (index == 0) {
+      return (<Pedometer />)
+    } else {
+      return(<News />)  
+    }
   }
+
   return (
     <>
       <Header title={'Home'} />
-      <ScrollView style={styles.container} refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={() => { fetchAPI() }} />
-      }>
-        <FlatList
-          data={news}
-          renderItem={({ item }) => (
-            <NewsCard
-              Item={item}
-            />
-          )}
-          scrollEnabled={true}
-          horizontal={false}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{
-            flexGrow: 1,
-          }}
-        />
-      </ScrollView>
+        <View style={styles.container}>
+          <View style={styles.horizontal}>
+            <Text style={index == 0 ?styles.activeText:styles.text} onPress={() => { setIndex(0) }}>Pedometer</Text>
+            <Text style={index == 1 ?styles.activeText:styles.text} onPress={() => { setIndex(1) }}>News</Text>
+          </View>
+          <ScrollView>
+          <ComponentRenderer />
+          </ScrollView>
+        </View>
     </>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: '100%',
-    paddingHorizontal: 10,
+    padding: 7,
+    marginBottom: 100,
   },
+  horizontal: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  text:{
+    width:'50%',
+    textAlign:'center',
+    padding:5,
+    fontFamily:'Karla-Regular',
+    color:Colors.charcoalGreyMediocre,
+    fontSize:14.5,
+  },
+  activeText:{
+    width:'50%',
+    textAlign:'center',
+    borderBottomColor:Colors.primaryColorDark,
+    borderBottomWidth:3,
+    padding:5,
+    color:Colors.primaryColorDark,
+    fontFamily:'Karla-Bold',
+    fontSize:14.9,
+  }
 })
 
 export default HomeScreen;
