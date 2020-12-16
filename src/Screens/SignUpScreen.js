@@ -22,11 +22,12 @@ const SignUpScreen = ({navigation})=>{
   const [dob , setDob] = useState('');
   const [weight , setWeight] = useState('');
   const [height , setHeight] = useState('');
+  const [steps , setSteps] = useState('');
   const [loader , setLoader] = useState(false);
   const dispatch = useDispatch();
 
   const setUserData=()=>{
-    if(firstName && lastName && email && gender && dob && weight && height){
+    if(firstName && lastName && email && gender && dob && weight && height && steps){
       let user = {
         firstName : firstName,
         lastName : lastName,
@@ -35,6 +36,7 @@ const SignUpScreen = ({navigation})=>{
         dob : dob,
         weight : weight,
         height : height,
+        steps : steps
      };
      const phone = auth().currentUser.phoneNumber;
      database().ref('/Users').child(phone).set(user).then(()=>{
@@ -93,6 +95,9 @@ const SignUpScreen = ({navigation})=>{
       <View style={styles.formContainer} > 
             <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Email" value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
+      <View style={styles.formContainer} >
+            <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Target Steps" value={steps} onChangeText={(n) => { setSteps(n) }} />
+      </View>
       <DatePicker
         style={{width: '100%',paddingTop: 25}}
         date={dob}
@@ -118,7 +123,7 @@ const SignUpScreen = ({navigation})=>{
       />
       </View>
       <View style ={{padding:20}}>
-        {firstName && lastName && email && dob && gender && weight && height ?(
+        {firstName && lastName && email && dob && gender && weight && height && steps ?(
           <ThemeButton title={'Sign Up'} onPress={()=>{
             setLoader(true);
           setUserData();

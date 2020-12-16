@@ -7,12 +7,8 @@ const { width, height } = Dimensions.get("screen");
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const FitImage = ({innerCircleFillPercentage , outerCircleFillPercentage}) => {
-  const innerCircleRadius = 13;
-  const innerCirclePerimeter = 2 * Math.PI * innerCircleRadius;
-  const innerCircleStrokeDashOffset =
-    innerCirclePerimeter -
-    (innerCirclePerimeter * innerCircleFillPercentage) / 100;
+const FitImage = ({ outerCircleFillPercentage}) => {
+  
 
   const outerCircleRadius = 18;
   const outerCirclePerimeter = 2 * Math.PI * outerCircleRadius;
@@ -22,19 +18,12 @@ const FitImage = ({innerCircleFillPercentage , outerCircleFillPercentage}) => {
 
   const [springValue] = useState(new Animated.Value(1.3));
 
-  const [innerCircleInitialFill] = useState(
-    new Animated.Value(innerCirclePerimeter)
-  );
   const [outerCircleInitialFill] = useState(
     new Animated.Value(outerCirclePerimeter)
   );
 
   const refresh = ()=>{
     Animated.parallel([
-        Animated.timing(innerCircleInitialFill, {
-          toValue: innerCircleStrokeDashOffset,
-          duration: 2000,
-        }),
         Animated.timing(outerCircleInitialFill, {
           toValue: outerCircleStrokeDashOffset,
           duration: 2000,
@@ -82,25 +71,6 @@ const FitImage = ({innerCircleFillPercentage , outerCircleFillPercentage}) => {
               strokeDashoffset={outerCircleInitialFill}
               strokeLinecap={"round"}
             />
-            <Circle
-              cx="25"
-              cy="25"
-              r={innerCircleRadius}
-              fill="transparent"
-              stroke={Colors.charcoalGrey}
-              strokeDasharray="1"
-              strokeWidth={0.5}
-            />
-            <AnimatedCircle
-              cx="25"
-              cy="25"
-              r={innerCircleRadius}
-              fill="transparent"
-              stroke={Colors.innerCircle}
-              strokeDasharray={innerCirclePerimeter}
-              strokeDashoffset={innerCircleInitialFill}
-              strokeLinecap={"round"}
-            />
           </G>
         </Svg>
         <View
@@ -114,9 +84,6 @@ const FitImage = ({innerCircleFillPercentage , outerCircleFillPercentage}) => {
             bottom: 0,
           }}
         >
-         <TouchableOpacity onPress={()=>{refresh()}}>
-            <Text>Refresh</Text>
-          </TouchableOpacity>
         </View>
       </View>
     </View>
