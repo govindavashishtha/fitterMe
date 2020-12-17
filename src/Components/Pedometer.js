@@ -18,14 +18,24 @@ const Pedometer = () => {
    
     const [height,setHeight] =useState(user.height);
     const [weight,setWeight] =useState(user.weight);
-    const speed = 2.01168;
-    const stride = height*0.43*0.0328084;
-    const dist = stride*steps;
-    const [stepsGoal, setStepGoals] = useState(user.steps);
+    const [stepsGoal, setStepGoals] = useState(user.steps); 
+    const walkingFactor =0.57;
+    const caloriesPerMile= walkingFactor*(weight*2.2);
+    const stride = height*0.43;
+    
+    const stepCountMile = 160934.4 / stride;
+    
+    const dist = (stride*steps);
     
 
-   const calories =  ((0.035 * weight) + (speed)) / ((height/100) * (0.029 * weight))
+  
 
+  const conversationFactor = caloriesPerMile / stepCountMile;
+  const caloriesBurned = stepsCount * conversationFactor;
+   
+    
+
+   
    console.log(calories);
 
     return (
@@ -48,7 +58,7 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,left: '0%',}}>
                   <View style={styles.row}>
                     <Icon name={'compass'} size={28} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{Math.round(dist * 0.26)} m </Text>
+                    <Text style={styles.text}>{Math.round(dist * 100)} > </Text>
                   </View>
                   <Text style={styles.label}>Distance Covered</Text>
                   </View>                 
@@ -58,7 +68,7 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,}}>
                 <View style={styles.row}>
                     <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{calories.toFixed(2)} KCals</Text>
+                    <Text style={styles.text}>{ caloriesBurned.toFixed(2)} Cals</Text>
                   </View>
                   <Text style={styles.label}>Calories Burnt</Text>
                 </View>
