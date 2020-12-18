@@ -21,7 +21,7 @@ const Pedometer = () => {
     const [stepsGoal, setStepGoals] = useState(user.steps); 
     const walkingFactor =0.57;
     const caloriesPerMile= walkingFactor*(weight*2.2);
-    const stride = height*0.43;
+    const stride = height*0.43*0.0328084;
     
     const stepCountMile = 160934.4 / stride;
     
@@ -58,21 +58,10 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,left: '0%',}}>
                   <View style={styles.row}>
                     <Icon name={'compass'} size={28} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{Math.round(dist * 100)}  m</Text>
+                    <Text style={styles.text}>{Math.round(dist*0.26)}  m</Text>
                   </View>
                   <Text style={styles.label}>Distance Covered</Text>
                   </View>                 
-                </View>
-                
-                <View style={styles.row}>
-                <View style={{alignItems:'center',margin: 15,}}>
-                <View style={styles.row}>
-                    <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{ caloriesBurned} Cals</Text>
-                  </View>
-                  <Text style={styles.label}>Calories Burnt</Text>
-                </View>
-
                 </View>
               </View>
               <View style={{position : 'absolute', top: '32%', left: '32%'}}>
