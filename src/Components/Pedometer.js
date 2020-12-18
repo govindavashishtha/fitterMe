@@ -31,12 +31,12 @@ const Pedometer = () => {
   
 
   const conversationFactor = caloriesPerMile / stepCountMile;
-  const caloriesBurned = stepsCount * conversationFactor;
+  const caloriesBurned = steps * conversationFactor;
    
     
 
    
-   console.log(calories);
+   console.log(caloriesBurned);
 
     return (
         <ScrollView style={styles.container} refreshControl={
@@ -58,7 +58,7 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,left: '0%',}}>
                   <View style={styles.row}>
                     <Icon name={'compass'} size={28} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{Math.round(dist * 100)} > </Text>
+                    <Text style={styles.text}>{Math.round(dist * 100)}  m</Text>
                   </View>
                   <Text style={styles.label}>Distance Covered</Text>
                   </View>                 
@@ -68,7 +68,7 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,}}>
                 <View style={styles.row}>
                     <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{ caloriesBurned.toFixed(2)} Cals</Text>
+                    <Text style={styles.text}>{ caloriesBurned} Cals</Text>
                   </View>
                   <Text style={styles.label}>Calories Burnt</Text>
                 </View>
