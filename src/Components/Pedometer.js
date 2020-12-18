@@ -44,7 +44,7 @@ const Pedometer = () => {
           }>
             <View>
               <View>
-                <FitImage outerCircleFillPercentage={(steps/stepsGoal)*100} />
+                <FitImage  outerCircleFillPercentage={(steps/stepsGoal)*100} />
               </View>
               <View>
                 <View style={styles.row}>
@@ -68,14 +68,14 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,}}>
                 <View style={styles.row}>
                     <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{ caloriesBurned} Cals</Text>
+                    <Text style={styles.text}>{caloriesBurned} Cals</Text>
                   </View>
                   <Text style={styles.label}>Calories Burnt</Text>
                 </View>
 
                 </View>
               </View>
-              <View style={{position : 'absolute', top: '32%', left: '32%'}}>
+              <View style={{position : 'absolute', top: '30%', left: '34%',}}>
                     <Text style={styles.text1}>{steps} / {stepsGoal} </Text>
                   </View>
             </View>
