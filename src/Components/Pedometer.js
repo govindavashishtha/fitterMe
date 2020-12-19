@@ -44,7 +44,7 @@ const Pedometer = () => {
           }>
             <View>
               <View>
-                <FitImage  outerCircleFillPercentage={(steps/stepsGoal)*100} />
+                <FitImage  outerCircleFillPercentage={(steps/stepsGoal)*100} steps={steps} stepsGoal={stepsGoal} />                
               </View>
               <View>
                 <View style={styles.row}>
@@ -68,16 +68,13 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,}}>
                 <View style={styles.row}>
                     <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{caloriesBurned} Cals</Text>
+                    <Text style={styles.text}>{caloriesBurned.toFixed(2)} KCals</Text>
                   </View>
                   <Text style={styles.label}>Calories Burnt</Text>
                 </View>
 
                 </View>
               </View>
-              <View style={{position : 'absolute', top: '30%', left: '34%',}}>
-                    <Text style={styles.text1}>{steps} / {stepsGoal} </Text>
-                  </View>
             </View>
           </ScrollView>
     )
@@ -103,12 +100,6 @@ const styles = StyleSheet.create({
        fontSize:14,
        fontStyle: 'italic',
     },
-    text1: {
-      fontFamily:'Karla-Bold',
-      fontSize:22,
-      paddingHorizontal:10,
-      color: Colors.primaryColorDark,
-    }
   })
 
 export default Pedometer
