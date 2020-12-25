@@ -16,7 +16,8 @@ import { useDispatch } from 'react-redux';
 import { setData, setReduxSteps, setUser } from '../react-redux/actions';
 import GoogleFit, { Scopes } from 'react-native-google-fit';
 import VersionCheck from 'react-native-version-check';
-import { Flag } from 'react-native-svg-flagkit'
+// import { Flag } from 'react-native-svg-flagkit'
+
 const LoadingScreen = ({ navigation }) => {
   const apiKeys = [
     '59ed4d1096c14181ac87f374a460e0c1',
@@ -176,16 +177,17 @@ const LoadingScreen = ({ navigation }) => {
       </View>
       <View style={styles.row}>
         <Text style={styles.text}>Handcrafted in India </Text>
-        <Flag 
+        {/* <Flag 
           id={'IN'}
           width={24}
           height={24}
           onPress={() => {
             Linking.openURL('https://en.wikipedia.org/wiki/India');
           }}
-        />
+        /> */}
       </View>
     </View>
+    
   );
 };
 const styles = StyleSheet.create({
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     bottom: '5%',
-    right: '20%',
+    right: '25%',
   },
   text: {
     fontSize: 18,

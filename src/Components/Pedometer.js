@@ -18,15 +18,25 @@ const Pedometer = () => {
    
     const [height,setHeight] =useState(user.height);
     const [weight,setWeight] =useState(user.weight);
-    const speed = 2.01168;
+    const [stepsGoal, setStepGoals] = useState(user.steps); 
+    const walkingFactor =0.57;
+    const caloriesPerMile= walkingFactor*(weight*2.2);
     const stride = height*0.43*0.0328084;
-    const dist = stride*steps;
-    const [stepsGoal, setStepGoals] = useState(user.steps);
+    
+    const stepCountMile = 160934.4 / stride;
+    
+    const dist = (stride*steps);
     
 
-   const calories =  ((0.035 * weight) + (speed)) / ((height/100) * (0.029 * weight))
+  
 
-   console.log(calories);
+  const conversationFactor = caloriesPerMile / stepCountMile;
+  const caloriesBurned = steps * conversationFactor;
+   
+    
+
+   
+   console.log(caloriesBurned);
 
     return (
         <ScrollView style={styles.container} refreshControl={
@@ -34,7 +44,7 @@ const Pedometer = () => {
           }>
             <View>
               <View>
-                <FitImage outerCircleFillPercentage={(steps/stepsGoal)*100} />
+                <FitImage  outerCircleFillPercentage={(steps/stepsGoal)*100} steps={steps} stepsGoal={stepsGoal} />                
               </View>
               <View>
                 <View style={styles.row}>
@@ -48,7 +58,7 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,left: '0%',}}>
                   <View style={styles.row}>
                     <Icon name={'compass'} size={28} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{Math.round(dist * 0.26)} m </Text>
+                    <Text style={styles.text}>{Math.round(dist*0.26)}  m</Text>
                   </View>
                   <Text style={styles.label}>Distance Covered</Text>
                   </View>                 
@@ -58,16 +68,13 @@ const Pedometer = () => {
                 <View style={{alignItems:'center',margin: 15,}}>
                 <View style={styles.row}>
                     <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
-                    <Text style={styles.text}>{calories.toFixed(2)} KCals</Text>
+                    <Text style={styles.text}>{caloriesBurned.toFixed(2)} KCals</Text>
                   </View>
                   <Text style={styles.label}>Calories Burnt</Text>
                 </View>
 
                 </View>
               </View>
-              <View style={{position : 'absolute', top: '32%', left: '32%'}}>
-                    <Text style={styles.text1}>{steps} / {stepsGoal} </Text>
-                  </View>
             </View>
           </ScrollView>
     )
@@ -93,12 +100,6 @@ const styles = StyleSheet.create({
        fontSize:14,
        fontStyle: 'italic',
     },
-    text1: {
-      fontFamily:'Karla-Bold',
-      fontSize:22,
-      paddingHorizontal:10,
-      color: Colors.primaryColorDark,
-    }
   })
 
 export default Pedometer

@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get("screen");
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const FitImage = ({ outerCircleFillPercentage}) => {
+const FitImage = ({ outerCircleFillPercentage, steps, stepsGoal}) => {
   
 
   const outerCircleRadius = 18;
@@ -84,6 +84,7 @@ const FitImage = ({ outerCircleFillPercentage}) => {
             bottom: 0,
           }}
         >
+          <Text style={styles.text1}>{steps} / {stepsGoal} </Text>
         </View>
       </View>
     </View>
@@ -101,6 +102,12 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: width * 0.5,
     backgroundColor:Colors.red,
+  },
+  text1: {
+    fontFamily:'Karla-Bold',
+    fontSize:22,
+    paddingHorizontal:10,
+    color: Colors.primaryColorDark,
   },
 });
 
