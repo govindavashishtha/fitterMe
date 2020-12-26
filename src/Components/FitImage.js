@@ -58,7 +58,7 @@ const FitImage = ({ outerCircleFillPercentage, steps, stepsGoal}) => {
               fill="transparent"
               stroke={Colors.charcoalGrey}
               strokeDasharray="10, 1"
-              strokeDashoffset="30"
+              strokeDashoffset={30}
               strokeWidth={0.7}
             />
             <AnimatedCircle

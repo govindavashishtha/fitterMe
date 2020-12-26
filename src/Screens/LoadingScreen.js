@@ -16,7 +16,6 @@ import { useDispatch } from 'react-redux';
 import { setData, setReduxSteps, setUser } from '../react-redux/actions';
 import GoogleFit, { Scopes } from 'react-native-google-fit';
 import VersionCheck from 'react-native-version-check';
-// import { Flag } from 'react-native-svg-flagkit'
 
 const LoadingScreen = ({ navigation }) => {
   const apiKeys = [

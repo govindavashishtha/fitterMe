@@ -96,7 +96,7 @@ const SignUpScreen = ({navigation})=>{
             <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Email" value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
       <View style={styles.formContainer} >
-            <TextInput mode='outlined' theme={{ colors: { primary: Colors.primaryColorDark } }} label="Target Steps" value={steps} onChangeText={(n) => { setSteps(n) }} />
+            <TextInput mode='outlined' keyboardType={'number-pad'} theme={{ colors: { primary: Colors.primaryColorDark } }} label="Target Steps" value={steps} onChangeText={(n) => { setSteps(n) }} />
       </View>
       <DatePicker
         style={{width: '100%',paddingTop: 25}}
