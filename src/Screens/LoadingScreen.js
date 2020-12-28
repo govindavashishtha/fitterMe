@@ -10,7 +10,6 @@ import database from '@react-native-firebase/database';
 import { useDispatch } from 'react-redux';
 import { setData, setUser } from '../react-redux/actions';
 import VersionCheck from 'react-native-version-check';
-import { Flag } from 'react-native-svg-flagkit'
 const LoadingScreen = ({ navigation }) => {
   const apiKeys = ['59ed4d1096c14181ac87f374a460e0c1',
     '4885a26a44d14c6cb3bd5aed4a203884',
@@ -48,7 +47,7 @@ const LoadingScreen = ({ navigation }) => {
               },
             },
           ], 
-            {cancelable: false},
+            {cancelable: true},
         );
       }
     } catch(error) {console.log(error)}
@@ -88,14 +87,6 @@ const LoadingScreen = ({ navigation }) => {
       </View>
       <View style={styles.row}>
         <Text style={styles.text}>Handcrafted in India </Text>
-        <Flag 
-          id={'IN'}
-          width={24}
-          height={24}
-          onPress={() => {
-            Linking.openURL('https://en.wikipedia.org/wiki/India');
-          }}
-        />
       </View>
     </View>
   )
