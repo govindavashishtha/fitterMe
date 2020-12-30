@@ -129,7 +129,7 @@ const LoadingScreen = ({ navigation }) => {
               },
             },
           ],
-          { cancelable: false },
+          { cancelable: true },
         );
       }
     } catch (error) {

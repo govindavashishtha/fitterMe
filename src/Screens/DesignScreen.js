@@ -38,7 +38,7 @@ const DesignScreen = () => {
   ];
 
   const addToDiet = () => {
-    database().ref('/Users').child(phone).child('diet').child(mealTime).child(query).set(data).then(() => {
+    database().ref('/Users').child(phone).child('diet').child(mealTime).child(`${data.ingredients[0].text}`).set(data).then(() => {
       toast('Food added to your Diet.');
       setData(null);
       setQuery('');
@@ -96,6 +96,7 @@ const DesignScreen = () => {
         } else {
           setError(false);
           setData(responseJson);
+          console.log(responseJson)
           setLoader(false);
         }
       })
