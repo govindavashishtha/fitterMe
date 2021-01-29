@@ -34,8 +34,8 @@ const BodyMassIndex = () => {
   const BMIcalculatorKG = () => {
     if (weight && height && weight !== 0 && height !== 0) {
       setErrorText(false);
-      setBMI((weight * 10000) / (height * height));
-      calcCategory((weight * 10000) / (height * height));
+      setBMI(((weight * 10000) / (height * height)).toFixed(3));
+      calcCategory(((weight * 10000) / (height * height)).toFixed(3));
     } else {
       console.log('weight or height not defined');
       setErrorText(true);
@@ -44,8 +44,8 @@ const BodyMassIndex = () => {
   const BMIcalculatorFeet = () => {
     if (lbs && inches && lbs !== 0 && inches != 0) {
       setErrorText(false);
-      setBMI((703 * lbs) / (inches * inches));
-      calcCategory((703 * lbs) / (inches * inches));
+      setBMI(((703 * lbs) / (inches * inches)).toFixed(3));
+      calcCategory(((703 * lbs) / (inches * inches)).toFixed(3));
     } else {
       console.log('weight or height not defined');
       setErrorText(true);

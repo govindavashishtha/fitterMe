@@ -31,10 +31,10 @@ const BodyFat = () => {
 
     const BodyFatCalculator = () => {
         if (gender === 'Male' && waist && neck && heights) {
-            setFat(86.01 * Math.log10(waist - neck) - 70.041 * Math.log10(heights) + 36.76)
+            setFat((86.01 * Math.log10(parseInt(waist) - parseInt(neck)) - 70.041 * Math.log10(parseInt(heights)) + 36.76).toFixed(2))
             console.log(fat)
         } else if (gender === 'Female' && waist && neck && heights && hip) {
-            setFat(163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(heights) + 36.76)
+            setFat((163.205 * Math.log10(parseInt(waist) + parseInt(hip) - parseInt(neck)) - 97.684 * Math.log10(parseInt(heights)) - 78.387).toFixed(2))
         } else {
             console.log('Enter the correct data')
             setErr(true)
