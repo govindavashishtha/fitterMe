@@ -24,7 +24,7 @@ const DesignScreen = () => {
   const [error, setError] = useState(false);
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [mealTime, setMealTime] = useState();
+  const [mealTime, setMealTime] = useState(null);
   const [isDiet, setIsDiet] = useState(true);
   const phone = auth().currentUser.phoneNumber;
 
@@ -53,14 +53,14 @@ const DesignScreen = () => {
           <Text style={styles.text1}>Add to the diet:</Text>
           <View style={styles.list}>
             <DropDownPicker
-              items={[
+            items={[
                 { label: 'Breakfast', value: 'Breakfast' },
                 { label: 'Lunch', value: 'Lunch' },
                 { label: 'Pre-Workout', value: 'PreWorkout' },
                 { label: 'Post-Workout', value: 'PostWorkout' },
-                { label: 'Dinner', value: 'Dinner' },
+                { label: 'Dinner', value: 'Dinner' }
               ]}
-              placeholder="Select a meal time..."
+              placeholder='Select a meal time...'
               containerStyle={{ height: 40 }}
               dropDownMaxHeight={100}
               style={{ backgroundColor: Colors.gray }}

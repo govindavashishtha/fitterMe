@@ -34,7 +34,6 @@ const AppWrapper = () =>{
 
  const  App = ()=> {
   const dispatch = useDispatch();
-  const [modalVisible, setModalVisible] = useState(true);
   // Subscribe
 const unsubscribe = NetInfo.addEventListener(state => {
   console.log(state);
@@ -45,7 +44,7 @@ const unsubscribe = NetInfo.addEventListener(state => {
 unsubscribe();
 
 //const connection = useSelector(state => state.connection);
-const connection =false;
+const connection =true;
     return connection ? (
       <SafeAreaProvider> 
          <StatusBar  
@@ -61,7 +60,7 @@ const connection =false;
         <Modal
           animationType="fade"
           transparent={true}
-          visible={modalVisible}
+          visible={true}
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
