@@ -11,6 +11,7 @@ import store from './src/react-redux/store';
 import NetInfo from "@react-native-community/netinfo";
 import { setConnection } from './src/react-redux/actions';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const OfflineModal = ()=>{
   return (
@@ -22,10 +23,14 @@ const OfflineModal = ()=>{
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={{ fontSize: 14, fontFamily: 'Karla-Bold', marginBottom: 16 }}>You are Offline :(</Text>
+              <View style={{marginBottom: 30}}>
+                <Icon1 name={'hammer-wrench'} size={58} color={Colors.charcoalGrey80} />
+              </View>
+              <Text style={{ fontSize: 20, fontFamily: 'Karla-Bold' }}>OOPS! NO INTERNET</Text>
+              <Text style={{ fontSize: 15, fontFamily: 'Karla-Bold', marginBottom: 30 }}>Please check your network connection.</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 14, fontFamily: 'Karla-Bold' }}>Here's a Carrot  </Text>
-                <Icon name={'carrot'} size={16} color={'red'} />
+                <Text style={{ fontSize: 14, fontFamily: 'Karla-Bold' }}>Anyways here's a dog  </Text>
+                <Icon name={'dog'} size={16} color={Colors.charcoalGrey80} />
               </View>
             </View>
           </View>
@@ -60,7 +65,7 @@ const AppWrapper = () => {
   return (
     <Provider store={store}>
     {isOnline ? 
-      <App /> : <OfflineModal />}
+      <App /> : <OfflineModal />   }
     </Provider>
   );
 }
@@ -81,25 +86,24 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#282c34',
     alignItems: 'center',
     justifyContent: 'center',
   },
   modalView: {
     margin: 20,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.cloudyWhite30,
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    // elevation: 5
   },
   centeredView: {
     flex: 1,
