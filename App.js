@@ -1,6 +1,6 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet, StatusBar, Text , TextInput, Modal, View
+  StyleSheet, StatusBar, Text, TextInput, Modal, View
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -9,12 +9,44 @@ import LoadingNavigationStack from './src/Navigation/SwitchNavigator';
 import { Provider } from 'react-redux';
 import store from './src/react-redux/store';
 import NetInfo from "@react-native-community/netinfo";
-import {useDispatch, useSelector} from 'react-redux';
-import {setConnection} from './src/react-redux/actions';
+import { setConnection } from './src/react-redux/actions';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const AppWrapper = () =>{
+const OfflineModal = ()=>{
+  return (
+    <View>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={true}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={{ fontSize: 14, fontFamily: 'Karla-Bold', marginBottom: 16 }}>You are Offline :(</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 14, fontFamily: 'Karla-Bold' }}>Here's a Carrot  </Text>
+                <Icon name={'carrot'} size={16} color={'red'} />
+              </View>
+            </View>
+          </View>
 
+        </Modal>
+      </View>
+  )
+}
+
+const AppWrapper = () => {
+  const [isOnline, setIsOnline] = useState(true);
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      console.log('isOnline' ,state);
+      setIsOnline(state.isConnected);
+      store.dispatch(setConnection(state.isConnected));
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   useEffect(() => {
     // for force Scaling Text and TextInput to default Size
 
@@ -23,60 +55,29 @@ const AppWrapper = () =>{
 
     if (TextInput.defaultProps == null) TextInput.defaultProps = {};
     TextInput.defaultProps.allowFontScaling = false;
-    
+
   });
-  return(
+  return (
     <Provider store={store}>
-    <App />
-  </Provider>
+    {isOnline ? 
+      <App /> : <OfflineModal />}
+    </Provider>
   );
 }
 
- const  App = ()=> {
-  const dispatch = useDispatch();
-  // Subscribe
-const unsubscribe = NetInfo.addEventListener(state => {
-  console.log(state);
-  dispatch(setConnection(state.isConnected));
-});
-
-// Unsubscribe
-unsubscribe();
-
-//const connection = useSelector(state => state.connection);
-const connection =true;
-    return connection ? (
-      <SafeAreaProvider> 
-         <StatusBar  
-            backgroundColor = {Colors.primaryColorDark}  
-             barStyle = "light-content"   
-        /> 
-        <NavigationContainer>
-         <LoadingNavigationStack />
+const App = () => {
+  return (
+    <SafeAreaProvider>
+      <StatusBar
+        backgroundColor={Colors.primaryColorDark}
+        barStyle="light-content"
+      />
+      <NavigationContainer>
+        <LoadingNavigationStack />
       </NavigationContainer>
-      </SafeAreaProvider>
-    ) : (
-      <View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={true}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={{fontSize: 14, fontFamily: 'Karla-Bold', marginBottom: 16}}>You are Offline :(</Text>
-              <View style={{flexDirection: 'row',alignItems: 'center' }}>
-                <Text style={{fontSize: 14, fontFamily: 'Karla-Bold'}}>Here's a Carrot  </Text>
-                <Icon name={'carrot'} size={16} color={'red'} />
-              </View>
-            </View>
-          </View>
-          
-        </Modal>
-      </View>
-    )
-
-  }
+    </SafeAreaProvider>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
