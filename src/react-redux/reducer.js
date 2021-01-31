@@ -4,6 +4,7 @@ import {
   SET_STEPS,
   SET_USER,
   SET_TARGET_STEPS,
+  SET_CONNECTION,
 } from './actions';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   calories: '',
   steps: '0',
   targetSteps: '5000',
+  connection: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -40,6 +42,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         steps: action.payload,
+      };
+    case SET_CONNECTION:
+      return {
+        ...state,
+        connection: action.payload,
       };
   }
 };

@@ -3,6 +3,7 @@ export const SET_USER = 'SET_USER';
 export const SET_CALORIES = 'SET_CALORIES';
 export const SET_STEPS = 'SET_STEPS';
 export const SET_TARGET_STEPS = 'SET_TARGET_STEPS';
+export const SET_CONNECTION = 'SET_CONNECTION';
 
 export const setData = role => {
   return {
@@ -31,6 +32,12 @@ export const setReduxCalories = role => {
 export const setTargetSteps = role => {
   return {
     type: SET_TARGET_STEPS,
+    payload: role,
+  };
+};
+export const setConnection = role => {
+  return {
+    type: SET_CONNECTION,
     payload: role,
   };
 };
