@@ -76,6 +76,7 @@ const connection =false;
         </Modal>
       </View>
     )
+
   }
 
 const styles = StyleSheet.create({
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
