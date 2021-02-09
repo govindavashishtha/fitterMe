@@ -1,4 +1,4 @@
-const {default: PushNotification} = require('react-native-push-notification');
+import PushNotification from 'react-native-push-notification';
 export const triggerWaterReminderNotifications = () => {
   for (var i = 9; i <= 21; i = i + 3) {
     var now = new Date();
