@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -32,11 +33,15 @@ const DesignScreen = () => {
   const phone = auth().currentUser.phoneNumber;
   const isDarkMode = useSelector((state) => state.isDarkMode);
 
+  const windowHeight = Dimensions.get('window').height;
+  const windowWidth = Dimensions.get('window').width;
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'flex-start',
       alignItems: 'center',
+      height: windowHeight,
       zIndex: 0,
       position: 'relative',
       backgroundColor: isDarkMode
@@ -45,8 +50,9 @@ const DesignScreen = () => {
     },
     errorContainer: {
       flex: 1,
-      width: '100%',
-      justifyContent: 'center',
+      width: windowWidth,
+      height: windowHeight,
+      margin: '50%',
       alignItems: 'center',
     },
     text: {
@@ -140,6 +146,7 @@ const DesignScreen = () => {
               ? Colors.backgroundColorDark
               : Colors.backgroundColorLight,
             width: '100%',
+            height: windowHeight,
           }}>
           <CaloriesCard Item={data} />
           <Text style={styles.text1}>Add to the diet:</Text>
@@ -223,7 +230,7 @@ const DesignScreen = () => {
               <Icon1
                 name={'food-apple'}
                 size={40}
-                color={Colors.charcoalGrey80}
+                color={isDarkMode ? Colors.gray : Colors.charcoalGrey80}
               />
             </TouchableOpacity>
           </View>
@@ -259,20 +266,19 @@ const DesignScreen = () => {
                 value={query}
               />
               <Text style={styles.text}>
-                Search food item and get its Nutritional Values (e.g. 1 large
-                apple)
+                Search food item and get its Nutritional Values (e.g. 1 large apple)
               </Text>
               {error ? (
                 <View style={styles.errorContainer}>
-                  <View style={{padding: 10, marginTop: '40%'}}>
+                  <View style={{padding: 10}}>
                     <Icon
                       name={'paper-plane'}
                       size={50}
-                      color={Colors.charcoalGrey80}
+                      color={isDarkMode ? Colors.cloudyWhite30 : Colors.charcoalGrey80}
                     />
                   </View>
-                  <Text>Sorry, Unable to search for this Query</Text>
-                  <Text>Try using another keywords</Text>
+                  <Text style={{color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}}>Sorry, Unable to search for this Query</Text>
+                  <Text style={{color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}}>Try using another keywords</Text>
                 </View>
               ) : (
                 <View>

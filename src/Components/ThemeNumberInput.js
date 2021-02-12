@@ -3,7 +3,7 @@ import React from 'react';
 import Colors from '../Constants/Colors';
 
 
-const ThemeNumberInput = ({onChangeText , placeholder , value , keyboard , maxLength , flex}) => {
+const ThemeNumberInput = ({onChangeText , placeholder, placeholderTextColor , value , keyboard , maxLength , flex}) => {
   return (
     <View style={flex ? styles.containerFlex : styles.container}>
       <TextInput
@@ -13,6 +13,7 @@ const ThemeNumberInput = ({onChangeText , placeholder , value , keyboard , maxLe
         }
         value={value}
         placeholder={placeholder}
+        placeholderTextColor={placeholderTextColor}
         numberOfLines={1}
         keyboardType={keyboard}
         maxLength={maxLength}

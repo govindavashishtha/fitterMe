@@ -13,9 +13,8 @@ const CalculateScreen = () => {
 
   const styles = StyleSheet.create({
     container: {
-      flex:2,
+      flex: 1,
       padding: 7,
-      marginBottom: 100,
       backgroundColor: isDarkMode
         ? Colors.backgroundColorDark
         : Colors.backgroundColorLight,

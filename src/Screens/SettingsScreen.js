@@ -63,7 +63,7 @@ const SettingsScreen = ({navigation}) => {
       fontFamily: 'Karla-Bold',
     },
     formContainer: {
-      padding: 5,
+      padding: 6,
       flex: 1,
     },
     row: {
@@ -448,12 +448,12 @@ const SettingsScreen = ({navigation}) => {
               <Icon
                 name={'sign-out'}
                 size={18}
-                color={Colors.charcoalGreyMediocre}
+                color={isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre}
               />
               <Text
                 style={{
                   fontSize: 15,
-                  color: Colors.charcoalGreyMediocre,
+                  color: isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre,
                   fontFamily: 'Karla-Bold',
                 }}
                 onPress={() => {
