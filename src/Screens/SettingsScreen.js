@@ -212,7 +212,18 @@ const SettingsScreen = ({navigation}) => {
           <View style={styles.formContainer}>
             <TextInput
               mode="outlined"
-              theme={{colors: {primary: Colors.primaryColorDark}}}
+              theme={{
+                colors: {
+                  text: isDarkMode ? Colors.textColorDark : Colors.black,
+                  primary: Colors.primaryColorDark,
+                  background: isDarkMode
+                    ? Colors.backgroundColorDark50
+                    : Colors.backgroundColorLight,
+                  placeholder: isDarkMode
+                    ? Colors.gray
+                    : Colors.charcoalGreyMediocre,
+                },
+              }}
               label="First Name"
               value={firstName}
               onChangeText={(n) => {
@@ -223,7 +234,18 @@ const SettingsScreen = ({navigation}) => {
           <View style={styles.formContainer}>
             <TextInput
               mode="outlined"
-              theme={{colors: {primary: Colors.primaryColorDark}}}
+              theme={{
+                colors: {
+                  text: isDarkMode ? Colors.textColorDark : Colors.black,
+                  primary: Colors.primaryColorDark,
+                  background: isDarkMode
+                    ? Colors.backgroundColorDark50
+                    : Colors.backgroundColorLight,
+                  placeholder: isDarkMode
+                    ? Colors.gray
+                    : Colors.charcoalGreyMediocre,
+                },
+              }}
               label="Last Name"
               value={lastName}
               onChangeText={(n) => {
@@ -240,6 +262,7 @@ const SettingsScreen = ({navigation}) => {
                 onPress={() => {
                   setGender('Male');
                 }}
+                uncheckedColor={isDarkMode && Colors.gray}
                 color={Colors.primaryColorDark}
               />
               <Text style={styles.title}>Male</Text>
@@ -251,6 +274,7 @@ const SettingsScreen = ({navigation}) => {
                 onPress={() => {
                   setGender('Female');
                 }}
+                uncheckedColor={isDarkMode && Colors.gray}
                 color={Colors.primaryColorDark}
               />
               <Text style={styles.title}>Female</Text>
@@ -261,7 +285,18 @@ const SettingsScreen = ({navigation}) => {
               <TextInput
                 keyboardType={'number-pad'}
                 mode="outlined"
-                theme={{colors: {primary: Colors.primaryColorDark}}}
+                theme={{
+                  colors: {
+                    text: isDarkMode ? Colors.textColorDark : Colors.black,
+                    primary: Colors.primaryColorDark,
+                    background: isDarkMode
+                      ? Colors.backgroundColorDark50
+                      : Colors.backgroundColorLight,
+                    placeholder: isDarkMode
+                      ? Colors.gray
+                      : Colors.charcoalGreyMediocre,
+                  },
+                }}
                 label="Weight(in Kg)"
                 value={weight}
                 onChangeText={(n) => {
@@ -273,7 +308,18 @@ const SettingsScreen = ({navigation}) => {
               <TextInput
                 keyboardType={'number-pad'}
                 mode="outlined"
-                theme={{colors: {primary: Colors.primaryColorDark}}}
+                theme={{
+                  colors: {
+                    text: isDarkMode ? Colors.textColorDark : Colors.black,
+                    primary: Colors.primaryColorDark,
+                    background: isDarkMode
+                      ? Colors.backgroundColorDark50
+                      : Colors.backgroundColorLight,
+                    placeholder: isDarkMode
+                      ? Colors.gray
+                      : Colors.charcoalGreyMediocre,
+                  },
+                }}
                 label="Height(in cm)"
                 value={height}
                 onChangeText={(n) => {
@@ -285,7 +331,18 @@ const SettingsScreen = ({navigation}) => {
           <View style={styles.formContainer}>
             <TextInput
               mode="outlined"
-              theme={{colors: {primary: Colors.primaryColorDark}}}
+              theme={{
+                colors: {
+                  text: isDarkMode ? Colors.textColorDark : Colors.black,
+                  primary: Colors.primaryColorDark,
+                  background: isDarkMode
+                    ? Colors.backgroundColorDark50
+                    : Colors.backgroundColorLight,
+                  placeholder: isDarkMode
+                    ? Colors.gray
+                    : Colors.charcoalGreyMediocre,
+                },
+              }}
               label="Email"
               value={email}
               onChangeText={(n) => {
@@ -296,7 +353,18 @@ const SettingsScreen = ({navigation}) => {
           <View style={styles.formContainer}>
             <TextInput
               mode="outlined"
-              theme={{colors: {primary: Colors.primaryColorDark}}}
+              theme={{
+                colors: {
+                  text: isDarkMode ? Colors.textColorDark : Colors.black,
+                  primary: Colors.primaryColorDark,
+                  background: isDarkMode
+                    ? Colors.backgroundColorDark50
+                    : Colors.backgroundColorLight,
+                  placeholder: isDarkMode
+                    ? Colors.gray
+                    : Colors.charcoalGreyMediocre,
+                },
+              }}
               label="Target Steps"
               value={steps}
               onChangeText={(n) => {
@@ -314,7 +382,11 @@ const SettingsScreen = ({navigation}) => {
             Date of Birth
           </Text>
           <DatePicker
-            style={{width: '100%', padding: 5}}
+            style={{
+              width: '100%',
+              padding: 5,
+              color: isDarkMode && Colors.textColorDark,
+            }}
             date={dob}
             mode="date"
             placeholder="select DOB"
@@ -329,6 +401,9 @@ const SettingsScreen = ({navigation}) => {
                 right: 0,
                 top: 4,
                 marginLeft: 0,
+              },
+              dateText: {
+                color: isDarkMode && Colors.textColorDark,
               },
               // ... You can check the source to find the other keys.
             }}
