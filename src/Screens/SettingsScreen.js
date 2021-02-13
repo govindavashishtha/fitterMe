@@ -26,6 +26,7 @@ import Loader from '../Components/Loader';
 import {setIsDarkMode, setUser} from '../react-redux/actions';
 import toast from '../Components/Toast';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Variables from '../Constants/Variables';
 
 const SettingsScreen = ({navigation}) => {
@@ -55,11 +56,17 @@ const SettingsScreen = ({navigation}) => {
         : Colors.backgroundColorLight,
     },
     heading: {
-      fontSize: 26,
+      fontSize: 30,
       color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
       paddingHorizontal: 10,
       paddingBottom: 15,
       paddingTop: 5,
+      fontFamily: 'Karla-Bold',
+    },
+    heading1: {
+      fontSize: 16,
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+      paddingHorizontal: 10,
       fontFamily: 'Karla-Bold',
     },
     formContainer: {
@@ -198,7 +205,15 @@ const SettingsScreen = ({navigation}) => {
                 }
               />
             </TouchableOpacity>
-            <Switch
+          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 8}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.heading1}>Toggle Theme</Text>
+                <Icon1 name={'theme-light-dark'}
+                 size={24}
+                 color={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80} />
+            </View>
+          <Switch
               trackColor={{false: '#767577', true: '#81b0ff'}}
               thumbColor={isDark ? '#f5dd4b' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"

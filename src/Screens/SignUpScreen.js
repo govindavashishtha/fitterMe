@@ -1,7 +1,8 @@
 import React,{useState} from 'react';
 import {
   View,Text,StyleSheet,
-  ScrollView
+  ScrollView,
+  Dimensions
 } from 'react-native';
 import ThemeButton from '../Components/ThemeButton';
 import Colors from './../Constants/Colors';
@@ -10,7 +11,7 @@ import auth from '@react-native-firebase/auth';
 import {TextInput, RadioButton} from 'react-native-paper'
 import DatePicker from 'react-native-datepicker';
 import { setUser } from '../react-redux/actions';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ThemeButtonDisabled from '../Components/ThemeButtonDisabled';
 import Loader from '../Components/Loader';
 
@@ -25,6 +26,55 @@ const SignUpScreen = ({navigation})=>{
   const [steps , setSteps] = useState('');
   const [loader , setLoader] = useState(false);
   const dispatch = useDispatch();
+
+  const windowHeight = Dimensions.get('window').height;
+
+  const isDarkMode = useSelector((state) => state.isDarkMode);
+
+const styles = StyleSheet.create({
+  container: {
+   padding:20,
+   backgroundColor: isDarkMode
+        ? Colors.backgroundColorDark
+        : Colors.backgroundColorLight,
+   height:windowHeight,
+  },
+  heading: {
+    fontSize:26,
+    color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+    paddingTop:10,
+    paddingLeft:5,
+    paddingBottom:5,
+    fontFamily: 'Karla-Bold',
+  },
+  label:{
+    fontFamily: 'Karla-Bold',
+    fontSize:15,
+    paddingHorizontal:5,
+    color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+  },
+  formContainer:{
+    paddingHorizontal:2.5,
+    padding:20,
+    flex:1,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  title: {
+    fontFamily: 'Karla-Bold',
+    fontSize: 15,
+    color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
+
 
   const setUserData=()=>{
     if(firstName && lastName && email && gender && dob && weight && height && steps){
@@ -57,11 +107,32 @@ const SignUpScreen = ({navigation})=>{
       <Text style = {styles.heading}>Sign Up</Text>
       <View style={styles.formContainer} > 
             <TextInput mode = 'outlined' 
-                  theme={{ colors: { primary:Colors.primaryColorDark}}}
+                  theme={{ colors: {
+                    text: isDarkMode ? Colors.textColorDark : Colors.black,
+                    primary: Colors.primaryColorDark,
+                    background: isDarkMode
+                      ? Colors.backgroundColorDark50
+                      : Colors.backgroundColorLight,
+                    placeholder: isDarkMode
+                      ? Colors.gray
+                      : Colors.charcoalGreyMediocre,
+                  },}}
               label="First Name" value={firstName} onChangeText={(n)=>{setFirstName(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Last Name" value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
+            <TextInput mode = 'outlined'
+             theme={{  colors: {
+              text: isDarkMode ? Colors.textColorDark : Colors.black,
+              primary: Colors.primaryColorDark,
+              background: isDarkMode
+                ? Colors.backgroundColorDark50
+                : Colors.backgroundColorLight,
+              placeholder: isDarkMode
+                ? Colors.gray
+                : Colors.charcoalGreyMediocre,
+            },
+          }} 
+             label="Last Name" value={lastName} onChangeText={(n)=>{setLastName(n)}}/>
       </View>
                 <View style={styles.row}>
                     <Text style={styles.title}>Sex:</Text>
@@ -70,36 +141,90 @@ const SignUpScreen = ({navigation})=>{
                             value="Male"
                             status={gender === 'Male' ? 'checked' : 'unchecked'}
                             onPress={() => { setGender('Male')}}
+                            uncheckedColor={isDarkMode && Colors.gray}
                             color={Colors.primaryColorDark}
                         />
-                        <Text>Male</Text>
+                        <Text style={{color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Male</Text>
                     </View>
                     <View style={styles.button}>
                         <RadioButton
                             value="Female"
                             status={gender === 'Female' ? 'checked' : 'unchecked'}
                             onPress={() => { setGender('Female')}}
+                            uncheckedColor={isDarkMode && Colors.gray}
                             color={Colors.primaryColorDark}
                         />
-                        <Text>Female</Text>
+                        <Text style={{color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Female</Text>
                     </View>
                 </View>
       <View style= {{flexDirection:'row'}}>         
       <View style={styles.formContainer} > 
-            <TextInput keyboardType={'number-pad'} mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Weight(in kg)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
+            <TextInput keyboardType={'number-pad'} mode = 'outlined'
+             theme={{ colors: {
+              text: isDarkMode ? Colors.textColorDark : Colors.black,
+              primary: Colors.primaryColorDark,
+              background: isDarkMode
+                ? Colors.backgroundColorDark50
+                : Colors.backgroundColorLight,
+              placeholder: isDarkMode
+                ? Colors.gray
+                : Colors.charcoalGreyMediocre,
+            },
+          }}  
+             label="Weight(in kg)" value={weight} onChangeText={(n)=>{setWeight(n)}}/>
       </View>
       <View style={styles.formContainer} > 
-            <TextInput keyboardType={'number-pad'} mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Height(in cm)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
+            <TextInput keyboardType={'number-pad'} mode = 'outlined'
+             theme={{ colors: {
+              text: isDarkMode ? Colors.textColorDark : Colors.black,
+              primary: Colors.primaryColorDark,
+              background: isDarkMode
+                ? Colors.backgroundColorDark50
+                : Colors.backgroundColorLight,
+              placeholder: isDarkMode
+                ? Colors.gray
+                : Colors.charcoalGreyMediocre,
+            },
+          }} 
+              label="Height(in cm)" value={height} onChangeText={(n)=>{setHeight(n)}}/>
       </View>
       </View> 
       <View style={styles.formContainer} > 
-            <TextInput mode = 'outlined' theme={{ colors: { primary:Colors.primaryColorDark}}}  label="Email" value={email} onChangeText={(n)=>{setEmail(n)}}/>
+            <TextInput mode = 'outlined' 
+            theme={{ colors: {
+              text: isDarkMode ? Colors.textColorDark : Colors.black,
+              primary: Colors.primaryColorDark,
+              background: isDarkMode
+                ? Colors.backgroundColorDark50
+                : Colors.backgroundColorLight,
+              placeholder: isDarkMode
+                ? Colors.gray
+                : Colors.charcoalGreyMediocre,
+            },
+          }}  
+            label="Email" value={email} onChangeText={(n)=>{setEmail(n)}}/>
       </View>
       <View style={styles.formContainer} >
-            <TextInput mode='outlined' keyboardType={'number-pad'} theme={{ colors: { primary: Colors.primaryColorDark } }} label="Target Steps" value={steps} onChangeText={(n) => { setSteps(n) }} />
+            <TextInput mode='outlined' keyboardType={'number-pad'} 
+            theme={{ colors: {
+              text: isDarkMode ? Colors.textColorDark : Colors.black,
+              primary: Colors.primaryColorDark,
+              background: isDarkMode
+                ? Colors.backgroundColorDark50
+                : Colors.backgroundColorLight,
+              placeholder: isDarkMode
+                ? Colors.gray
+                : Colors.charcoalGreyMediocre,
+            },
+           }} 
+            label="Target Steps" value={steps} onChangeText={(n) => { setSteps(n) }} />
       </View>
       <DatePicker
-        style={{width: '100%',paddingTop: 25}}
+        style={{
+          width: '100%',
+          padding: 15,
+          color: isDarkMode && Colors.textColorDark,
+        }}
         date={dob}
         mode="date"
         placeholder="select DOB"
@@ -115,13 +240,13 @@ const SignUpScreen = ({navigation})=>{
             top: 4,
             marginLeft: 0
           },
-          dateInput: {
-
+          dateText: {
+            color: isDarkMode && Colors.textColorDark,
           }
         }}
         onDateChange={(date) => {setDob(date)}}
       />
-      </View>
+
       <View style ={{padding:20}}>
         {firstName && lastName && email && dob && gender && weight && height && steps ?(
           <ThemeButton title={'Sign Up'} onPress={()=>{
@@ -133,47 +258,10 @@ const SignUpScreen = ({navigation})=>{
         )}
        
       </View>
+      </View>
+      
       </ScrollView>
       </>  
     )
 }
 export default SignUpScreen;
-
-const styles = StyleSheet.create({
-  container: {
-   padding:20,
-  },
-  heading: {
-    fontSize:26,
-    color:Colors.charcoalGrey80,
-    paddingTop:10,
-    paddingLeft:5,
-    paddingBottom:5,
-    fontFamily: 'Karla-Bold',
-  },
-  label:{
-    fontFamily: 'Karla-Bold',
-    fontSize:15,
-    paddingHorizontal:5,
-    color:Colors.charcoalGrey80,
-  },
-  formContainer:{
-    paddingHorizontal:2.5,
-    paddingTop:10,
-    flex:1,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  title: {
-    fontFamily: 'Karla-Bold',
-    fontSize: 15,
-  },
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
