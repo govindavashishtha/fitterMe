@@ -9,6 +9,7 @@ import Colors from '../Constants/Colors';
 import ThemeButton from '../Components/ThemeButton'
 import ThemeNumberInput from './../Components/ThemeNumberInput';
 import DropDownPicker from "react-native-dropdown-picker";
+import {useSelector} from 'react-redux';
 
 const MaintenanceCalorie = () => {
     const [mass, setMass] = useState();
@@ -18,6 +19,73 @@ const MaintenanceCalorie = () => {
     const [active, setActive] = useState('');
     const [maintenance, setMaintenance] = useState(null);
     const [error, setError] = useState(false);
+
+    const isDarkMode = useSelector((state) => state.isDarkMode);
+
+    const styles = StyleSheet.create({
+        container: {
+            padding: 7,
+            marginBottom: 100,
+        },
+        errorText: {
+            color: Colors.warning,
+            textAlign: 'center',
+            padding: 3,
+            fontSize: 12,
+        },
+        form: {
+            padding: 5,
+        },
+        calc: {
+            textAlign: 'center',
+            padding: 5,
+            fontWeight:'bold',
+        },
+        tip: {
+            textAlign: 'center',
+            padding: 5,
+            fontSize:13.5,
+        },
+        label: {
+            paddingTop: 10,
+            fontSize: 13,
+            color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+            fontFamily: 'Karla-Bold'
+        },
+        childContainer: {
+            padding: 10,
+            borderWidth: .2,
+            borderRadius: 5,
+            elevation: 1,
+            marginBottom: 20,
+        },
+        title: {
+            fontFamily: 'Karla-Bold',
+            fontSize: 15,
+            color:  isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+        },
+        button: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        horizontal: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingBottom: 5,
+            paddingHorizontal: 20,
+        },
+        row: {
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+        },
+        heading: {
+            fontSize: 15,
+            textAlign: 'center',
+            padding: 15,
+            color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80
+        }
+    })
 
     const refresh = () => {
         setMass(null);
@@ -79,7 +147,7 @@ const MaintenanceCalorie = () => {
                         onPress={() => { setSex('Male'); refresh(); }}
                         color={Colors.primaryColorDark}
                     />
-                    <Text>Male</Text>
+                    <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Male</Text>
                 </View>
                 <View style={styles.button}>
                     <RadioButton
@@ -88,22 +156,28 @@ const MaintenanceCalorie = () => {
                         onPress={() => { setSex('Female'); refresh(); }}
                         color={Colors.primaryColorDark}
                     />
-                    <Text>Female</Text>
+                    <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Female</Text>
                 </View>
             </View>
 
             <View style={styles.form}>
                 <View style={styles.horizontal}>
                     <Text style={styles.label}>Age:        </Text>
-                    <ThemeNumberInput flex={true} value={age} placeholder='Age in Years' onChangeText={(val) => { setAge(val) }} keyboard={'numeric'} />
+                    <ThemeNumberInput flex={true} value={age} placeholder='Age in Years'
+                     placeholderTextColor={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}
+                      onChangeText={(val) => { setAge(val) }} keyboard={'numeric'} />
                 </View>
                 <View style={styles.horizontal}>
                     <Text style={styles.label}>Weight: </Text>
-                    <ThemeNumberInput flex={true} value={mass} placeholder='Weight in Kgs' onChangeText={(val) => { setMass(val) }} keyboard={'numeric'} />
+                    <ThemeNumberInput flex={true} value={mass} placeholder='Weight in Kgs'
+                     placeholderTextColor={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}
+                      onChangeText={(val) => { setMass(val) }} keyboard={'numeric'} />
                 </View>
                 <View style={styles.horizontal}>
                     <Text style={styles.label}>Height: </Text>
-                    <ThemeNumberInput flex={true} value={length} placeholder='Height in CentiMetres' onChangeText={(val) => { setLength(val) }} keyboard={'numeric'} />
+                    <ThemeNumberInput flex={true} value={length} placeholder='Height in CentiMetres'
+                     placeholderTextColor={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}
+                      onChangeText={(val) => { setLength(val) }} keyboard={'numeric'} />
                 </View>
             </View>
             <DropDownPicker
@@ -115,7 +189,7 @@ const MaintenanceCalorie = () => {
                     { label: 'Extra Active(very active + physical job)', value: '5' },
                 ]}
                 placeholder="Select your catgeory"
-                containerStyle={{ height: 40 }}
+                containerStyle={{ height: 40, margin:10 }}
                 dropDownMaxHeight={100}
                 style={{ backgroundColor: Colors.gray }}
                 dropDownStyle={{ backgroundColor: Colors.gray }}
@@ -140,73 +214,3 @@ const MaintenanceCalorie = () => {
 
 }
 export default MaintenanceCalorie;
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 7,
-        marginBottom: 100,
-    },
-    errorText: {
-        color: Colors.warning,
-        textAlign: 'center',
-        padding: 3,
-        fontSize: 12,
-    },
-    form: {
-        padding: 5,
-    },
-    calc: {
-        textAlign: 'center',
-        padding: 5,
-        fontWeight:'bold',
-    },
-    tip: {
-        textAlign: 'center',
-        padding: 5,
-        fontSize:13.5,
-    },
-    label: {
-        paddingTop: 10,
-        fontSize: 15,
-        color: Colors.charcoalGrey80,
-        fontFamily: 'Karla-Regular'
-    },
-    childContainer: {
-        margin:20,
-        backgroundColor: "#fff",
-        borderRadius: 5,
-        padding: 10,
-        shadowColor: "#000",
-        shadowOffset: {
-        width: 1,
-        height: 2
-        },
-        shadowOpacity: 1,
-        shadowRadius: 3.84,
-        elevation: 10
-    },
-    title: {
-        fontFamily: 'Karla-Bold',
-        fontSize: 15,
-    },
-    button: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    horizontal: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingBottom: 5,
-        paddingHorizontal: 20,
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-    },
-    heading: {
-        fontSize: 15,
-        textAlign: 'center',
-        padding: 15,
-    }
-})

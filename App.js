@@ -42,13 +42,6 @@ export const initialLocalChannel = () => {
   triggerWaterReminderNotifications();
 };
 
-const AppWrapper = () => {
-=======
-import NetInfo from "@react-native-community/netinfo";
-import { setConnection } from './src/react-redux/actions';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-
 const OfflineModal = ()=>{
   return (
     <View>

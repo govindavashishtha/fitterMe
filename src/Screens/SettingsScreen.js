@@ -7,7 +7,9 @@ import {
   Keyboard,
   Share,
   TouchableOpacity,
+  Switch,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import ThemeButton from './../Components/ThemeButton';
 import ScreenNames from '../Constants/ScreenNames';
@@ -21,13 +23,16 @@ import Colors from './../Constants/Colors';
 import {useDispatch} from 'react-redux';
 import ThemeButtonDisabled from './../Components/ThemeButtonDisabled';
 import Loader from '../Components/Loader';
-import {setUser} from '../react-redux/actions';
+import {setIsDarkMode, setUser} from '../react-redux/actions';
 import toast from '../Components/Toast';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import PushNotification from 'react-native-push-notification';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Variables from '../Constants/Variables';
 
 const SettingsScreen = ({navigation}) => {
   const user = useSelector((state) => state.userDetails);
+  const isDarkMode = useSelector((state) => state.isDarkMode);
+  console.log('dark mode', isDarkMode);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
@@ -38,7 +43,49 @@ const SettingsScreen = ({navigation}) => {
   const [steps, setSteps] = useState(user.steps);
   const [loader, setLoader] = useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [isDark, setIsDark] = useState(isDarkMode);
+  const [themeLoader, setThemeLoader] = useState(false);
   const dispatch = useDispatch();
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 20,
+      backgroundColor: isDarkMode
+        ? Colors.backgroundColorDark
+        : Colors.backgroundColorLight,
+    },
+    heading: {
+      fontSize: 30,
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+      paddingHorizontal: 10,
+      paddingBottom: 15,
+      paddingTop: 5,
+      fontFamily: 'Karla-Bold',
+    },
+    heading1: {
+      fontSize: 16,
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+      paddingHorizontal: 10,
+      fontFamily: 'Karla-Bold',
+    },
+    formContainer: {
+      padding: 6,
+      flex: 1,
+    },
+    row: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+    },
+    button: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    title: {
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+    },
+  });
 
   const onShare = async () => {
     try {
@@ -88,6 +135,17 @@ const SettingsScreen = ({navigation}) => {
     };
   }, []);
 
+  const toggleTheme = async (value) => {
+    setIsDark(value);
+    dispatch(setIsDarkMode(value));
+    try {
+      await AsyncStorage.setItem(Variables.isDarkMode, `${value}`);
+      setThemeLoader(false);
+    } catch (e) {
+      console.log('unable to make changes to async storage');
+      setThemeLoader(false);
+    }
+  };
   const setUserData = () => {
     if (
       firstName &&
@@ -127,6 +185,7 @@ const SettingsScreen = ({navigation}) => {
   return (
     <>
       <Loader show={loader} text={'Updating Details'} />
+      <Loader show={themeLoader} text={'Setting Up theme'} />
       <Header title={'Settings'} />
       <ScrollView>
         <View style={styles.container}>
@@ -140,14 +199,45 @@ const SettingsScreen = ({navigation}) => {
               <Icon
                 name={'share-alt'}
                 size={20}
-                color={Colors.charcoalGrey80}
+                color={
+                  isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80
+                }
               />
             </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 8}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.heading1}>Toggle Theme</Text>
+                <Icon1 name={'theme-light-dark'}
+                 size={24}
+                 color={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80} />
+            </View>
+          <Switch
+              trackColor={{false: '#767577', true: '#81b0ff'}}
+              thumbColor={isDark ? '#f5dd4b' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={() => {
+                setThemeLoader(true);
+                toggleTheme(!isDark);
+              }}
+              value={isDark}
+            />
           </View>
           <View style={styles.formContainer}>
             <TextInput
               mode="outlined"
-              theme={{colors: {primary: Colors.primaryColorDark}}}
+              theme={{
+                colors: {
+                  text: isDarkMode ? Colors.textColorDark : Colors.black,
+                  primary: Colors.primaryColorDark,
+                  background: isDarkMode
+                    ? Colors.backgroundColorDark50
+                    : Colors.backgroundColorLight,
+                  placeholder: isDarkMode
+                    ? Colors.gray
+                    : Colors.charcoalGreyMediocre,
+                },
+              }}
               label="First Name"
               value={firstName}
               onChangeText={(n) => {
@@ -158,7 +248,18 @@ const SettingsScreen = ({navigation}) => {
           <View style={styles.formContainer}>
             <TextInput
               mode="outlined"
-              theme={{colors: {primary: Colors.primaryColorDark}}}
+              theme={{
+                colors: {
+                  text: isDarkMode ? Colors.textColorDark : Colors.black,
+                  primary: Colors.primaryColorDark,
+                  background: isDarkMode
+                    ? Colors.backgroundColorDark50
+                    : Colors.backgroundColorLight,
+                  placeholder: isDarkMode
+                    ? Colors.gray
+                    : Colors.charcoalGreyMediocre,
+                },
+              }}
               label="Last Name"
               value={lastName}
               onChangeText={(n) => {
@@ -175,9 +276,10 @@ const SettingsScreen = ({navigation}) => {
                 onPress={() => {
                   setGender('Male');
                 }}
+                uncheckedColor={isDarkMode && Colors.gray}
                 color={Colors.primaryColorDark}
               />
-              <Text>Male</Text>
+              <Text style={styles.title}>Male</Text>
             </View>
             <View style={styles.button}>
               <RadioButton
@@ -186,9 +288,10 @@ const SettingsScreen = ({navigation}) => {
                 onPress={() => {
                   setGender('Female');
                 }}
+                uncheckedColor={isDarkMode && Colors.gray}
                 color={Colors.primaryColorDark}
               />
-              <Text>Female</Text>
+              <Text style={styles.title}>Female</Text>
             </View>
           </View>
           <View style={{flexDirection: 'row'}}>
@@ -196,7 +299,18 @@ const SettingsScreen = ({navigation}) => {
               <TextInput
                 keyboardType={'number-pad'}
                 mode="outlined"
-                theme={{colors: {primary: Colors.primaryColorDark}}}
+                theme={{
+                  colors: {
+                    text: isDarkMode ? Colors.textColorDark : Colors.black,
+                    primary: Colors.primaryColorDark,
+                    background: isDarkMode
+                      ? Colors.backgroundColorDark50
+                      : Colors.backgroundColorLight,
+                    placeholder: isDarkMode
+                      ? Colors.gray
+                      : Colors.charcoalGreyMediocre,
+                  },
+                }}
                 label="Weight(in Kg)"
                 value={weight}
                 onChangeText={(n) => {
@@ -208,7 +322,18 @@ const SettingsScreen = ({navigation}) => {
               <TextInput
                 keyboardType={'number-pad'}
                 mode="outlined"
-                theme={{colors: {primary: Colors.primaryColorDark}}}
+                theme={{
+                  colors: {
+                    text: isDarkMode ? Colors.textColorDark : Colors.black,
+                    primary: Colors.primaryColorDark,
+                    background: isDarkMode
+                      ? Colors.backgroundColorDark50
+                      : Colors.backgroundColorLight,
+                    placeholder: isDarkMode
+                      ? Colors.gray
+                      : Colors.charcoalGreyMediocre,
+                  },
+                }}
                 label="Height(in cm)"
                 value={height}
                 onChangeText={(n) => {
@@ -220,7 +345,18 @@ const SettingsScreen = ({navigation}) => {
           <View style={styles.formContainer}>
             <TextInput
               mode="outlined"
-              theme={{colors: {primary: Colors.primaryColorDark}}}
+              theme={{
+                colors: {
+                  text: isDarkMode ? Colors.textColorDark : Colors.black,
+                  primary: Colors.primaryColorDark,
+                  background: isDarkMode
+                    ? Colors.backgroundColorDark50
+                    : Colors.backgroundColorLight,
+                  placeholder: isDarkMode
+                    ? Colors.gray
+                    : Colors.charcoalGreyMediocre,
+                },
+              }}
               label="Email"
               value={email}
               onChangeText={(n) => {
@@ -231,7 +367,18 @@ const SettingsScreen = ({navigation}) => {
           <View style={styles.formContainer}>
             <TextInput
               mode="outlined"
-              theme={{colors: {primary: Colors.primaryColorDark}}}
+              theme={{
+                colors: {
+                  text: isDarkMode ? Colors.textColorDark : Colors.black,
+                  primary: Colors.primaryColorDark,
+                  background: isDarkMode
+                    ? Colors.backgroundColorDark50
+                    : Colors.backgroundColorLight,
+                  placeholder: isDarkMode
+                    ? Colors.gray
+                    : Colors.charcoalGreyMediocre,
+                },
+              }}
               label="Target Steps"
               value={steps}
               onChangeText={(n) => {
@@ -244,12 +391,16 @@ const SettingsScreen = ({navigation}) => {
               fontSize: 11.5,
               marginTop: 10,
               paddingLeft: 7,
-              color: Colors.charcoalGrey80,
+              color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
             }}>
             Date of Birth
           </Text>
           <DatePicker
-            style={{width: '100%', padding: 5}}
+            style={{
+              width: '100%',
+              padding: 5,
+              color: isDarkMode && Colors.textColorDark,
+            }}
             date={dob}
             mode="date"
             placeholder="select DOB"
@@ -264,6 +415,9 @@ const SettingsScreen = ({navigation}) => {
                 right: 0,
                 top: 4,
                 marginLeft: 0,
+              },
+              dateText: {
+                color: isDarkMode && Colors.textColorDark,
               },
               // ... You can check the source to find the other keys.
             }}
@@ -308,12 +462,13 @@ const SettingsScreen = ({navigation}) => {
               <Icon
                 name={'sign-out'}
                 size={18}
-                color={Colors.charcoalGreyMediocre}
+                color={isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre}
+
               />
               <Text
                 style={{
                   fontSize: 15,
-                  color: Colors.charcoalGreyMediocre,
+                  color: isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre,
                   fontFamily: 'Karla-Bold',
                 }}
                 onPress={() => {
@@ -328,31 +483,4 @@ const SettingsScreen = ({navigation}) => {
     </>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  heading: {
-    fontSize: 26,
-    color: Colors.charcoalGrey80,
-    paddingHorizontal: 10,
-    paddingBottom: 15,
-    paddingTop: 5,
-    fontFamily: 'Karla-Bold',
-  },
-  formContainer: {
-    padding: 5,
-    flex: 1,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
 export default SettingsScreen;

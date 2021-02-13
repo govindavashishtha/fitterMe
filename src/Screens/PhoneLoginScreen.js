@@ -6,7 +6,7 @@ import ThemeNumberInput from '../Components/ThemeNumberInput';
 import Colors from '../Constants/Colors';
 import Loader from '../Components/Loader';
 import database from '@react-native-firebase/database';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../react-redux/actions';
 
 const PhoneLoginScreen = ({navigation})=>{
@@ -18,6 +18,40 @@ const PhoneLoginScreen = ({navigation})=>{
   const [code, setCode] = useState('');
   const [invalidOTP,setInvalidOTP] = useState(false);
   const dispatch = useDispatch();
+  
+  const isDarkMode = useSelector((state) => state.isDarkMode);
+
+  const styles = StyleSheet.create({
+    container: {
+     paddingVertical:20,
+     paddingHorizontal:15,
+     backgroundColor: isDarkMode
+        ? Colors.backgroundColorDark
+        : Colors.backgroundColorLight,
+     height: '100%',
+    },
+    heading: {
+      fontSize:30,
+      color:isDarkMode ? Colors.gray : Colors.charcoalGrey80,
+      textAlign:'center',
+      padding:20,
+      marginBottom:20,
+      fontFamily: 'Karla-Bold',
+    },
+    text:{
+      textAlign:'center',
+      fontSize:12.5,
+      paddingHorizontal:10,
+      fontFamily: 'Karla-Regular',
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+    },
+    horizontal:{
+      flexDirection:'row',
+      justifyContent:'center',
+      alignItems:'flex-end',
+      marginTop:10,
+    },
+  });
 
   const checkUser = () => {
     database()
@@ -78,21 +112,19 @@ const PhoneLoginScreen = ({navigation})=>{
       <Text style = {styles.heading}>Log In</Text>
       <Text style = {styles.text}>Enter your 10 digits Phone Number:</Text>
           <View style = {styles.horizontal}>
-          <Text style={{fontSize:15, paddingBottom:6.5,fontFamily:'Karla-Regular',}}>+91 -</Text>
+          <Text style={{fontSize:16, paddingBottom:6.5,fontFamily:'Karla-Regular',color: isDarkMode ? Colors.textColorDark : Colors.Colors.charcoalGreyMediocre}}>+91 -</Text>
           <View style={{minWidth:'30%'}}>
-          <ThemeNumberInput keyboard={'number-pad'} maxLength={10} onChangeText = {(text)=>{setPhone(text)}} placeholder={' 9876543210 '} value={phone}/>
+          <ThemeNumberInput keyboard={'number-pad'} maxLength={10} onChangeText = {(text)=>{setPhone(text)}} placeholder={' 9876543210 '} placeholderTextColor={isDarkMode ? Colors.gray : Colors.charcoalGrey80} value={phone}/>
           </View>
+          </View>
+              {!isValidPhone && <Text style={{color:'red', fontSize:10,padding:5, textAlign:'center'}}>Invalid Phone Number!</Text>}
+            <View style={{marginTop:50,marginHorizontal:20,}}>
+            <ThemeButton
+            title="Send OTP"
+            onPress={() => signInWithPhoneNumber(`+91${phone}`)}
+          />
           </View>
         </View>
-          {!isValidPhone && <Text style={{color:'red', fontSize:10,padding:5, textAlign:'center'}}>Invalid Phone Number!</Text>}
-         <View style={{marginTop:50,marginHorizontal:20,}}>
-         <ThemeButton
-        title="Send OTP"
-        onPress={() => signInWithPhoneNumber(`+91${phone}`)}
-      />
-         
-       
-      </View>
       </>
     );
   }
@@ -104,7 +136,7 @@ const PhoneLoginScreen = ({navigation})=>{
       <Text style = {styles.text}>Enter the OTP sent to +91-{phone}</Text>
           <View style = {styles.horizontal}>
           <View style={{minWidth:'21%'}}>
-          <ThemeNumberInput keyboard={'number-pad'} maxLength={6} value={code} onChangeText={text => setCode(text)} placeholder={' 123456 '}/>
+          <ThemeNumberInput keyboard={'number-pad'} maxLength={6} value={code} onChangeText={text => setCode(text)} placeholder={' 123456 '} placeholderTextColor={isDarkMode ? Colors.gray : Colors.charcoalGrey80} />
           </View>
           </View>
           {invalidOTP && <Text style={{color:'red', fontSize:10,padding:5, textAlign:'center'}}>Invalid OTP! Try Again...</Text>}
@@ -121,30 +153,3 @@ const PhoneLoginScreen = ({navigation})=>{
   );
 }
 export default PhoneLoginScreen;
-
-const styles = StyleSheet.create({
-  container: {
-   paddingVertical:20,
-   paddingHorizontal:15,
-  },
-  heading: {
-    fontSize:30,
-    color:Colors.charcoalGrey80,
-    textAlign:'center',
-    padding:20,
-    marginBottom:20,
-    fontFamily: 'Karla-Bold',
-  },
-  text:{
-    textAlign:'center',
-    fontSize:12.5,
-    paddingHorizontal:10,
-    fontFamily: 'Karla-Regular',
-  },
-  horizontal:{
-    flexDirection:'row',
-    justifyContent:'center',
-    alignItems:'flex-end',
-    marginTop:10,
-  },
-});

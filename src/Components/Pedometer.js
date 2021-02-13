@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
   StyleSheet,
   View, Text, RefreshControl,
+  Dimensions
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -22,21 +23,45 @@ const Pedometer = () => {
     const walkingFactor =0.57;
     const caloriesPerMile= walkingFactor*(weight*2.2);
     const stride = height*0.43*0.0328084;
-    
     const stepCountMile = 160934.4 / stride;
-    
     const dist = (stride*steps);
-    
 
-  
+    const isDarkMode = useSelector((state) => state.isDarkMode);
 
   const conversationFactor = caloriesPerMile / stepCountMile;
   const caloriesBurned = steps * conversationFactor;
-   
-    
 
-   
-   console.log(caloriesBurned);
+  const windowHeight = Dimensions.get('window').height;
+  const windowWidth = Dimensions.get('window').width;
+ 
+
+   const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: windowHeight/1.3,
+      paddingHorizontal: 10,
+      backgroundColor: isDarkMode
+        ? Colors.backgroundColorDark
+        : Colors.backgroundColorLight,
+    },
+    row: {
+      alignItems:'center',
+      flexDirection: 'row',
+      justifyContent: 'space-evenly'
+    },
+    text:{
+      fontFamily:'Karla-Bold',
+      fontSize:16,
+      paddingHorizontal:10,
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+    },
+    label:{
+       fontSize:14,
+       fontStyle: 'italic',
+       color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+    },
+  })
+
 
     return (
         <ScrollView style={styles.container} refreshControl={
@@ -50,14 +75,14 @@ const Pedometer = () => {
                 <View style={styles.row}>
                 <View style={{alignItems:'center',margin: 15,left: '0%',}}>
                 <View style={styles.row}>
-                    <Icon name={'walk'} size={30} color={Colors.charcoalGrey80} />
+                    <Icon name={'walk'} size={30} color={isDarkMode ? Colors.gray : Colors.charcoalGrey80} />
                     <Text style={styles.text}>{steps}</Text>
                   </View>
                   <Text style={styles.label}>Steps Taken</Text>
                 </View>
                 <View style={{alignItems:'center',margin: 15,left: '0%',}}>
                   <View style={styles.row}>
-                    <Icon name={'compass'} size={28} color={Colors.charcoalGrey80} />
+                    <Icon name={'compass'} size={28} color={isDarkMode ? Colors.gray : Colors.charcoalGrey80} />
                     <Text style={styles.text}>{Math.round(dist*0.26)}  m</Text>
                   </View>
                   <Text style={styles.label}>Distance Covered</Text>
@@ -67,7 +92,7 @@ const Pedometer = () => {
                 <View style={styles.row}>
                 <View style={{alignItems:'center',margin: 15,}}>
                 <View style={styles.row}>
-                    <Icon name={'fire'} size={30} color={Colors.charcoalGrey80} />
+                    <Icon name={'fire'} size={30} color={isDarkMode ? Colors.gray : Colors.charcoalGrey80} />
                     <Text style={styles.text}>{caloriesBurned.toFixed(2)} KCals</Text>
                   </View>
                   <Text style={styles.label}>Calories Burnt</Text>
@@ -79,27 +104,4 @@ const Pedometer = () => {
           </ScrollView>
     )
 } 
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      height: '100%',
-      paddingHorizontal: 10,
-    },
-    row: {
-      alignItems:'center',
-      flexDirection: 'row',
-      justifyContent: 'space-evenly'
-    },
-    text:{
-      fontFamily:'Karla-Bold',
-      fontSize:16,
-      paddingHorizontal:10
-    },
-    label:{
-       fontSize:14,
-       fontStyle: 'italic',
-    },
-  })
-
 export default Pedometer

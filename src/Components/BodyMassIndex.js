@@ -9,6 +9,7 @@ import { RadioButton } from 'react-native-paper';
 import Colors from '../Constants/Colors';
 import ThemeButton from './ThemeButton'
 import ThemeNumberInput from './ThemeNumberInput';
+import {useSelector} from 'react-redux';
 
 const BodyMassIndex = () => {
   const [units, setUnits] = useState('kg')
@@ -20,6 +21,68 @@ const BodyMassIndex = () => {
   const [BMI, setBMI] = useState(null);
   const [category, setCategory] = useState(null);
   const [errorText, setErrorText] = useState(false);
+
+  const isDarkMode = useSelector((state) => state.isDarkMode);
+
+  const styles = StyleSheet.create({
+    container: {
+      padding: 7,
+      marginBottom: 100,
+    },
+    errorText: {
+      color: Colors.warning,
+      textAlign: 'center',
+      padding: 3,
+      fontSize: 12,
+    },
+    form: {
+      padding: 5,
+    },
+    calc: {
+      textAlign: 'center',
+      padding: 5,
+      
+    },
+    label: {
+      paddingTop: 10,
+      fontSize: 13,
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+      fontFamily: 'Karla-Bold'
+    },
+    childContainer: {
+      padding: 10,
+      borderWidth: .2,
+      borderRadius: 5,
+      elevation: 1,
+      marginBottom: 20,
+    },
+    title: {
+      fontFamily: 'Karla-Bold',
+      fontSize: 15,
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+    },
+    button: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    horizontal: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingBottom: 5,
+      paddingHorizontal: 20,
+    },
+    row: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+    },
+    heading: {
+      fontSize: 15,
+      textAlign: 'center',
+      padding: 15,
+      color: isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,
+    }
+  })
 
   const refresh = () => {
     setWeight(null);
@@ -91,7 +154,7 @@ const BodyMassIndex = () => {
             onPress={() => setChecked('first')}
             color={Colors.primaryColorDark}
           />
-          <Text>Male</Text>
+          <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Male</Text>
         </View>
         <View style={styles.button}>
           <RadioButton
@@ -100,7 +163,7 @@ const BodyMassIndex = () => {
             onPress={() => setChecked('second')}
             color={Colors.primaryColorDark}
           />
-          <Text>Female</Text>
+          <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Female</Text>
         </View>
       </View>
       <View style={styles.row}>
@@ -112,7 +175,7 @@ const BodyMassIndex = () => {
             onPress={() => { setUnits('kg'); refresh(); }}
             color={Colors.primaryColorDark}
           />
-          <Text>Kg & cm</Text>
+          <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Kg & cm</Text>
         </View>
         <View style={styles.button}>
           <RadioButton
@@ -121,18 +184,22 @@ const BodyMassIndex = () => {
             onPress={() => { setUnits('feet'); refresh(); }}
             color={Colors.primaryColorDark}
           />
-          <Text>lbs & Inches</Text>
+          <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>lbs & Inches</Text>
         </View>
       </View>
       {units === 'kg' ?
         (<View style={styles.form}>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Weight:</Text>
-            <ThemeNumberInput flex={true} value={weight} placeholder='Weight in Kilograms' onChangeText={(val) => { setWeight(val) }} keyboard={'numeric'} />
+            <ThemeNumberInput flex={true} value={weight} placeholder='Weight in Kilograms'
+              placeholderTextColor={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}
+              onChangeText={(val) => { setWeight(val) }} keyboard={'numeric'} />
           </View>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Height:</Text>
-            <ThemeNumberInput flex={true} value={height} placeholder='Height in centimeters' onChangeText={(val) => { setHeight(val) }} keyboard={'numeric'} />
+            <ThemeNumberInput flex={true} value={height} placeholder='Height in centimeters'
+              placeholderTextColor={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}
+              onChangeText={(val) => { setHeight(val) }} keyboard={'numeric'} />
           </View>
           <View style={{ marginTop: 10 }}>
             {BMI &&
@@ -155,11 +222,15 @@ const BodyMassIndex = () => {
         (<View style={styles.form}>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Weight:</Text>
-            <ThemeNumberInput flex={true} value={lbs} placeholder='Weight in lbs' onChangeText={(val) => { setLbs(val) }} keyboard={'numeric'} />
+            <ThemeNumberInput flex={true} value={lbs} placeholder='Weight in lbs'
+             placeholderTextColor={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}
+              onChangeText={(val) => { setLbs(val) }} keyboard={'numeric'} />
           </View>
           <View style={styles.horizontal}>
             <Text style={styles.label}>Height:</Text>
-            <ThemeNumberInput flex={true} value={inches} placeholder='Height in inches' onChangeText={(val) => { setInches(val) }} keyboard={'numeric'} />
+            <ThemeNumberInput flex={true} value={inches} placeholder='Height in inches'
+             placeholderTextColor={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80}
+              onChangeText={(val) => { setInches(val) }} keyboard={'numeric'} />
           </View>
           <View style={{ marginTop: 10, }}>
             {BMI &&
@@ -183,68 +254,3 @@ const BodyMassIndex = () => {
 }
 
 export default BodyMassIndex;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 7,
-    marginBottom: 100,
-  },
-  errorText: {
-    color: Colors.warning,
-    textAlign: 'center',
-    padding: 3,
-    fontSize: 12,
-  },
-  form: {
-    padding: 5,
-  },
-  calc: {
-    textAlign: 'center',
-    padding: 5,
-    
-  },
-  label: {
-    paddingTop: 10,
-    fontSize: 15,
-    color: Colors.charcoalGrey80,
-    fontFamily: 'Karla-Regular'
-  },
-  childContainer: {
-    margin:20,
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    padding: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 1,
-      height: 2
-    },
-    shadowOpacity: 1,
-    shadowRadius: 3.84,
-    elevation: 10
-  },
-  title: {
-    fontFamily: 'Karla-Bold',
-    fontSize: 15,
-  },
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  horizontal: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: 5,
-    paddingHorizontal: 20,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: 15,
-    textAlign: 'center',
-    padding: 15,
-  }
-})

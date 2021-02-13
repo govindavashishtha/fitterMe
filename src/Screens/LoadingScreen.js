@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -12,12 +12,19 @@ import ScreenNames from './../Constants/ScreenNames';
 import auth from '@react-native-firebase/auth';
 import LoadingDots from 'react-native-loading-dots';
 import database from '@react-native-firebase/database';
-import { useDispatch } from 'react-redux';
-import { setData, setReduxSteps, setUser } from '../react-redux/actions';
-import GoogleFit, { Scopes } from 'react-native-google-fit';
+import {useDispatch} from 'react-redux';
+import {
+  setData,
+  setIsDarkMode,
+  setReduxSteps,
+  setUser,
+} from '../react-redux/actions';
+import GoogleFit, {Scopes} from 'react-native-google-fit';
 import VersionCheck from 'react-native-version-check';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Variables from '../Constants/Variables';
 
-const LoadingScreen = ({ navigation }) => {
+const LoadingScreen = ({navigation}) => {
   const apiKeys = [
     '59ed4d1096c14181ac87f374a460e0c1',
     '4885a26a44d14c6cb3bd5aed4a203884',
@@ -32,21 +39,20 @@ const LoadingScreen = ({ navigation }) => {
       startDate: yesterday, // required
       endDate: new Date().toISOString(), // required
       basalCalculation: true, // optional, to calculate or not basalAVG over the week
-      bucketUnit: "DAY", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
-      bucketInterval: 1, // optional - default 1. 
+      bucketUnit: 'DAY', // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+      bucketInterval: 1, // optional - default 1.
     };
     GoogleFit.getDailyCalorieSamples(opt).then((res) => {
       console.log('Distance', res);
     });
   };
   const getSteps = () => {
-   
     const opt = {
       endDate: new Date().toISOString(), // required ISO8601Timestamp
       bucketUnit: 'DAY', // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
       bucketInterval: 1, // optional - default 1.
     };
-    
+
     GoogleFit.getDailyStepCountSamples(opt)
       .then((res) => {
         console.log('steps  ', res);
@@ -93,9 +99,27 @@ const LoadingScreen = ({ navigation }) => {
       });
   };
 
+  const getDataFromAsyncStorage = async () => {
+    try {
+      const value = await AsyncStorage.getItem(Variables.isDarkMode);
+      console.log('dsadsadsadasdasdasdasdsad', value);
+      if (value !== null) {
+        if (value === 'true') {
+          console.log('IM HERE');
+          dispatch(setIsDarkMode(true));
+        } else {
+          dispatch(setIsDarkMode(false));
+        }
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
   const fetchAPI = () => {
     fetch(
-      `https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${apiKeys[Math.floor(Math.random() * 4)]
+      `https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${
+        apiKeys[Math.floor(Math.random() * 4)]
       }`,
       {
         method: 'GET',
@@ -129,7 +153,7 @@ const LoadingScreen = ({ navigation }) => {
               },
             },
           ],
-          { cancelable: true },
+          {cancelable: true},
         );
       }
     } catch (error) {
@@ -159,6 +183,7 @@ const LoadingScreen = ({ navigation }) => {
     }
   };
   useEffect(() => {
+    getDataFromAsyncStorage();
     fetchAPI();
     setTimeout(() => {
       checkUser();
@@ -170,13 +195,17 @@ const LoadingScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={{justifyContent: 'center'}}>
         <Text style={styles.logoText}>fitterMe</Text>
-        <View style={{ width: '10%', paddingVertical: 30, marginLeft: '45%' }}>
-          <LoadingDots dots={4} colors={['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF']} size={5} />
+        <View style={{width: '10%', paddingVertical: 30, marginLeft: '45%'}}>
+          <LoadingDots
+            dots={4}
+            colors={['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF']}
+            size={5}
+          />
         </View>
       </View>
       <View style={styles.row}>
         <Text style={styles.text}>Handcrafted in India </Text>
-        {/* <Flag 
+        {/* <Flag
           id={'IN'}
           width={24}
           height={24}
@@ -186,7 +215,6 @@ const LoadingScreen = ({ navigation }) => {
         /> */}
       </View>
     </View>
-    
   );
 };
 const styles = StyleSheet.create({
@@ -202,7 +230,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: 'Pacifico-Regular',
     textAlign: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -215,7 +243,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Karla-Bold',
     color: Colors.white,
-  }
+  },
 });
 
 export default LoadingScreen;

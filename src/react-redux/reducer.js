@@ -4,6 +4,7 @@ import {
   SET_STEPS,
   SET_USER,
   SET_TARGET_STEPS,
+  SET_IS_DARK_MODE,
   SET_CONNECTION,
 } from './actions';
 
@@ -13,6 +14,7 @@ const initialState = {
   calories: '',
   steps: '0',
   targetSteps: '5000',
+  isDarkMode: false,
   connection: null ,
 };
 
@@ -41,7 +43,12 @@ const reducer = (state = initialState, action) => {
     case SET_TARGET_STEPS:
       return {
         ...state,
-        steps: action.payload,
+        targetSteps: action.payload,
+      };
+    case SET_IS_DARK_MODE:
+      return {
+        ...state,
+        isDarkMode: action.payload,
       };
     case SET_CONNECTION:
       return {

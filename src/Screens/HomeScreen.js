@@ -8,10 +8,45 @@ import News from '../Components/News';
 import Pedometer from '../Components/Pedometer';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from '../Constants/Colors';
+import {useSelector} from 'react-redux';
 
 const HomeScreen = ({ navigation }) => {
 
   const [index, setIndex] = useState(0);
+  const isDarkMode = useSelector((state) => state.isDarkMode);
+
+  const styles = StyleSheet.create({
+    container: {
+      padding: 7,
+      marginBottom: 100,
+      backgroundColor: isDarkMode
+        ? Colors.backgroundColorDark
+        : Colors.backgroundColorLight,
+    },
+    horizontal: {
+      flexDirection: 'row',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+    },
+    text:{
+      width:'50%',
+      textAlign:'center',
+      padding:5,
+      fontFamily:'Karla-Regular',
+      color:isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre,
+      fontSize:14.5,
+    },
+    activeText:{
+      width:'50%',
+      textAlign:'center',
+      borderBottomColor:Colors.primaryColorDark,
+      borderBottomWidth:3,
+      padding:5,
+      color:Colors.primaryColorDark,
+      fontFamily:'Karla-Bold',
+      fontSize:14.9,
+    }
+  })
 
   const ComponentRenderer = () => {
     if (index == 0) {
@@ -37,34 +72,5 @@ const HomeScreen = ({ navigation }) => {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 7,
-    marginBottom: 100,
-  },
-  horizontal: {
-    flexDirection: 'row',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  text:{
-    width:'50%',
-    textAlign:'center',
-    padding:5,
-    fontFamily:'Karla-Regular',
-    color:Colors.charcoalGreyMediocre,
-    fontSize:14.5,
-  },
-  activeText:{
-    width:'50%',
-    textAlign:'center',
-    borderBottomColor:Colors.primaryColorDark,
-    borderBottomWidth:3,
-    padding:5,
-    color:Colors.primaryColorDark,
-    fontFamily:'Karla-Bold',
-    fontSize:14.9,
-  }
-})
 
 export default HomeScreen;

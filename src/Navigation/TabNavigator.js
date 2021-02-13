@@ -1,45 +1,38 @@
 import React from 'react';
 import HomeScreen from './../Screens/HomeScreen';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import CalculateScreen from '../Screens/CalculateScreen';
 import DesignScreen from '../Screens/DesignScreen';
 import SettingsScreen from '../Screens/SettingsScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Constants/Colors';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = ({ navigation }) => {
-  const Home = ({ navigation }) => {
-    return (
-      <HomeScreen navigation={navigation} />
-    );
-  }
-  const Calculate = ({ navigation }) => {
-    return (
-      <CalculateScreen navigation={navigation} />
-    );
-  }
-  const Design = ({ navigation }) => {
-    return (
-      <DesignScreen navigation={navigation} />
-    );
-  }
+const TabNavigator = ({navigation}) => {
+  const isDarkMode = useSelector((state) => state.isDarkMode);
+
+  const Home = ({navigation}) => {
+    return <HomeScreen navigation={navigation} />;
+  };
+  const Calculate = ({navigation}) => {
+    return <CalculateScreen navigation={navigation} />;
+  };
+  const Design = ({navigation}) => {
+    return <DesignScreen navigation={navigation} />;
+  };
   const Settings = () => {
-    return (
-      <SettingsScreen navigation={navigation} />
-    );
-  }
+    return <SettingsScreen navigation={navigation} />;
+  };
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
           let iconName;
 
           if (route.name === 'Home') {
-            iconName = focused
-              ? 'home'
-              : 'home';
+            iconName = focused ? 'home' : 'home';
           } else if (route.name === 'Settings') {
             iconName = focused ? 'cog' : 'cog';
           } else if (route.name === 'Calculate') {
@@ -54,9 +47,12 @@ const TabNavigator = ({ navigation }) => {
         activeTintColor: Colors.primaryColorDark,
         inactiveTintColor: 'gray',
         keyboardHidesTabBar: true,
-        tabStyle:{
-          paddingBottom:5 
-        }
+        tabStyle: {
+          backgroundColor: isDarkMode
+            ? Colors.backgroundColorDark50
+            : Colors.backgroundColorLight,
+          paddingVertical: 5,
+        },
       }}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Calculate" component={Calculate} />
@@ -64,5 +60,5 @@ const TabNavigator = ({ navigation }) => {
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
-}
+};
 export default TabNavigator;

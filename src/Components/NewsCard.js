@@ -4,9 +4,46 @@ import {
     View, Text, Image, ImageBackground,TouchableOpacity,SafeAreaView
 } from 'react-native';
 import Colors from '../Constants/Colors';
+import {useSelector} from 'react-redux';
 
 
 const NewsCard = ({Item}) => {
+    const isDarkMode = useSelector((state) => state.isDarkMode);
+
+    const styles = StyleSheet.create({
+        container: {
+            marginVertical:5,
+            height:360,
+            borderWidth:.5,
+            borderRadius: 8,
+            borderColor: isDarkMode ? 
+            Colors.textColorDark
+            : 'black',
+            overflow:'hidden',
+            backgroundColor: isDarkMode
+            ? Colors.lightGray
+            : Colors.backgroundColorLight,
+        },
+        image: {
+            width: '100%',
+            height: '60%',
+        },
+        linearGradient:{
+            position:'absolute',
+        },
+        title:{
+            fontFamily:'Karla-Bold',
+            padding:5,
+            textAlign:'center',
+            color:isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre
+        },
+        desc:{
+            fontSize:12,
+            paddingHorizontal:5,
+            color: isDarkMode? Colors.gray : Colors.charcoalGrey80,
+        }
+    })
+
     return (
         <View style={styles.container}>
               <TouchableOpacity onPress ={()=>{Linking.openURL(Item.url)}}>
@@ -24,30 +61,5 @@ const NewsCard = ({Item}) => {
         </View>
     )
 }
-const styles = StyleSheet.create({
-    container: {
-        marginVertical:5,
-        height:360,
-        borderWidth:.5,
-        borderRadius: 8,
-        overflow:'hidden',
-        backgroundColor:Colors.white,
-    },
-    image: {
-        width: '100%',
-        height: '60%',
-    },
-    linearGradient:{
-        position:'absolute',
-    },
-    title:{
-        fontFamily:'Karla-Bold', padding:5,
-        textAlign:'center',
-    },
-    desc:{
-        fontSize:12,
-        paddingHorizontal:5,
-        color:Colors.charcoalGrey80,
-    }
-})
+
 export default NewsCard;
