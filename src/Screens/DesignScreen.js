@@ -24,8 +24,9 @@ const DesignScreen = () => {
   const [error, setError] = useState(false);
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [mealTime, setMealTime] = useState();
+  const [mealTime, setMealTime] = useState(null);
   const [isDiet, setIsDiet] = useState(true);
+  const [tip, setTip] = useState('Eat nuts');
   const phone = auth().currentUser.phoneNumber;
 
   const apiKeys = [
@@ -36,6 +37,16 @@ const DesignScreen = () => {
     { id: '53ec4d19', key: 'e61fdb3cd19724aa1bd74ce7db12b871' },
     { id: '0dd5e843', key: '3ffcdd627a25d5dbf157a3a3854af603' },
   ];
+
+  const tips = [
+    'Don’t eat sugar calories','Eat nuts','Avoid processed junk food (eat real food instead)','Don’t fear coffee','Eat fatty fish','Get enough sleep','Take care of your gut health with probiotics and fiber','Drink plenty of water, especially before meals','Don’t eat overcook or burnt meat','Avoid bright lights before sleep','Take vitamin D3 if you don’t get much sun exposure','Eat vegetables and fruits','Make sure to eat enough protein','Do some cardio','Don’t smoke or do drugs, and only drink in moderation','Use extra virgin olive oil','Minimize your sugar intake','Don’t eat a lot of refined carbs','Don’t fear saturated fat','Lift heavy','Avoid artificial trans fats','Use plenty of herbs and spices','Track your food intake every now and then','Exercise Every Day'
+  ]
+
+  const fecthTip = () => {
+    const index = Math.floor(Math.random() * 24);
+    setTip(tips[index]);
+  }
+
 
   const addToDiet = () => {
     database().ref('/Users').child(phone).child('diet').child(mealTime).child(`${data.ingredients[0].text}`).set(data).then(() => {
@@ -48,19 +59,19 @@ const DesignScreen = () => {
   const ShowData = () => {
     if (data) {
       return (
-        <>
+        <View style={{marginHorizontal: 20}}>
           <CaloriesCard Item={data} />
           <Text style={styles.text1}>Add to the diet:</Text>
           <View style={styles.list}>
             <DropDownPicker
-              items={[
+            items={[
                 { label: 'Breakfast', value: 'Breakfast' },
                 { label: 'Lunch', value: 'Lunch' },
                 { label: 'Pre-Workout', value: 'PreWorkout' },
                 { label: 'Post-Workout', value: 'PostWorkout' },
-                { label: 'Dinner', value: 'Dinner' },
+                { label: 'Dinner', value: 'Dinner' }
               ]}
-              placeholder="Select a meal time..."
+              placeholder='Select a meal time...'
               containerStyle={{ height: 40 }}
               dropDownMaxHeight={100}
               style={{ backgroundColor: Colors.gray }}
@@ -73,7 +84,7 @@ const DesignScreen = () => {
                 <ThemeButtonDisabled onPress={() => { toast("Please select a meal time") }} title={'Add'} />}
             </View>
           </View>
-        </>
+        </View>
       )
     } else {
       return (null);
@@ -129,6 +140,20 @@ const DesignScreen = () => {
               </TouchableOpacity>
               <TextInput style={styles.search} placeholder='Search...' placeholderTextColor={Colors.charcoalGrey80} onChangeText={(n) => { setQuery(n) }} value={query} />
               <Text style={styles.text}>Search food item and get its Nutritional Values (e.g. 1 large apple)</Text>
+             { data ? (
+                <></>
+              ) : (
+                <View style = {{justifyContent: 'center' ,alignItems: 'center', marginVertical: '50%'}}>
+                  <View style={{marginBottom: 20}}>
+                  <TouchableOpacity onPress={fecthTip}>
+                    <Icon name= {'heartbeat'} size={70} color={Colors.charcoalGrey80} />
+                  </TouchableOpacity>
+                  </View>
+                  { tip && <Text style={{fontSize: 20,fontFamily: 'Karla-Bold',paddingVertical: 10,textAlign: 'center',}}>{tip}</Text>}
+                <Text onPress={fecthTip} style={{fontSize: 17,fontFamily: 'Karla-Regular',paddingVertical:5,textAlign: 'center',}}>Touch to get a pro tip </Text>
+                </View>
+              ) }
+              
               {error ? (
                 <View style={styles.errorContainer}>
 
@@ -173,6 +198,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla-Regular',
     paddingVertical: 10,
     textAlign: 'center',
+    
   },
   text1: {
     fontSize: 13,

@@ -172,11 +172,18 @@ const styles = StyleSheet.create({
         fontFamily: 'Karla-Regular'
     },
     childContainer: {
-        padding: 10,
-        borderWidth: .2,
+        margin:20,
+        backgroundColor: "#fff",
         borderRadius: 5,
-        elevation: 1,
-        marginBottom: 20,
+        padding: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+        width: 1,
+        height: 2
+        },
+        shadowOpacity: 1,
+        shadowRadius: 3.84,
+        elevation: 10
     },
     title: {
         fontFamily: 'Karla-Bold',
