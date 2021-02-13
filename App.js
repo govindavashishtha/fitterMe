@@ -8,6 +8,10 @@ import Colors from "./src/Constants/Colors"
 import LoadingNavigationStack from './src/Navigation/SwitchNavigator';
 import {Provider} from 'react-redux';
 import store from './src/react-redux/store';
+import NetInfo from "@react-native-community/netinfo";
+import { setConnection } from './src/react-redux/actions';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import PushNotification from 'react-native-push-notification';
 import {triggerWaterReminderNotifications} from './src/Utils/index';
 

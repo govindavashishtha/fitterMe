@@ -281,6 +281,19 @@ const DesignScreen = () => {
               <Text style={styles.text}>
                 Search food item and get its Nutritional Values (e.g. 1 large apple)
               </Text>
+              { data ? (
+                <></>
+              ) : (
+                <View style = {{justifyContent: 'center' ,alignItems: 'center', marginVertical: '50%'}}>
+                  <View style={{marginBottom: 20}}>
+                  <TouchableOpacity onPress={fecthTip}>
+                    <Icon name= {'heartbeat'} size={70} color={Colors.charcoalGrey80} />
+                  </TouchableOpacity>
+                  </View>
+                  { tip && <Text style={{fontSize: 20,fontFamily: 'Karla-Bold',paddingVertical: 10,textAlign: 'center',}}>{tip}</Text>}
+                <Text onPress={fecthTip} style={{fontSize: 17,fontFamily: 'Karla-Regular',paddingVertical:5,textAlign: 'center',}}>Touch to get a pro tip </Text>
+                </View>
+              ) }
               {error ? (
                 <View style={styles.errorContainer}>
                   <View style={{padding: 10}}>

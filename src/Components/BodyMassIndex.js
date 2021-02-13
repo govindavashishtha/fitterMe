@@ -50,11 +50,20 @@ const BodyMassIndex = () => {
       fontFamily: 'Karla-Bold'
     },
     childContainer: {
-      padding: 10,
-      borderWidth: .2,
       borderRadius: 5,
-      elevation: 1,
-      marginBottom: 20,
+      margin:20,
+      backgroundColor: isDarkMode
+      ? Colors.backgroundColorDark50
+      : Colors.backgroundColorLight,
+      padding: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 1,
+        height: 2
+      },
+      shadowOpacity: 1,
+      shadowRadius: 3.84,
+      elevation: 10
     },
     title: {
       fontFamily: 'Karla-Bold',
@@ -152,6 +161,7 @@ const BodyMassIndex = () => {
             value="first"
             status={checked === 'first' ? 'checked' : 'unchecked'}
             onPress={() => setChecked('first')}
+            uncheckedColor={isDarkMode && Colors.gray}
             color={Colors.primaryColorDark}
           />
           <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Male</Text>
@@ -161,6 +171,7 @@ const BodyMassIndex = () => {
             value="second"
             status={checked === 'second' ? 'checked' : 'unchecked'}
             onPress={() => setChecked('second')}
+            uncheckedColor={isDarkMode && Colors.gray}
             color={Colors.primaryColorDark}
           />
           <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Female</Text>
@@ -173,6 +184,7 @@ const BodyMassIndex = () => {
             value="first"
             status={units === 'kg' ? 'checked' : 'unchecked'}
             onPress={() => { setUnits('kg'); refresh(); }}
+            uncheckedColor={isDarkMode && Colors.gray}
             color={Colors.primaryColorDark}
           />
           <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>Kg & cm</Text>
@@ -182,6 +194,7 @@ const BodyMassIndex = () => {
             value="second"
             status={units === 'feet' ? 'checked' : 'unchecked'}
             onPress={() => { setUnits('feet'); refresh(); }}
+            uncheckedColor={isDarkMode && Colors.gray}
             color={Colors.primaryColorDark}
           />
           <Text style={{color:isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80,}}>lbs & Inches</Text>
