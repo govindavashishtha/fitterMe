@@ -5,6 +5,7 @@ import {
   SET_USER,
   SET_TARGET_STEPS,
   SET_IS_DARK_MODE,
+  SET_CONNECTION,
 } from './actions';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   steps: '0',
   targetSteps: '5000',
   isDarkMode: false,
+  connection: null ,
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,6 +49,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isDarkMode: action.payload,
+      };
+    case SET_CONNECTION:
+      return {
+        ...state,
+        connection: action.payload,
       };
   }
 };

@@ -28,8 +28,9 @@ const DesignScreen = () => {
   const [error, setError] = useState(false);
   const [data, setData] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [mealTime, setMealTime] = useState();
+  const [mealTime, setMealTime] = useState(null);
   const [isDiet, setIsDiet] = useState(true);
+  const [tip, setTip] = useState('Eat nuts');
   const phone = auth().currentUser.phoneNumber;
   const isDarkMode = useSelector((state) => state.isDarkMode);
 
@@ -122,6 +123,16 @@ const DesignScreen = () => {
     {id: '0dd5e843', key: '3ffcdd627a25d5dbf157a3a3854af603'},
   ];
 
+  const tips = [
+    'Don’t eat sugar calories','Eat nuts','Avoid processed junk food (eat real food instead)','Don’t fear coffee','Eat fatty fish','Get enough sleep','Take care of your gut health with probiotics and fiber','Drink plenty of water, especially before meals','Don’t eat overcook or burnt meat','Avoid bright lights before sleep','Take vitamin D3 if you don’t get much sun exposure','Eat vegetables and fruits','Make sure to eat enough protein','Do some cardio','Don’t smoke or do drugs, and only drink in moderation','Use extra virgin olive oil','Minimize your sugar intake','Don’t eat a lot of refined carbs','Don’t fear saturated fat','Lift heavy','Avoid artificial trans fats','Use plenty of herbs and spices','Track your food intake every now and then','Exercise Every Day'
+  ]
+
+  const fecthTip = () => {
+    const index = Math.floor(Math.random() * 24);
+    setTip(tips[index]);
+  }
+
+
   const addToDiet = () => {
     database()
       .ref('/Users')
@@ -148,6 +159,7 @@ const DesignScreen = () => {
             width: '100%',
             height: windowHeight,
           }}>
+
           <CaloriesCard Item={data} />
           <Text style={styles.text1}>Add to the diet:</Text>
           <View style={styles.list}>
@@ -181,6 +193,7 @@ const DesignScreen = () => {
           </View>
         </View>
       );
+
     } else {
       return null;
     }

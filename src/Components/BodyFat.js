@@ -215,4 +215,3 @@ const BodyFat = () => {
 }
 
 export default BodyFat;
-

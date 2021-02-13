@@ -146,7 +146,6 @@ const SettingsScreen = ({navigation}) => {
       setThemeLoader(false);
     }
   };
-
   const setUserData = () => {
     if (
       firstName &&
@@ -464,6 +463,7 @@ const SettingsScreen = ({navigation}) => {
                 name={'sign-out'}
                 size={18}
                 color={isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre}
+
               />
               <Text
                 style={{

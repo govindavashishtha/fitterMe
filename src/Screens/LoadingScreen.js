@@ -189,7 +189,7 @@ const LoadingScreen = ({navigation}) => {
       checkUser();
       fitAuth();
     }, 2000);
-    checkVersion();
+    //checkVersion();
   }, [navigation]);
   return (
     <View style={styles.container}>
