@@ -5,6 +5,8 @@ import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import ConfirmDialog from './ConfirmDialog';
 import {useSelector} from 'react-redux';
+import Swipeable from 'react-native-swipeable';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const MealCard = ({Item, title, mealTime, refresh}) => {
   const phone = auth().currentUser.phoneNumber;
@@ -49,11 +51,19 @@ const MealCard = ({Item, title, mealTime, refresh}) => {
         refresh();
       });
   };
-  return (
+  const actionButton = [
     <TouchableOpacity
-      onLongPress={() => {
-        ConfirmDialog('Delete', 'Sure to Delete', deleteItem);
-      }}>
+      onPress={() => {
+        ConfirmDialog('Delete', 'Sure to delete this item?', deleteItem);
+      }}
+      style={{backgroundColor: '#c9514b', flex: 1}}>
+      <View style={{padding: 10}}>
+        <Icon name={'trash-outline'} size={25} color={Colors.white} />
+      </View>
+    </TouchableOpacity>,
+  ];
+  return (
+    <Swipeable rightButtonWidth={48} rightButtons={actionButton}>
       <View style={styles.container}>
         <View style={styles.horizontalFar}>
           <Text style={styles.title}>{title}</Text>
@@ -75,7 +85,7 @@ const MealCard = ({Item, title, mealTime, refresh}) => {
           </Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </Swipeable>
   );
 };
 export default MealCard;
