@@ -14,8 +14,8 @@ const initialState = {
   calories: '',
   steps: '0',
   targetSteps: '5000',
-  isDarkMode: false,
-  connection: null ,
+  isDarkMode: true,
+  connection: null,
 };
 
 const reducer = (state = initialState, action) => {

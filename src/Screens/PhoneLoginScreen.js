@@ -112,7 +112,7 @@ const PhoneLoginScreen = ({navigation})=>{
       <Text style = {styles.heading}>Log In</Text>
       <Text style = {styles.text}>Enter your 10 digits Phone Number:</Text>
           <View style = {styles.horizontal}>
-          <Text style={{fontSize:16, paddingBottom:6.5,fontFamily:'Karla-Regular',color: isDarkMode ? Colors.textColorDark : Colors.Colors.charcoalGreyMediocre}}>+91 -</Text>
+          <Text style={{fontSize:16, paddingBottom:6.5,fontFamily:'Karla-Regular',color: isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre}}>+91 -</Text>
           <View style={{minWidth:'30%'}}>
           <ThemeNumberInput keyboard={'number-pad'} maxLength={10} onChangeText = {(text)=>{setPhone(text)}} placeholder={' 9876543210 '} placeholderTextColor={isDarkMode ? Colors.gray : Colors.charcoalGrey80} value={phone}/>
           </View>

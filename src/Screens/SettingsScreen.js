@@ -205,14 +205,23 @@ const SettingsScreen = ({navigation}) => {
               />
             </TouchableOpacity>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 8}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingBottom: 8,
+            }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={styles.heading1}>Toggle Theme</Text>
-                <Icon1 name={'theme-light-dark'}
-                 size={24}
-                 color={isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80} />
+              <Text style={styles.heading1}>Toggle Theme</Text>
+              <Icon1
+                name={'theme-light-dark'}
+                size={24}
+                color={
+                  isDarkMode ? Colors.textColorDark : Colors.charcoalGrey80
+                }
+              />
             </View>
-          <Switch
+            <Switch
               trackColor={{false: '#767577', true: '#81b0ff'}}
               thumbColor={isDark ? '#f5dd4b' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
@@ -462,13 +471,18 @@ const SettingsScreen = ({navigation}) => {
               <Icon
                 name={'sign-out'}
                 size={18}
-                color={isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre}
-
+                color={
+                  isDarkMode
+                    ? Colors.textColorDark
+                    : Colors.charcoalGreyMediocre
+                }
               />
               <Text
                 style={{
                   fontSize: 15,
-                  color: isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre,
+                  color: isDarkMode
+                    ? Colors.textColorDark
+                    : Colors.charcoalGreyMediocre,
                   fontFamily: 'Karla-Bold',
                 }}
                 onPress={() => {
