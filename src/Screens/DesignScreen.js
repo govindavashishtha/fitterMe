@@ -22,6 +22,7 @@ import toast from './../Components/Toast';
 import database from '@react-native-firebase/database';
 import DietScreen from './DietScreen';
 import {useSelector} from 'react-redux';
+import DietIcon from './../assets/diet.svg';
 
 const DesignScreen = () => {
   const [query, setQuery] = useState('');
@@ -287,11 +288,11 @@ const DesignScreen = () => {
                 <View style = {{justifyContent: 'center' ,alignItems: 'center', marginVertical: '50%'}}>
                   <View style={{marginBottom: 20}}>
                   <TouchableOpacity onPress={fecthTip}>
-                    <Icon name= {'heartbeat'} size={70} color={Colors.charcoalGrey80} />
+                    <DietIcon />
                   </TouchableOpacity>
                   </View>
-                  { tip && <Text style={{fontSize: 20,fontFamily: 'Karla-Bold',paddingVertical: 10,textAlign: 'center',}}>{tip}</Text>}
-                <Text onPress={fecthTip} style={{fontSize: 17,fontFamily: 'Karla-Regular',paddingVertical:5,textAlign: 'center',}}>Touch to get a pro tip </Text>
+                  { tip && <Text style={{fontSize: 17,color:isDarkMode && Colors.white,fontFamily: 'Karla-Bold',padding: 10,textAlign: 'center',}}>{tip}</Text>}
+                <Text onPress={fecthTip} style={{fontSize: 13,color:isDarkMode && Colors.white,fontFamily: 'Karla-Regular',paddingVertical:0,textAlign: 'center',}}>Touch to get a pro tip </Text>
                 </View>
               ) }
               {error ? (
