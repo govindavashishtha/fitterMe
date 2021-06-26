@@ -37,6 +37,7 @@
     "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-neomorph-shadows": "^1.1.2",
     "react-native-paper": "^4.1.0",
+    "react-native-permissions": "^3.0.4",
     "react-native-phone-input": "^0.2.4",
     "react-native-progress": "^4.1.2",
     "react-native-push-notification": "^7.4.0",

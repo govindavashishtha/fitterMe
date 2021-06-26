@@ -14,6 +14,8 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PushNotification from 'react-native-push-notification';
 import {triggerWaterReminderNotifications} from './src/Utils/index';
+import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -73,6 +75,39 @@ const OfflineModal = ()=>{
   )
 }
 
+
+const checkActivityPermission = ()=>{
+  check(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION)
+  .then((result) => {
+    switch (result) {
+      case RESULTS.UNAVAILABLE:
+        console.log('This feature is not available (on this device / in this context)');
+        break;
+      case RESULTS.DENIED:
+        request(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION).then((result) => {
+          console.log(result);
+        });
+        console.log('The permission has not been requested / is denied but requestable');
+        break;
+      case RESULTS.LIMITED:
+        console.log('The permission is limited: some actions are possible');
+        break;
+      case RESULTS.GRANTED:
+        console.log('The permission is granted');
+        break;
+      case RESULTS.BLOCKED:
+        request(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION).then((result) => {
+          console.log(result);
+        });
+        console.log('The permission is denied and not requestable anymore');
+        break;
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
 const AppWrapper = () => {
   const [isOnline, setIsOnline] = useState(true);
   useEffect(() => {
@@ -87,6 +122,7 @@ const AppWrapper = () => {
   }, []);
   useEffect(() => {
     initialLocalChannel();
+    checkActivityPermission();
 
     if (Text.defaultProps == null) {
       Text.defaultProps = {};
