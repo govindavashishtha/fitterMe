@@ -83,14 +83,21 @@ const PhoneLoginScreen = ({navigation})=>{
   async function confirmCode() {
     setLoader(true);
     setInvalidOTP(false);
-    try {
-      await confirm.confirm(code);
-      setLoader(false);
-      checkUser();
-    } catch (error) {
+    if(code) {
+        try {
+        await confirm.confirm(code);
+        setLoader(false);
+        checkUser();
+      } catch (error) {
+        setLoader(false);
+        setInvalidOTP(true);
+      }
+    } else {
+      console.log("enter the OTP u dumb fuck")
       setLoader(false);
       setInvalidOTP(true);
     }
+    
   }
   function onAuthStateChanged(user) {
     if (user) {
