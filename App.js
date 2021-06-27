@@ -108,6 +108,38 @@ const checkActivityPermission = ()=>{
   });
 }
 
+const checkLocationPermission = () => {
+  check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+  .then((result) => {
+    switch (result) {
+      case RESULTS.UNAVAILABLE:
+        console.log('This feature is not available (on this device / in this context)');
+        break;
+      case RESULTS.DENIED:
+        request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then((result) => {
+          console.log(result);
+        });
+        console.log('The permission has not been requested / is denied but requestable');
+        break;
+      case RESULTS.LIMITED:
+        console.log('The permission is limited: some actions are possible');
+        break;
+      case RESULTS.GRANTED:
+        console.log('The permission is granted');
+        break;
+      case RESULTS.BLOCKED:
+        request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then((result) => {
+          console.log(result);
+        });
+        console.log('The permission is denied and not requestable anymore');
+        break;
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
 const AppWrapper = () => {
   const [isOnline, setIsOnline] = useState(true);
   useEffect(() => {
@@ -123,6 +155,7 @@ const AppWrapper = () => {
   useEffect(() => {
     initialLocalChannel();
     checkActivityPermission();
+    checkLocationPermission();
 
     if (Text.defaultProps == null) {
       Text.defaultProps = {};
