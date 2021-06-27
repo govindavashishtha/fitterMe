@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   StyleSheet,
   View, Text,
+  Button
 } from 'react-native';
 import Header from './../Components/Header';
 import News from '../Components/News';
@@ -9,11 +10,13 @@ import Pedometer from '../Components/Pedometer';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from '../Constants/Colors';
 import {useSelector} from 'react-redux';
+import {check, PERMISSIONS, RESULTS, request,openSettings} from 'react-native-permissions';
 
 const HomeScreen = ({ navigation }) => {
 
   const [index, setIndex] = useState(0);
   const isDarkMode = useSelector((state) => state.isDarkMode);
+  const [permission, setPermission] = useState(true);
 
   const styles = StyleSheet.create({
     container: {
@@ -48,13 +51,43 @@ const HomeScreen = ({ navigation }) => {
     }
   })
 
+  const checkActivityPermission = ()=>{
+    check(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION)
+    .then((result) => {
+     if(result == RESULTS.DENIED || result == RESULTS.BLOCKED) {
+       console.log("results>>>>>>>>>>>>>>>>>>>>>>>>>>", result);
+       setPermission(false);
+     }
+    })
+    .catch((error) => {
+      console.error(error);
+      setPermission(true);
+    });
+  }
+
   const ComponentRenderer = () => {
     if (index == 0) {
-      return (<Pedometer />)
+      console.log(":::::::::::::::::::::::::::::::::::::::::::::::::",permission)
+      if(!permission) {
+        return (
+        <View>
+          <Text>allow in settings</Text>
+          <Button title="open settings" onPress={() => {openSettings().catch(() => console.warn('cannot open settings'));}} />
+        </View>
+      )
+      } else {
+        console.log(":::::::::::::::::::::::::::::::::::::::::::::::::",permission)
+        return (<Pedometer />)
+      }
+      
     } else {
       return(<News />)  
     }
   }
+
+  useEffect(() => {
+    checkActivityPermission();
+  }, [index])
 
   return (
     <>
