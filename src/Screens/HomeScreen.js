@@ -11,6 +11,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Colors from '../Constants/Colors';
 import {useSelector} from 'react-redux';
 import {check, PERMISSIONS, RESULTS, request,openSettings} from 'react-native-permissions';
+import PermissionDenied from '../Components/PermissionDenied';
 
 const HomeScreen = ({ navigation }) => {
 
@@ -70,10 +71,7 @@ const HomeScreen = ({ navigation }) => {
       console.log(":::::::::::::::::::::::::::::::::::::::::::::::::",permission)
       if(!permission) {
         return (
-        <View>
-          <Text>allow in settings</Text>
-          <Button title="open settings" onPress={() => {openSettings().catch(() => console.warn('cannot open settings'));}} />
-        </View>
+        <PermissionDenied />
       )
       } else {
         console.log(":::::::::::::::::::::::::::::::::::::::::::::::::",permission)
