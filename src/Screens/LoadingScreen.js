@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import {
   View,
   Text,
@@ -23,6 +23,7 @@ import GoogleFit, {Scopes} from 'react-native-google-fit';
 import VersionCheck from 'react-native-version-check';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Variables from '../Constants/Variables';
+import {check, PERMISSIONS, RESULTS, request,openSettings} from 'react-native-permissions';
 
 const LoadingScreen = ({navigation}) => {
   const apiKeys = [
@@ -32,6 +33,7 @@ const LoadingScreen = ({navigation}) => {
     '927de1a2949a49f9aa2c7e1b973c3df4',
   ];
   const dispatch = useDispatch();
+  const [permission, setPermission] = useState(true);
 
   const getDistance = () => {
     let yesterday = new Date(Date.now() - 86400000).toISOString();
@@ -182,12 +184,29 @@ const LoadingScreen = ({navigation}) => {
       navigation.navigate(ScreenNames.LogInStack);
     }
   };
+
+  const checkPermission = () => {
+    check(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION)
+    .then((result) => {
+     if(!(result == RESULTS.DENIED || result == RESULTS.BLOCKED)) {
+       console.log("results>>>>>>>>>>>>>>>>>>>>>>>>>>", result);
+       fitAuth();
+       setPermission(true);
+     }
+    })
+    .catch((error) => {
+      console.error(error);
+      console.log("results>>>>>>>>>>>>>>>>>>>>>>>>>>", result);
+      setPermission(false);
+    });
+  }
+
   useEffect(() => {
     getDataFromAsyncStorage();
     fetchAPI();
     setTimeout(() => {
       checkUser();
-      fitAuth();
+      checkPermission();
     }, 2000);
     //checkVersion();
   }, [navigation]);
