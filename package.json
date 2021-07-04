@@ -30,6 +30,8 @@
     "react-native-countdown-component": "^2.7.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-dropdown-picker": "^3.7.0",
+    "react-native-fab": "^1.0.17",
+    "react-native-floating-action": "^1.21.0",
     "react-native-gesture-handler": "^1.7.0",
     "react-native-google-fit": "^0.16.1",
     "react-native-ionicons": "4.x",
