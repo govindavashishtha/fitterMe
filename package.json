@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "version-change": "npx react-native-version --never-amend"
+    "version-change": "npx react-native-version --never-amend",
+    "android-dev": "adb reverse tcp:8081 tcp:8081 && react-native run-android"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.4",
