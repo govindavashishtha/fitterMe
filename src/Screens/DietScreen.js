@@ -98,7 +98,7 @@ const DietScreen = ({setIsDiet}) => {
             };
             arr1.push(single);
             cal = cal + single.item.calories;
-            pro = pro + single.item.totalNutrients.PROCNT.quantity;
+            pro = pro + single.item?.totalNutrients?.PROCNT.quantity;
             carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
             fat = fat + single.item.totalNutrients.FAT.quantity;
           });
@@ -112,7 +112,7 @@ const DietScreen = ({setIsDiet}) => {
             };
             arr2.push(single);
             cal = cal + single.item.calories;
-            pro = pro + single.item.totalNutrients.PROCNT.quantity;
+            pro = pro + single?.item?.totalNutrients?.PROCNT.quantity;
             carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
             fat = fat + single.item.totalNutrients.FAT.quantity;
           });
@@ -126,7 +126,7 @@ const DietScreen = ({setIsDiet}) => {
             };
             arr3.push(single);
             cal = cal + single.item.calories;
-            pro = pro + single.item.totalNutrients.PROCNT.quantity;
+            pro = pro + single?.item?.totalNutrients?.PROCNT.quantity;
             carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
             fat = fat + single.item.totalNutrients.FAT.quantity;
           });
@@ -141,7 +141,7 @@ const DietScreen = ({setIsDiet}) => {
             };
             arr4.push(single);
             cal = cal + single.item.calories;
-            pro = pro + single.item.totalNutrients.PROCNT.quantity;
+            pro = pro + single?.item?.totalNutrients?.PROCNT.quantity;
             carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
             fat = fat + single.item.totalNutrients.FAT.quantity;
           });
@@ -157,7 +157,7 @@ const DietScreen = ({setIsDiet}) => {
             arr5.push(single);
 
             cal = cal + single.item.calories;
-            pro = pro + single.item.totalNutrients.PROCNT.quantity;
+            pro = pro + single.item?.totalNutrients?.PROCNT.quantity;
             carbs = carbs + single.item.totalNutrients.CHOCDF.quantity;
             fat = fat + single.item.totalNutrients.FAT.quantity;
           });

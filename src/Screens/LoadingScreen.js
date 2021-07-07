@@ -190,7 +190,7 @@ const LoadingScreen = ({ navigation }) => {
         if (!(result == RESULTS.DENIED || result == RESULTS.BLOCKED)) {
           console.log("results>>>>>>>>>>>>>>>>>>>>>>>>>>", result);
           fitAuth();
-          setPermission(true);
+          setPermission(true);  
         }
       })
       .catch((error) => {
