@@ -72,7 +72,7 @@ const MealCard = ({Item, title, mealTime, refresh}) => {
               Carbs: {Item.totalNutrients.CHOCDF.quantity.toFixed(3)} gm
             </Text>
             <Text style={styles.label}>
-              Protein : {Item.totalNutrients.PROCNT.quantity.toFixed(3)} gm
+              Protein : {Item?.totalNutrients?.PROCNT?.quantity.toFixed(3)} gm
             </Text>
           </View>
         </View>

@@ -1,6 +1,6 @@
 {
   "name": "fitfut",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "version-change": "npx react-native-version --never-amend"
+    "version-change": "npx react-native-version --never-amend",
+    "android-dev": "adb reverse tcp:8081 tcp:8081 && react-native run-android"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.4",
@@ -29,6 +30,8 @@
     "react-native-countdown-component": "^2.7.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-dropdown-picker": "^3.7.0",
+    "react-native-fab": "^1.0.17",
+    "react-native-floating-action": "^1.21.0",
     "react-native-gesture-handler": "^1.7.0",
     "react-native-google-fit": "^0.16.1",
     "react-native-ionicons": "4.x",
@@ -37,6 +40,7 @@
     "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-neomorph-shadows": "^1.1.2",
     "react-native-paper": "^4.1.0",
+    "react-native-permissions": "^3.0.4",
     "react-native-phone-input": "^0.2.4",
     "react-native-progress": "^4.1.2",
     "react-native-push-notification": "^7.4.0",

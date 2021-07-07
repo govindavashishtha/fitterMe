@@ -42,20 +42,20 @@ const CaloriesCard = ({Item}) => {
         ) : null}
 
         {/* <ExtenedLine /> */}
-        {Item.totalNutrients.PROCNT && Item.totalNutrients ? (
+        {Item?.totalNutrients?.PROCNT && Item?.totalNutrients ? (
           <Text style={styles.text}>
-            {Item.totalNutrients.PROCNT.label} :{' '}
-            {Item.totalNutrients.PROCNT.quantity.toFixed(2)}{' '}
-            {Item.totalNutrients.PROCNT.unit}
+            {Item?.totalNutrients?.PROCNT?.label} :{' '}
+            {Item?.totalNutrients?.PROCNT.quantity.toFixed(2)}{' '}
+            {Item?.totalNutrients?.PROCNT.unit}
           </Text>
         ) : null}
 
         {/* <ExtenedLine /> */}
-        {Item.totalNutrients.CHOCDF ? (
+        {Item?.totalNutrients?.CHOCDF ? (
           <Text style={styles.text}>
-            {Item.totalNutrients.CHOCDF.label} :{' '}
-            {Item.totalNutrients.CHOCDF.quantity.toFixed(2)}{' '}
-            {Item.totalNutrients.CHOCDF.unit}
+            {Item?.totalNutrients?.CHOCDF.label} :{' '}
+            {Item?.totalNutrients?.CHOCDF.quantity.toFixed(2)}{' '}
+            {Item?.totalNutrients?.CHOCDF.unit}
           </Text>
         ) : (
           <></>
@@ -64,30 +64,30 @@ const CaloriesCard = ({Item}) => {
         {/* <ExtenedLine /> */}
         {Item.totalNutrients.FAT ? (
           <Text style={styles.text}>
-            Total {Item.totalNutrients.FAT.label} :{' '}
-            {Item.totalNutrients.FAT.quantity.toFixed(2)}{' '}
-            {Item.totalNutrients.FAT.unit}
+            Total {Item?.totalNutrients?.FAT.label} :{' '}
+            {Item?.totalNutrients?.FAT.quantity.toFixed(2)}{' '}
+            {Item?.totalNutrients?.FAT.unit}
           </Text>
         ) : (
           <></>
         )}
-        {Item.totalNutrients.FASAT ? (
+        {Item?.totalNutrients?.FASAT ? (
           <Text style={styles.text1}>
-            {Item.totalNutrients.FASAT.label} Fat :{' '}
-            {Item.totalNutrients.FASAT.quantity.toFixed(2)}{' '}
-            {Item.totalNutrients.FASAT.unit}
+            {Item?.totalNutrients?.FASAT?.label} Fat :{' '}
+            {Item?.totalNutrients?.FASAT?.quantity.toFixed(2)}{' '}
+            {Item?.totalNutrients?.FASAT?.unit}
           </Text>
         ) : (
           <></>
         )}
-        {Item.totalNutrients.FAT && Item.totalNutrients.FASAT ? (
+        {Item?.totalNutrients?.FAT && Item?.totalNutrients.FASAT ? (
           <Text style={styles.text1}>
             Unsaturated Fat :{' '}
             {(
-              Item.totalNutrients.FAT.quantity -
-              Item.totalNutrients.FASAT.quantity
+              Item?.totalNutrients?.FAT?.quantity -
+              Item?.totalNutrients?.FASAT?.quantity
             ).toFixed(2)}{' '}
-            {Item.totalNutrients.FAPU.unit}
+            {Item?.totalNutrients?.FAPU?.unit}
           </Text>
         ) : (
           <></>
@@ -95,7 +95,7 @@ const CaloriesCard = ({Item}) => {
 
         {/* <ExtenedLine /> */}
         <Text style={styles.text}>Macros and Micros</Text>
-        {Item.totalNutrients.FE ? (
+        {Item?.totalNutrients?.FE ? (
           <Text style={styles.text1}>
             {Item.totalNutrients.FE.label} :{' '}
             {Item.totalNutrients.FE.quantity.toFixed(2)}{' '}

@@ -83,14 +83,21 @@ const PhoneLoginScreen = ({navigation})=>{
   async function confirmCode() {
     setLoader(true);
     setInvalidOTP(false);
-    try {
-      await confirm.confirm(code);
-      setLoader(false);
-      checkUser();
-    } catch (error) {
+    if(code) {
+        try {
+        await confirm.confirm(code);
+        setLoader(false);
+        checkUser();
+      } catch (error) {
+        setLoader(false);
+        setInvalidOTP(true);
+      }
+    } else {
+      console.log("enter the OTP u dumb fuck")
       setLoader(false);
       setInvalidOTP(true);
     }
+    
   }
   function onAuthStateChanged(user) {
     if (user) {
@@ -114,7 +121,7 @@ const PhoneLoginScreen = ({navigation})=>{
           <View style = {styles.horizontal}>
           <Text style={{fontSize:16, paddingBottom:6.5,fontFamily:'Karla-Regular',color: isDarkMode ? Colors.textColorDark : Colors.charcoalGreyMediocre}}>+91 -</Text>
           <View style={{minWidth:'30%'}}>
-          <ThemeNumberInput keyboard={'number-pad'} maxLength={10} onChangeText = {(text)=>{setPhone(text)}} placeholder={' 9876543210 '} placeholderTextColor={isDarkMode ? Colors.gray : Colors.charcoalGrey80} value={phone}/>
+          <ThemeNumberInput keyboard={'number-pad'} maxLength={10} onChangeText = {(text)=>{setPhone(text)}} placeholder={' 9876543210 '} placeholderTextColor={isDarkMode ? '#666666' : Colors.charcoalGrey80} value={phone}/>
           </View>
           </View>
               {!isValidPhone && <Text style={{color:'red', fontSize:10,padding:5, textAlign:'center'}}>Invalid Phone Number!</Text>}
@@ -136,7 +143,7 @@ const PhoneLoginScreen = ({navigation})=>{
       <Text style = {styles.text}>Enter the OTP sent to +91-{phone}</Text>
           <View style = {styles.horizontal}>
           <View style={{minWidth:'21%'}}>
-          <ThemeNumberInput keyboard={'number-pad'} maxLength={6} value={code} onChangeText={text => setCode(text)} placeholder={' 123456 '} placeholderTextColor={isDarkMode ? Colors.gray : Colors.charcoalGrey80} />
+          <ThemeNumberInput keyboard={'number-pad'} maxLength={6} value={code} onChangeText={text => setCode(text)} placeholder={' 123456 '} placeholderTextColor={isDarkMode ? '#666666' : Colors.charcoalGrey80} />
           </View>
           </View>
           {invalidOTP && <Text style={{color:'red', fontSize:10,padding:5, textAlign:'center'}}>Invalid OTP! Try Again...</Text>}

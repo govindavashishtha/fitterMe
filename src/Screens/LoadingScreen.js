@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -12,19 +12,20 @@ import ScreenNames from './../Constants/ScreenNames';
 import auth from '@react-native-firebase/auth';
 import LoadingDots from 'react-native-loading-dots';
 import database from '@react-native-firebase/database';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   setData,
   setIsDarkMode,
   setReduxSteps,
   setUser,
 } from '../react-redux/actions';
-import GoogleFit, {Scopes} from 'react-native-google-fit';
+import GoogleFit, { Scopes } from 'react-native-google-fit';
 import VersionCheck from 'react-native-version-check';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Variables from '../Constants/Variables';
+import { check, PERMISSIONS, RESULTS, request, openSettings } from 'react-native-permissions';
 
-const LoadingScreen = ({navigation}) => {
+const LoadingScreen = ({ navigation }) => {
   const apiKeys = [
     '59ed4d1096c14181ac87f374a460e0c1',
     '4885a26a44d14c6cb3bd5aed4a203884',
@@ -32,6 +33,7 @@ const LoadingScreen = ({navigation}) => {
     '927de1a2949a49f9aa2c7e1b973c3df4',
   ];
   const dispatch = useDispatch();
+  const [permission, setPermission] = useState(true);
 
   const getDistance = () => {
     let yesterday = new Date(Date.now() - 86400000).toISOString();
@@ -118,8 +120,7 @@ const LoadingScreen = ({navigation}) => {
 
   const fetchAPI = () => {
     fetch(
-      `https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${
-        apiKeys[Math.floor(Math.random() * 4)]
+      `https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=${apiKeys[Math.floor(Math.random() * 4)]
       }`,
       {
         method: 'GET',
@@ -153,7 +154,7 @@ const LoadingScreen = ({navigation}) => {
               },
             },
           ],
-          {cancelable: true},
+          { cancelable: true },
         );
       }
     } catch (error) {
@@ -182,20 +183,35 @@ const LoadingScreen = ({navigation}) => {
       navigation.navigate(ScreenNames.LogInStack);
     }
   };
+
+  const checkPermission = () => {
+    check(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION)
+      .then((result) => {
+        if (!(result == RESULTS.DENIED || result == RESULTS.BLOCKED)) {
+          console.log("results>>>>>>>>>>>>>>>>>>>>>>>>>>", result);
+          fitAuth();
+          setPermission(true);  
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        console.log("results>>>>>>>>>>>>>>>>>>>>>>>>>>", result);
+        setPermission(false);
+      });
+  }
+
   useEffect(() => {
     getDataFromAsyncStorage();
     fetchAPI();
-    setTimeout(() => {
-      checkUser();
-      fitAuth();
-    }, 2000);
+    checkUser();
+    checkPermission();
     //checkVersion();
   }, [navigation]);
   return (
     <View style={styles.container}>
-      <View style={{justifyContent: 'center'}}>
+      <View style={{ justifyContent: 'center' }}>
         <Text style={styles.logoText}>fitterMe</Text>
-        <View style={{width: '10%', paddingVertical: 30, marginLeft: '45%'}}>
+        <View style={{ width: '10%', paddingVertical: 30, marginLeft: '45%' }}>
           <LoadingDots
             dots={4}
             colors={['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF']}

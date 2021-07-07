@@ -69,7 +69,7 @@ const Pedometer = () => {
           }>
             <View>
               <View>
-                <FitImage  outerCircleFillPercentage={(steps/stepsGoal)*100} steps={steps} stepsGoal={stepsGoal} />                
+                <FitImage  outerCircleFillPercentage={steps/stepsGoal >=1 ? 101 : (steps/stepsGoal)*100} steps={steps} stepsGoal={stepsGoal} />                
               </View>
               <View>
                 <View style={styles.row}>

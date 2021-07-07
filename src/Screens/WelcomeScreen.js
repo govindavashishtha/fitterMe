@@ -8,7 +8,7 @@ import ThemeButton from '../Components/ThemeButton';
   const Welcome = ({navigation}) => {
       return(
         <View style = {{flex:1 , justifyContent:'space-evenly'}}>
-            <ImageBackground source={{uri: 'https://firebasestorage.googleapis.com/v0/b/fitterme-39927.appspot.com/o/deadlift1.jpg?alt=media&token=e71adc28-6818-479c-b1dd-e15e87d6151d'}}
+            <ImageBackground source={require('./../assets/deadlift1.jpg')}
              style={{width:'100%',height: '100%'}} >
               <View style={styles.end}>
                 <Text style ={styles.text}>Welcome</Text>
